@@ -1,0 +1,96 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold text-gray-800">
+    <span>👥</span>
+    Gestión de Staff
+  </h1>
+  <button nz-button nzType="primary" (click)="openModal()" class="flex items-center bg-indigo-600 hover:bg-indigo-700">
+    <nz-icon nzType="plus-circle" nzTheme="fill"></nz-icon>
+    Nuevo Usuario
+  </button>
+</div>
+<div class="bg-gray-50 p-4 rounded-md mb-6">
+  <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="w-full md:w-1/3">
+      <nz-input-group [nzSuffix]="suffixIconSearch" class="w-full">
+        <input type="text" nz-input placeholder="Buscar rol por nombre" [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" class="w-full" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <span nz-icon nzType="search"></span>
+      </ng-template>
+    </div>
+
+    <div class="flex gap-2">
+      <button nz-button nzType="primary" nz-tooltip nzTooltipTitle="Refrescar datos" (click)="refreshData()"
+        [nzGhost]="false" class="!bg-emerald-500 !border-emerald-500 hover:!bg-emerald-600 hover:!border-emerald-600">
+        <span nz-icon nzType="sync" nzTheme="outline"></span>
+      </button>
+
+      <button nz-button nz-tooltip [nzGhost]="false" nzTooltipTitle="Exportar a PDF"
+        class="flex items-center justify-center h-9 px-3 bg-red-500 hover:bg-red-600 text-white">
+        <span nz-icon nzType="file-pdf" nzTheme="fill"></span>
+      </button>
+
+      <button nz-button nz-tooltip [nzGhost]="false" nzTooltipTitle="Exportar a Excel"
+        class="flex items-center justify-center h-9 px-3 bg-green-700 hover:bg-green-800 text-white">
+        <span nz-icon nzType="file-excel" nzTheme="fill"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<nz-table #basicTable [nzData]="stafs()" [nzLoading]="isLoading()" [nzPageSize]="limit()" [nzTotal]="total()"
+  [nzFrontPagination]="false" (nzPageIndexChange)="pageChanged($event)" [nzPageSizeOptions]="[5, 10, 20]"
+  (nzPageSizeChange)="changePageSize($event)" [nzShowSizeChanger]="true" [nzBordered]="true" [nzShowQuickJumper]="true">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Email</th>
+      <th>Email Verificado</th>
+      <th>Teléfono</th>
+      <th>Tipo Documento</th>
+      <th>Documento</th>
+      <th>Fecha Nacimiento</th>
+      <th>Rol</th>
+      <th>Fecha Creación</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (user of basicTable.data; track user.id) {
+    <tr>
+      <td>
+        <div class="flex items-center gap-2">
+          <nz-avatar [nzText]="user.username.charAt(0)" [nzSize]="32" [nzSrc]="user.avatar!"></nz-avatar>
+          <span>{{ user.username }}</span>
+        </div>
+      </td>
+      <td>{{ user.email }}</td>
+      <td>
+        <nz-tag [nzColor]="user.email_verified_at ? 'green' : 'red'">
+          {{ user.email_verified_at ? "Verificado" : "No verificado" }}
+        </nz-tag>
+      </td>
+      <td>{{ user.phone || "N/A" }}</td>
+      <td>{{ user.type_documento || "N/A" }}</td>
+      <td>{{ user.n_documento || "N/A" }}</td>
+      <td>{{ user.birthday | date : "dd/MM/yyyy" }}</td>
+      <td>
+        <nz-tag [nzColor]="'blue'">{{ user.roles.name }}</nz-tag>
+      </td>
+      <td>{{ user.created_at | date : "dd/MM/yyyy" }}</td>
+      <td>
+        <div class="flex gap-2">
+          <button (click)="updateStaff(user)" nz-button nzType="primary" nzShape="circle">
+            <nz-icon nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+          </button>
+          <button (click)="showDeleteConfirmModal(user)" nz-button nzType="primary" nzDanger nzShape="circle">
+            <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

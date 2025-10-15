@@ -1,0 +1,155 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar  overflow-y-auto" nzCollapsible nzWidth="256px" nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <span class="text-4xl">🐕</span>
+      <h1>Veterinaria App</h1>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nzMatchRouter>
+        <span nz-icon nzType="dashboard" nzTheme="outline"></span>
+        <span>Dashboard</span>
+        <a routerLink="/admin/home"></a>
+      </li>
+
+      <li nz-menu-divider></li>
+
+      @if(authService.hasAnyRole([RoleType.ADMIN, RoleType.SUPER_ADMIN, RoleType.USER])
+      && (authService.hasAnyPermission([PERMISOS.LIST_ROL, PERMISOS.LIST_STAFF]))){
+      <li nz-menu-group nzTitle="ACCESOS">
+        <ul>
+          <!-- SOLO si tiene LIST_ROL -->
+          @if(authService.hasPermission(PERMISOS.LIST_ROL)) {
+          <li nz-menu-item nzMatchRouter>
+            <span nz-icon nzType="safety-certificate" nzTheme="outline"></span>
+            <span>Roles y Permisos</span>
+            <a routerLink="./roles/lista"></a>
+          </li>
+          }
+
+          <!-- SOLO si tiene LIST_STAFF -->
+          @if(authService.hasPermission(PERMISOS.LIST_STAFF)) {
+          <li nz-menu-item nzMatchRouter>
+            <span nz-icon nzType="team" nzTheme="outline"></span>
+            <span>Staff</span>
+            <a routerLink="./users/lista"></a>
+          </li>
+          }
+        </ul>
+      </li>
+      }
+
+      <li nz-menu-divider></li>
+
+      <li nz-menu-group nzTitle="GESTIÓN">
+        <ul>
+          <li nz-submenu nzTitle="Veterinaria" nzIcon="medicine-box">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <span>Listado</span>
+                <a routerLink="./veterinarios/lista"></a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <span>Registrar</span>
+                <a routerLink="./veterinarios/registrar"></a>
+              </li>
+            </ul>
+          </li>
+
+          <li nz-submenu nzTitle="Mascotas" nzIcon="shop">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <span>Listado</span>
+                <a routerLink="./mascotas/lista"></a>
+              </li>
+              <li nz-menu-item nzMatchRouter>
+                <span>Registrar</span>
+                <a routerLink="./mascotas/registrar"></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li nz-menu-divider></li>
+
+      <li nz-menu-group nzTitle="AGENDA">
+        <ul>
+          <li nz-submenu nzTitle="Citas Médicas" nzIcon="calendar" nzTheme="outline">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <span>Listado</span>
+                <a routerLink="./citas-medicas/lista"></a>
+              </li>
+
+              <li nz-menu-item nzMatchRouter>
+                <span>Registrar</span>
+                <a routerLink="./citas-medicas/registrar"></a>
+              </li>
+            </ul>
+          </li>
+
+          <li nz-menu-item nzMatchRouter>
+            <span nz-icon nzType="schedule" nzTheme="outline"></span>
+            <span>Calendario</span>
+            <a routerLink="./calendario/lista"></a>
+          </li>
+
+          <li nz-menu-item nzMatchRouter>
+            <span nz-icon nzType="dollar" nzTheme="outline"></span>
+            <span>Pagos</span>
+            <a routerLink="./pagos/lista"></a>
+          </li>
+        </ul>
+      </li>
+
+      <li nz-menu-divider></li>
+
+      <li nz-menu-group nzTitle="SERVICIOS">
+        <ul>
+          <li nz-submenu nzTitle="Vacunas" nzIcon="experiment">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <span>Listado</span>
+                <a routerLink="./vacunas/lista"></a>
+              </li>
+            </ul>
+          </li>
+
+          <li nz-submenu nzTitle="Procedimientos" nzIcon="api">
+            <ul>
+              <li nz-menu-item nzMatchRouter>
+                <span>Listado</span>
+                <a routerLink="./cirujias/lista"></a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li nz-menu-divider></li>
+
+      <li nz-menu-item nzMatchRouter>
+        <span nz-icon nzType="file-text" nzTheme="outline"></span>
+        <span>Historial Médico</span>
+        <a routerLink="./historial-medico/lista"></a>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
+        </span>
+      </div>
+    </nz-header>
+
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

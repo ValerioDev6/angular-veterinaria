@@ -1,0 +1,90 @@
+<div class="flex justify-between items-center mb-6">
+  <h1 class="text-2xl font-bold text-gray-800">🐱🐶🐕🐈‍⬛🐾 Gestión de Pacientes</h1>
+  <button (click)="onCreatePaciente()" nz-button nzType="primary"
+    class="flex items-center bg-indigo-600 hover:bg-indigo-700">
+    <nz-icon nzType="plus-circle" nzTheme="fill"></nz-icon>
+    Nuevo Paciente
+  </button>
+</div>
+
+
+
+<div class="bg-gray-50 p-4 rounded-md mb-6">
+  <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="w-full md:w-1/3">
+      <nz-input-group [nzSuffix]="suffixIconSearch" class="w-full">
+        <input type="text" nz-input placeholder="Buscar rol por nombre" [ngModel]="searchTerm()"
+          (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" class="w-full" />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <span nz-icon nzType="search"></span>
+      </ng-template>
+    </div>
+
+    <div class="flex gap-2">
+      <button nz-button nzType="primary" nz-tooltip nzTooltipTitle="Refrescar datos" (click)="refreshData()"
+        [nzGhost]="false" class="!bg-emerald-500 !border-emerald-500 hover:!bg-emerald-600 hover:!border-emerald-600">
+        <span nz-icon nzType="sync" nzTheme="outline"></span>
+      </button>
+
+      <button nz-button nz-tooltip [nzGhost]="false" nzTooltipTitle="Exportar a PDF"
+        class="flex items-center justify-center h-9 px-3 bg-red-500 hover:bg-red-600 text-white">
+        <span nz-icon nzType="file-pdf" nzTheme="fill"></span>
+      </button>
+
+      <button nz-button nz-tooltip [nzGhost]="false" nzTooltipTitle="Exportar a Excel"
+        class="flex items-center justify-center h-9 px-3 bg-green-700 hover:bg-green-800 text-white">
+        <span nz-icon nzType="file-excel" nzTheme="fill"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<nz-table #basicTable [nzData]="pacientes()" [nzLoading]="isLoading()" [nzPageSize]="limit()" [nzTotal]="total()"
+  [nzFrontPagination]="false" (nzPageIndexChange)="pageChanged($event)" [nzPageSizeOptions]="[5, 10, 20]"
+  (nzPageSizeChange)="changePageSize($event)" [nzShowSizeChanger]="true" [nzBordered]="true" [nzShowQuickJumper]="true">
+  <thead>
+    <tr>
+      <th>Paciente</th>
+      <th>Especie</th>
+      <th>Raza</th>
+      <th>Género</th>
+      <th>Peso</th>
+      <th>Dueño</th>
+      <th>Teléfono</th>
+      <th>Documento</th>
+      <th>Fecha Creación</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (paciente of basicTable.data; track paciente.id) {
+    <tr>
+      <td>
+        <div class="flex items-center gap-2">
+          <nz-avatar [nzText]="paciente.name.charAt(0)" [nzSize]="32" [nzSrc]="paciente.photo"></nz-avatar>
+          <span>{{ paciente.name }}</span>
+        </div>
+      </td>
+      <td>{{ paciente.species }}</td>
+      <td>{{ paciente.breed || "N/A" }}</td>
+      <td>{{ paciente.gender || "N/A" }}</td>
+      <td>{{ paciente.weight }} kg</td>
+      <td>{{ paciente.owner.first_name + ' ' + paciente.owner.last_name }}</td>
+      <td>{{ paciente.owner.phone || "N/A" }}</td>
+      <td>{{ paciente.owner.type_documento }}: {{ paciente.owner.n_documento }}</td>
+      <td>{{ paciente.created_at | date : "dd/MM/yyyy" }}</td>
+      <td>
+        <div class="flex gap-2">
+          <button nz-button nzType="primary" nzShape="circle" [routerLink]="['/admin/mascotas', paciente.id]">
+            <nz-icon nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+          </button>
+          <button nz-button nzType="primary" nzDanger nzShape="circle">
+            <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
+    }
+  </tbody>
+</nz-table>

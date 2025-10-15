@@ -1,0 +1,92 @@
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+  background: #fafafa;
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+
+  h2 {
+    font-weight: 600;
+    font-size: 22px;
+  }
+}
+
+nz-card {
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 16px;
+  color: #333;
+
+  .section-icon {
+    margin-right: 8px;
+    font-size: 18px;
+  }
+}
+
+.form-item {
+  margin-bottom: 16px;
+
+  label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.form-grid {
+  margin-top: 24px;
+}
+
+.pet-details {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-top: 16px;
+
+  .pet-image {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
+
+  .pet-info {
+    font-size: 14px;
+    color: #444;
+  }
+}
+
+.form-actions {
+  text-align: right;
+  margin-top: 24px;
+}
+
+.create-button {
+  font-weight: 500;
+  padding: 0 28px;
+}

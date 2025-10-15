@@ -1,0 +1,102 @@
+<div class="bg-white p-6 rounded-lg shadow-md">
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="text-2xl font-bold text-gray-800">
+      <span> 🔐 </span>
+      Gestión de Roles
+    </h1>
+    <button *hasPermission="PERMISOS.REGISTER_ROL" nz-button nzType="primary" (click)="openModal()"
+      class="flex items-center bg-indigo-600 hover:bg-indigo-700">
+      <nz-icon nzType="plus-circle" nzTheme="fill"></nz-icon>
+      Nuevo Rol
+    </button>
+  </div>
+
+  <div class="bg-gray-50 p-4 rounded-md mb-6">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="w-full md:w-1/3">
+        <nz-input-group [nzSuffix]="suffixIconSearch" class="w-full">
+          <input type="text" nz-input placeholder="Buscar rol por nombre" [ngModel]="searchTerm()"
+            (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" class="w-full" />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span nz-icon nzType="search"></span>
+        </ng-template>
+      </div>
+
+      <div class="flex gap-2">
+        <button nz-button nzType="primary" nz-tooltip nzTooltipTitle="Refrescar datos" (click)="refreshData()"
+          [nzGhost]="false" class="!bg-emerald-500 !border-emerald-500 hover:!bg-emerald-600 hover:!border-emerald-600">
+          <span nz-icon nzType="sync" nzTheme="outline"></span>
+        </button>
+
+        <button nz-button nz-tooltip [nzGhost]="false" nzTooltipTitle="Exportar a PDF"
+          class="flex items-center justify-center h-9 px-3 bg-red-500 hover:bg-red-600 text-white">
+          <span nz-icon nzType="file-pdf" nzTheme="fill"></span>
+        </button>
+
+        <button nz-button nz-tooltip [nzGhost]="false" nzTooltipTitle="Exportar a Excel"
+          class="flex items-center justify-center h-9 px-3 bg-green-700 hover:bg-green-800 text-white">
+          <span nz-icon nzType="file-excel" nzTheme="fill"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <nz-table #basicTable [nzData]="roles()" [nzLoading]="isLoading()" [nzPageSize]="limit()" [nzTotal]="total()"
+    [nzFrontPagination]="false" (nzPageIndexChange)="pageChanged($event)" [nzPageSizeOptions]="[5, 10, 20, 50]"
+    (nzPageSizeChange)="changePageSize($event)" [nzShowSizeChanger]="true" [nzBordered]="true"
+    [nzShowQuickJumper]="true" class="shadow-lg rounded-lg overflow-hidden">
+    <thead>
+      <tr class="bg-gray-100">
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Role
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Creado en
+        </th>
+
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Permisos
+        </th>
+        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+          Acciones
+        </th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (rol of roles(); track rol.id) {
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-6 py-4 text-sm text-gray-900">{{ rol.name }}</td>
+        <td class="px-6 py-4 text-sm text-gray-500">
+          {{ rol.created_at | date : "short" }}
+        </td>
+        <td class="px-6 py-4 text-sm text-gray-500">
+          @if (rol.role_permissions && rol.role_permissions.length > 0) {
+          <div class="flex flex-wrap gap-2 max-w-md">
+            @for (perm of rol.role_permissions; track perm.id) {
+            <span
+              class="inline-flex items-center px-2.5 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-md border border-blue-200">
+              {{ perm.permissions.action }}
+            </span>
+            }
+          </div>
+          } @else {
+          <span class="text-gray-400 italic">Sin permisos</span>
+          }
+        </td>
+        <td class="gap-2 px-6 py-4">
+          <button (click)="openEditModal(rol)" nz-button nzType="primary">
+            Editar
+          </button>
+          <button (click)="viewRol(rol)" nz-button class="bg-red-500">
+            Ver
+          </button>
+          <button nz-button nzType="primary" (click)="showDeleteConfirmModal(rol)" nzDanger>
+            Eliminar
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>

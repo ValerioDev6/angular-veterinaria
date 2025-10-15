@@ -1,0 +1,71 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+  <div class="w-full max-w-md">
+    <!-- Card -->
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <!-- Logo y título -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+          <span nz-icon nzType="user" nzTheme="outline" class="text-3xl text-blue-600"></span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-2">Bienvenido</h1>
+        <p class="text-gray-600">Inicia sesión en tu cuenta</p>
+      </div>
+
+      <!-- Formulario -->
+      <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <!-- Email -->
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="email">Correo electrónico</nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="emailControl?.hasError('required') ? 'El correo es obligatorio' : 'Ingresa un correo válido'">
+            <nz-input-group nzSize="large" [nzPrefix]="emailPrefix">
+              <input nz-input type="email" id="email" formControlName="email" placeholder="tu@email.com" />
+            </nz-input-group>
+            <ng-template #emailPrefix>
+              <span nz-icon nzType="mail" nzTheme="outline"></span>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- Password -->
+        <nz-form-item>
+          <nz-form-label nzRequired nzFor="password">Contraseña</nz-form-label>
+          <nz-form-control
+            [nzErrorTip]="passwordControl?.hasError('required') ? 'La contraseña es obligatoria' : 'Mínimo 6 caracteres'">
+            <nz-input-group nzSize="large" [nzPrefix]="passwordPrefix" [nzSuffix]="passwordSuffix">
+              <input nz-input [type]="passwordVisible() ? 'text' : 'password'" id="password" formControlName="password"
+                placeholder="••••••••" />
+            </nz-input-group>
+            <ng-template #passwordPrefix>
+              <span nz-icon nzType="lock" nzTheme="outline"></span>
+            </ng-template>
+            <ng-template #passwordSuffix>
+              <span nz-icon [nzType]="passwordVisible() ? 'eye-invisible' : 'eye'" nzTheme="outline"
+                class="cursor-pointer" (click)="togglePasswordVisibility()"></span>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+
+        <!-- Botón de submit -->
+        <nz-form-item class="mb-0">
+          <button nz-button nzType="primary" nzSize="large" nzBlock [nzLoading]="isLoading()" [disabled]="isLoading()"
+            type="submit">
+            @if (isLoading()) {
+            Iniciando sesión...
+            } @else {
+            Iniciar sesión
+            }
+          </button>
+        </nz-form-item>
+      </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="text-center mt-6">
+      <p class="text-sm text-gray-600">
+        ¿Olvidaste tu contraseña?
+        <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Recuperar</a>
+      </p>
+    </div>
+  </div>
+</div>

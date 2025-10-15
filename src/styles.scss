@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+@use "./custom/tailwind.css";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  // outline:  1px solid red;
+}
