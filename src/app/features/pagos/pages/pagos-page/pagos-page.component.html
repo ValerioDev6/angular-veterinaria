@@ -1,1 +1,234 @@
-<p>pagos-page works!</p>
+<div class="page-container">
+
+
+  <!-- Card de Filtros Profesional -->
+  <nz-card [nzTitle]="cardTitle" [nzExtra]="extraTemplate" class="shadow-xl rounded-2xl border-0 overflow-hidden">
+
+    <!-- Template del Título -->
+    <ng-template #cardTitle>
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10  rounded-xl flex items-center justify-center shadow-lg">
+          <span>💵</span>
+        </div>
+        <span class="text-xl font-bold text-gray-800"> Gestión de Pagos Médicos</span>
+      </div>
+    </ng-template>
+
+    <!-- Template de Botones Extra -->
+    <ng-template #extraTemplate>
+      <nz-space [nzSize]="12">
+        <button *nzSpaceItem nz-button nzType="default" (click)="clearFilters()"
+          class="flex items-center gap-2 px-4  rounded-lg hover:bg-red-50 hover:border-red-400 hover:text-red-600 transition-all duration-200 shadow-sm">
+          <span nz-icon nzType="close-circle" nzTheme="outline"></span>
+        </button>
+
+        <button *nzSpaceItem nz-button nzType="default" (click)="refreshData()"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-blue-50 hover:border-blue-400 hover:text-blue-600 transition-all duration-200 shadow-sm">
+          <span nz-icon nzType="reload"></span>
+        </button>
+
+        <button *nzSpaceItem nz-button nzType="default" nzShape="circle" nzSize="large" nz-tooltip
+          nzTooltipTitle="Exportar PDF"
+          class="hover:bg-red-50 hover:border-red-400 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-110">
+          <span nz-icon nzType="file-pdf" nzTheme="fill" class="text-red-500 text-xl"></span>
+        </button>
+
+        <button *nzSpaceItem nz-button nzType="default" nzShape="circle" nzSize="large" nz-tooltip
+          nzTooltipTitle="Exportar Excel"
+          class="hover:bg-green-50 hover:border-green-400 transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-110">
+          <span nz-icon nzType="file-excel" nzTheme="fill" class="text-green-500 text-xl"></span>
+        </button>
+
+
+      </nz-space>
+    </ng-template>
+
+    <!-- Formulario de Filtros -->
+    <div nz-row [nzGutter]="[24, 24]" class="mt-4">
+      <!-- Nombre Mascota -->
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div class="filter-field">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <span nz-icon nzType="search" class="mr-2 text-blue-500"></span>
+            Nombre de Mascota
+          </label>
+          <nz-input-group [nzPrefix]="prefixSearch" nzSize="large" class="shadow-sm hover:shadow-md transition-shadow">
+            <input nz-input placeholder="Buscar mascota..." [ngModel]="searchTerm()"
+              (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" class="rounded-lg" />
+          </nz-input-group>
+        </div>
+        <ng-template #prefixSearch>
+          <span nz-icon nzType="search" class="text-gray-400"></span>
+        </ng-template>
+      </div>
+
+      <!-- Especie -->
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div class="filter-field">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <span nz-icon nzType="medicine-box" class="mr-2 text-purple-500"></span>
+            Especie
+          </label>
+          <nz-select nzPlaceHolder="Todas las especies" [ngModel]="speciesFilter()"
+            (ngModelChange)="speciesFilter.set($event); onFilterSpecies()" nzAllowClear nzShowSearch nzSize="large"
+            class="w-full shadow-sm hover:shadow-md transition-shadow">
+            <nz-option nzValue="" nzLabel="Todas las especies"></nz-option>
+            <nz-option nzValue="Perro" nzLabel="🐕 Perro"></nz-option>
+            <nz-option nzValue="Gato" nzLabel="🐱 Gato"></nz-option>
+            <nz-option nzValue="Ave" nzLabel="🦜 Ave"></nz-option>
+            <nz-option nzValue="Conejo" nzLabel="🐰 Conejo"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <!-- Veterinario -->
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div class="filter-field">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <span nz-icon nzType="user" class="mr-2 text-green-500"></span>
+            Veterinario
+          </label>
+          <nz-input-group [nzPrefix]="prefixUser" nzSize="large" class="shadow-sm hover:shadow-md transition-shadow">
+            <input nz-input placeholder="Buscar veterinario..." [ngModel]="veterinarianFilter()"
+              (ngModelChange)="veterinarianFilter.set($event)" (keyup.enter)="onFilterVeterinarian()"
+              class="rounded-lg" />
+          </nz-input-group>
+        </div>
+        <ng-template #prefixUser>
+          <span nz-icon nzType="user" class="text-gray-400"></span>
+        </ng-template>
+      </div>
+
+      <!-- Estado de Pago -->
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div class="filter-field">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <span nz-icon nzType="dollar" class="mr-2 text-yellow-500"></span>
+            Estado de Pago
+          </label>
+          <nz-select nzPlaceHolder="Todos los estados" [ngModel]="statePaymentFilter()"
+            (ngModelChange)="statePaymentFilter.set($event); onFilterStatePayment()" nzAllowClear nzSize="large"
+            class="w-full shadow-sm hover:shadow-md transition-shadow">
+            <nz-option nzValue="" nzLabel="Todos los estados"></nz-option>
+            <nz-option nzValue="pendiente" nzLabel="⏳ Pendiente"></nz-option>
+            <nz-option nzValue="pagado" nzLabel="✅ Pagado"></nz-option>
+            <nz-option nzValue="cancelado" nzLabel="❌ Cancelado"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+
+      <!-- Fecha Desde -->
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div class="filter-field">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <span nz-icon nzType="calendar" class="mr-2 text-indigo-500"></span>
+            Fecha Desde
+          </label>
+          <nz-date-picker nzFormat="dd/MM/yyyy" nzPlaceHolder="Seleccionar fecha" [ngModel]="dateFromFilter()"
+            (ngModelChange)="onDateFromChange($event)" nzSize="large"
+            class="w-full shadow-sm hover:shadow-md transition-shadow">
+          </nz-date-picker>
+        </div>
+      </div>
+
+      <!-- Fecha Hasta -->
+      <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div class="filter-field">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            <span nz-icon nzType="calendar" class="mr-2 text-indigo-500"></span>
+            Fecha Hasta
+          </label>
+          <nz-date-picker nzFormat="dd/MM/yyyy" nzPlaceHolder="Seleccionar fecha" [ngModel]="dateToFilter()"
+            (ngModelChange)="onDateToChange($event)" nzSize="large"
+            class="w-full shadow-sm hover:shadow-md transition-shadow">
+          </nz-date-picker>
+        </div>
+      </div>
+    </div>
+  </nz-card>
+
+
+  <!-- Tabla -->
+  <nz-card class="table-card">
+    <nz-table #pagosTable [nzData]="pagos()" [nzLoading]="isLoading()" [nzFrontPagination]="false" [nzTotal]="total()"
+      [nzPageSize]="limit()" [nzPageIndex]="page()" [nzBordered]="true" (nzPageIndexChange)="pageChanged($event)"
+      (nzPageSizeChange)="changePageSize($event)" [nzShowSizeChanger]="true" [nzPageSizeOptions]="[10, 20, 30, 50]">
+
+      <thead>
+        <tr>
+          <th>Tipo</th>
+          <th>Paciente</th>
+          <th>Veterinario</th>
+          <th>Fecha Pago</th>
+          <th>Método de Pago</th>
+          <th>Monto Total</th>
+          <th>Adelanto</th>
+          <th>Estado</th>
+          <th nzAlign="center" nzWidth="120px">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let pago of pagosTable.data">
+          <!-- Tipo de Servicio -->
+          <td>
+            <nz-tag [nzColor]="getTipoColor(pago.tipo)">
+              {{ pago.tipo }}
+            </nz-tag>
+          </td>
+
+          <!-- Paciente -->
+          <td>
+            <strong>{{ pago.pet.name }}</strong>
+            <br>
+            <small class="text-gray-500">{{ pago.pet.species }} - {{ pago.pet.breed }}</small>
+          </td>
+
+          <!-- Veterinario -->
+          <td>
+            {{ pago.veterinarian.username }}
+            <br>
+            <small class="text-gray-500">{{ pago.veterinarian.email }}</small>
+          </td>
+
+          <!-- Fecha del Pago -->
+          <td>{{ pago.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+
+          <!-- Método de Pago -->
+          <td>
+            <span nz-icon nzType="credit-card" nzTheme="outline"></span>
+            {{ pago.metodo_pago }}
+          </td>
+
+          <!-- Monto Total -->
+          <td>
+            <strong class="text-green-600">S/ {{ pago.monto | number: '1.2-2' }}</strong>
+          </td>
+
+          <!-- Adelanto -->
+          <td>
+            <strong class="text-blue-600">S/ {{ pago.adelanto | number: '1.2-2' }}</strong>
+          </td>
+
+          <!-- Estado -->
+          <td>
+            <nz-tag [nzColor]="pago.estado === 'pagado' ? 'success' : pago.estado === 'parcial' ? 'warning' : 'error'">
+              {{ pago.estado | uppercase }}
+            </nz-tag>
+          </td>
+
+          <!-- Acciones -->
+          <td nzAlign="center">
+            <nz-space>
+
+              <button (click)="openModal(pago)" nz-button nzType="primary" nzShape="circle">
+                <nz-icon nz-icon nzType="plus-circle" nzTheme="fill"></nz-icon>
+              </button>
+            </nz-space>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-card>
+
+</div>

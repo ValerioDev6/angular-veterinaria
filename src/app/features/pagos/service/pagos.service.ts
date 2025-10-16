@@ -1,12 +1,13 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { environment } from '../../../../environments/environment';
-import { IVacunasResponse, Vacuna } from '../interfaces/vacunas.interface';
+import { environment } from '../../../../environments/environment.development';
+import { IPagosResponse, Pago } from '../interface/pagos.interface';
+
 @Injectable({
   providedIn: 'root',
 })
-export class VacunaService {
-  private readonly BASE_API = environment.API_URL;
+export class PagosService {
+  private readonly API_BASE = environment.API_URL;
   private readonly _http = inject(HttpClient);
 
   page = signal<number>(1);
@@ -30,8 +31,8 @@ export class VacunaService {
     dateTo: this.dateTo(),
   }));
 
-  private vacinesResource = httpResource<IVacunasResponse>(() => ({
-    url: `${this.BASE_API}/vacunas`,
+  private pagosResource = httpResource<IPagosResponse>(() => ({
+    url: `${this.API_BASE}/pagos`,
     params: this.params(),
     method: 'GET',
     headers: {
@@ -39,15 +40,15 @@ export class VacunaService {
     },
   }));
 
-  vacines = computed(() => this.vacinesResource.value()?.vacunas ?? ([] as Vacuna[]));
-  vacinesTotal = computed(() => this.vacinesResource.value()?.total ?? 0);
-  isLoading = computed(() => this.vacinesResource.isLoading());
+  pagos = computed(() => this.pagosResource.value()?.pagos ?? ([] as Pago[]));
+  pagosTotal = computed(() => this.pagosResource.value()?.total ?? 0);
+  isLoading = computed(() => this.pagosResource.isLoading());
 
   refresh(): void {
-    this.vacinesResource.reload();
+    this.pagosResource.reload();
   }
 
-  addVacuna(data: any) {
-    return this._http.post(`${this.BASE_API}/vacunas`, data);
+  addPayment(data: any) {
+    return this._http.post(`${this.API_BASE}/pagos`, data);
   }
 }

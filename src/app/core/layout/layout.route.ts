@@ -23,7 +23,7 @@ export const ADMIN_ROUTES: Routes = [
         canActivate: [roleGuard, permissionGuard],
         data: {
           allowedRoles: [RoleType.ADMIN, RoleType.SUPER_ADMIN, RoleType.USER],
-          permissions: [IPERMISOS.LIST_ROL],
+          // permissions: [IPERMISOS.LIST_ROL],
         },
         loadChildren: () => import('../../features/roles/roles.route').then((m) => m.ROLES_ROUTE),
       },
@@ -68,7 +68,8 @@ export const ADMIN_ROUTES: Routes = [
       },
       {
         path: 'historial-medico',
-        loadChildren: () => import('../../features/historial-medico/historial_medical.routes').then((m) => m.HISTORIAL_MEDICUAL_ROUTES),
+        loadChildren: () =>
+          import('../../features/historial-medico/historial_medical.routes').then((m) => m.HISTORIAL_MEDICUAL_ROUTES),
       },
     ],
   },

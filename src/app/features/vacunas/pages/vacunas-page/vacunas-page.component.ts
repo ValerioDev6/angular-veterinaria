@@ -12,14 +12,12 @@ import { VacunaService } from '../../services/vacunas.serive';
   imports: [SharedZorroModule, RouterLink, CommonModule, FormsModule],
   templateUrl: './vacunas-page.component.html',
   styles: ``,
-  providers: [NzModalService, NzMessageService]
-
+  providers: [NzModalService, NzMessageService],
 })
 export default class VacunasPageComponent {
-
-  private readonly vacunasService = inject(VacunaService)
-  private readonly messageService = inject(NzMessageService)
-  private readonly modalService = inject(NzModalService)
+  private readonly vacunasService = inject(VacunaService);
+  private readonly messageService = inject(NzMessageService);
+  private readonly modalService = inject(NzModalService);
 
   vacunas = this.vacunasService.vacines;
   total = this.vacunasService.vacinesTotal;
@@ -40,7 +38,7 @@ export default class VacunasPageComponent {
   state_payment = this.vacunasService.state_payment;
   dateFrom = this.vacunasService.dateFrom;
   dateTo = this.vacunasService.dateTo;
-onFilterSpecies(): void {
+  onFilterSpecies(): void {
     this.species.set(this.speciesFilter());
     this.page.set(1);
   }
@@ -101,11 +99,10 @@ onFilterSpecies(): void {
   refreshData(): void {
     this.vacunasService.refresh();
   }
- private formatDate(date: Date): string {
+  private formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-
 }
