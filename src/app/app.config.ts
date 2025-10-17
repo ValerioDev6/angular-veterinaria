@@ -1,8 +1,5 @@
-import {
-  ApplicationConfig,
-  provideZoneChangeDetection
-} from '@angular/core';
-import { provideRouter, withViewTransitions } from '@angular/router';
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
 
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
@@ -20,7 +17,7 @@ registerLocaleData(es);
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes, withViewTransitions()),
+    provideRouter(routes, withViewTransitions(), withHashLocation()),
     provideNzIcons(icons),
     provideNzI18n(es_ES),
     provideAnimationsAsync(),
