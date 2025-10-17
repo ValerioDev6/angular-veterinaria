@@ -16,13 +16,20 @@
         <!-- Email -->
         <nz-form-item>
           <nz-form-label nzRequired nzFor="email">Correo electrónico</nz-form-label>
-          <nz-form-control
-            [nzErrorTip]="emailControl?.hasError('required') ? 'El correo es obligatorio' : 'Ingresa un correo válido'">
+          <nz-form-control [nzErrorTip]="emailErrorTpl">
             <nz-input-group nzSize="large" [nzPrefix]="emailPrefix">
-              <input nz-input type="email" id="email" formControlName="email" placeholder="tu@email.com" />
+              <input nz-input type="email" id="email" formControlName="email" placeholder="tu@email.com"
+                (blur)="markFieldAsTouched('email')" />
             </nz-input-group>
             <ng-template #emailPrefix>
               <span nz-icon nzType="mail" nzTheme="outline"></span>
+            </ng-template>
+            <ng-template #emailErrorTpl let-control>
+              @if (control.hasError('required')) {
+              <span>El correo es obligatorio</span>
+              } @else if (control.hasError('email')) {
+              <span>Ingresa un correo válido</span>
+              }
             </ng-template>
           </nz-form-control>
         </nz-form-item>
@@ -30,30 +37,47 @@
         <!-- Password -->
         <nz-form-item>
           <nz-form-label nzRequired nzFor="password">Contraseña</nz-form-label>
-          <nz-form-control
-            [nzErrorTip]="passwordControl?.hasError('required') ? 'La contraseña es obligatoria' : 'Mínimo 6 caracteres'">
+          <nz-form-control [nzErrorTip]="passwordErrorTpl">
             <nz-input-group nzSize="large" [nzPrefix]="passwordPrefix" [nzSuffix]="passwordSuffix">
               <input nz-input [type]="passwordVisible() ? 'text' : 'password'" id="password" formControlName="password"
-                placeholder="••••••••" />
+                placeholder="••••••••" (blur)="markFieldAsTouched('password')" />
             </nz-input-group>
             <ng-template #passwordPrefix>
               <span nz-icon nzType="lock" nzTheme="outline"></span>
             </ng-template>
             <ng-template #passwordSuffix>
               <span nz-icon [nzType]="passwordVisible() ? 'eye-invisible' : 'eye'" nzTheme="outline"
-                class="cursor-pointer" (click)="togglePasswordVisibility()"></span>
+                class="cursor-pointer hover:text-blue-600 transition-colors" (click)="togglePasswordVisibility()">
+              </span>
+            </ng-template>
+            <ng-template #passwordErrorTpl let-control>
+              @if (control.hasError('required')) {
+              <span>La contraseña es obligatoria</span>
+              } @else if (control.hasError('minlength')) {
+              <span>Mínimo 6 caracteres</span>
+              }
             </ng-template>
           </nz-form-control>
         </nz-form-item>
 
+        <!-- Remember & Forgot -->
+        <div class="flex items-center justify-between mb-6">
+          <label nz-checkbox formControlName="remember">
+            <span class="text-sm text-gray-600">Recordarme</span>
+          </label>
+          <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+
         <!-- Botón de submit -->
         <nz-form-item class="mb-0">
-          <button nz-button nzType="primary" nzSize="large" nzBlock [nzLoading]="isLoading()" [disabled]="isLoading()"
-            type="submit">
+          <button nz-button nzType="primary" nzSize="large" nzBlock [nzLoading]="isLoading()"
+            [disabled]="loginForm.invalid || isLoading()" type="submit">
             @if (isLoading()) {
-            Iniciando sesión...
+            <span>Iniciando sesión...</span>
             } @else {
-            Iniciar sesión
+            <span>Iniciar sesión</span>
             }
           </button>
         </nz-form-item>
@@ -63,8 +87,10 @@
     <!-- Footer -->
     <div class="text-center mt-6">
       <p class="text-sm text-gray-600">
-        ¿Olvidaste tu contraseña?
-        <a href="#" class="text-blue-600 hover:text-blue-700 font-medium">Recuperar</a>
+        ¿No tienes una cuenta?
+        <a href="#" class="text-blue-600 hover:text-blue-700 font-medium transition-colors">
+          Regístrate
+        </a>
       </p>
     </div>
   </div>

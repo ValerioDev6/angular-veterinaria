@@ -1,1 +1,181 @@
-<p class="text-cnter">home-page works!</p>
+<!-- home-page.component.html -->
+<div class="dashboard-container">
+
+  <!-- Header -->
+  <div style="margin-bottom: 32px;">
+    <h3 class="header-title">
+      <span>🏥</span>
+      <span>Dashboard Veterinaria</span>
+    </h3>
+    <p class="header-subtitle">Vista general de las operaciones del día y mes actual</p>
+  </div>
+
+  <!-- FILA 1: KPIs Principales del Día -->
+  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <div class="card-icon" style="color: #52c41a;">💰</div>
+        <nz-statistic [nzValue]="kpis.ingresosDia" [nzTitle]="'Ingresos Hoy'" [nzPrefix]="'S/ '"
+          [nzValueStyle]="{ color: '#52c41a' }"></nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <div class="card-icon" style="color: #1890ff;">📅</div>
+        <nz-statistic [nzValue]="kpis.citasHoy" [nzTitle]="'Citas Hoy'"
+          [nzValueStyle]="{ color: '#1890ff' }"></nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <div class="card-icon" style="color: #fa8c16;">🐾</div>
+        <nz-statistic [nzValue]="kpis.nuevosPacientes" [nzTitle]="'Nuevos Pacientes (Mes)'"
+          [nzValueStyle]="{ color: '#fa8c16' }"></nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <div class="card-icon" style="color: #722ed1;">💉</div>
+        <nz-statistic [nzValue]="kpis.vacunasMes" [nzTitle]="'Vacunas Aplicadas (Mes)'"
+          [nzValueStyle]="{ color: '#722ed1' }"></nz-statistic>
+      </nz-card>
+    </div>
+  </div>
+
+  <nz-divider></nz-divider>
+
+  <!-- FILA 2: Métricas Mensuales -->
+  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <nz-statistic [nzValue]="kpis.ingresosMes" [nzTitle]="'💵 Ingresos del Mes'" [nzPrefix]="'S/ '"
+          [nzValueStyle]="{ color: '#3f8600' }"></nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <nz-statistic [nzValue]="kpis.citasMes" [nzTitle]="'📋 Total Citas del Mes'"
+          [nzValueStyle]="{ color: '#1890ff' }"></nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <nz-statistic [nzValue]="kpis.cirugiasMes" [nzTitle]="'🏥 Cirugías del Mes'"
+          [nzValueStyle]="{ color: '#fa541c' }"></nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card">
+        <nz-statistic [nzValue]="kpis.veterinarios" [nzTitle]="'👨‍⚕️ Veterinarios Activos'"
+          [nzValueStyle]="{ color: '#13c2c2' }"></nz-statistic>
+      </nz-card>
+    </div>
+  </div>
+
+  <nz-divider [nzText]="'Análisis y Gráficos'"></nz-divider>
+
+  <!-- FILA 3: Gráficos -->
+  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
+
+    <!-- Gráfico de Ingresos Mensuales -->
+    <div nz-col [nzXs]="24" [nzLg]="16">
+      <nz-card nzTitle="📈 Ingresos Últimos 6 Meses">
+        <div class="chart-container">
+          <canvas #chartIngresos></canvas>
+        </div>
+      </nz-card>
+    </div>
+
+    <!-- Gráfico de Distribución de Servicios -->
+    <div nz-col [nzXs]="24" [nzLg]="8">
+      <nz-card nzTitle="🥧 Distribución de Servicios">
+        <div class="chart-container">
+          <canvas #chartServicios></canvas>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+
+  <!-- FILA 4: Especies Más Atendidas -->
+  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
+    <div nz-col [nzSpan]="24">
+      <nz-card nzTitle="🐕 Especies Más Atendidas">
+        <div class="chart-container">
+          <canvas #chartEspecies></canvas>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+
+  <nz-divider [nzText]="'Actividad del Día'"></nz-divider>
+
+  <!-- FILA 5: Tablas -->
+  <div nz-row [nzGutter]="[16, 16]">
+
+    <!-- Próximas Citas del Día -->
+    <div nz-col [nzXs]="24" [nzLg]="12">
+      <nz-card nzTitle="📅 Citas de Hoy">
+        <nz-table #citasTable [nzData]="citasHoy" [nzPageSize]="5" [nzSize]="'middle'"
+          [nzShowPagination]="citasHoy.length > 5">
+          <thead>
+            <tr>
+              <th>Hora</th>
+              <th>Paciente</th>
+              <th>Dueño</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cita of citasTable.data">
+              <td><strong>{{ cita.hora }}</strong></td>
+              <td>🐕 {{ cita.paciente }}</td>
+              <td>{{ cita.dueno }}</td>
+              <td>
+                <nz-tag [nzColor]="getEstadoColor(cita.estado)">
+                  {{ cita.estado }}
+                </nz-tag>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+
+    <!-- Cirugías Programadas -->
+    <div nz-col [nzXs]="24" [nzLg]="12">
+      <nz-card nzTitle="🏥 Próximas Cirugías">
+        <nz-table #cirugiasTable [nzData]="cirugiasProximas" [nzPageSize]="5" [nzSize]="'middle'"
+          [nzShowPagination]="cirugiasProximas.length > 5">
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Paciente</th>
+              <th>Tipo</th>
+              <th>Veterinario</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cirugia of cirugiasTable.data">
+              <td><strong>{{ cirugia.fecha }}</strong></td>
+              <td>🐕 {{ cirugia.paciente }}</td>
+              <td>{{ cirugia.tipo }}</td>
+              <td>{{ cirugia.veterinario }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </nz-card>
+    </div>
+  </div>
+
+  <!-- Footer Info -->
+  <div style="margin-top: 32px; text-align: center; color: #8c8c8c;">
+    <p>Dashboard actualizado • Datos de prueba estáticos</p>
+  </div>
+
+</div>

@@ -4,9 +4,9 @@ export const PERMISOS = [
     name: 'Dashboard',
     permisos: [
       {
-        id: '2758db9d-c32f-4f47-84e7-989a9e466fc5',
+        id: '5760391c-d6a2-431f-9adb-4e8608bed8e6',
         name: 'Gráficos',
-        action: 'show_report_grafics'
+        action: 'show_report_grafics',
       },
     ],
   },
@@ -15,150 +15,150 @@ export const PERMISOS = [
     name: 'Roles y Permisos',
     permisos: [
       {
-        id: 'f85c982f-8ef7-4bd9-bffb-70bcefe63d10',
+        id: 'c8431604-37dd-4c2e-b87b-e3ec73d6ea20',
         name: 'Registrar',
-        action: 'register_rol'
+        action: 'register_rol',
       },
       {
-        id: '11e7b573-ff6e-4d18-89de-a8c61e61988b',
+        id: 'acb6a34a-9b6f-4d2e-8004-134b31095d5d',
         name: 'Listado',
-        action: 'list_rol'
+        action: 'list_rol',
       },
       {
-        id: 'db5964e1-37e3-43c7-be41-ba3e15b9d3f9',
+        id: '47e60513-b016-4e8e-adcf-2371bc60d709',
         name: 'Edición',
-        action: 'edit_rol'
+        action: 'edit_rol',
       },
       {
-        id: '78dfb758-61b1-4382-a9b3-54ca2353627a',
+        id: '3e29d9e8-7068-4883-b546-78f7a8b157e6',
         name: 'Eliminar',
-        action: 'delete_rol'
-      }
-    ]
+        action: 'delete_rol',
+      },
+    ],
   },
   {
     id: 3,
     name: 'Staffs',
     permisos: [
       {
-        id: '568259cb-bfc2-4bac-bf23-a4fd8e6954be',
+        id: 'ec61f063-38dd-48d3-93ae-c2e987f8b8ad',
         name: 'Registrar',
-        action: 'register_staff'
+        action: 'register_staff',
       },
       {
-        id: '24cb9192-7f13-4d22-a476-eff3b388f0a9',
+        id: '1ca19f5d-b384-4624-9266-fb1fc29c57b2',
         name: 'Listado',
-        action: 'list_staff'
+        action: 'list_staff',
       },
       {
-        id: '30f65925-a128-4df7-a7c6-41449d14f3e1',
+        id: '82511cb4-25c9-4b05-9382-247532b0eb96',
         name: 'Edición',
-        action: 'edit_staff'
+        action: 'edit_staff',
       },
       {
-        id: 'f6a04e1b-00ce-4e95-8c69-44e377683094',
+        id: '6bb1012f-d3c7-4144-bbad-0e861b8a4098',
         name: 'Eliminar',
-        action: 'delete_staff'
-      }
-    ]
+        action: 'delete_staff',
+      },
+    ],
   },
   {
     id: 4,
     name: 'Veterinarios',
     permisos: [
       {
-        id: '52ee3067-1480-498d-85f3-2c5368930a78',
+        id: '6f0a0fb7-bf5a-4e09-b598-d08c90dfc2d7',
         name: 'Registrar',
-        action: 'register_veterinary'
+        action: 'register_veterinary',
       },
       {
-        id: 'a41d6dae-51ba-47f0-907d-daae51ff7f88',
+        id: 'eb2732f7-b44d-40a4-aca8-86b198a81106',
         name: 'Listado',
-        action: 'list_veterinary'
+        action: 'list_veterinary',
       },
       {
-        id: '474b9457-2d66-4816-bc7b-e70e8854fd2e',
+        id: '8efd9bff-c0da-4d4c-aee2-dbf8cc1b1216',
         name: 'Edición',
-        action: 'edit_veterinary'
+        action: 'edit_veterinary',
       },
       {
-        id: 'b6c6743a-3128-4011-9915-8eb08d847ca7',
+        id: '81819317-ef78-40a2-8deb-a50791dc9a3e',
         name: 'Eliminar',
-        action: 'delete_veterinary'
+        action: 'delete_veterinary',
       },
       {
-        id: 'e62582db-6e74-40b2-bfe8-6bebe52be1b1',
+        id: '6892f478-cf3a-42bb-bd6d-80a242e789ac',
         name: 'Perfil',
-        action: 'profile_veterinary'
-      }
-    ]
+        action: 'profile_veterinary',
+      },
+    ],
   },
   {
     id: 5,
     name: 'Mascotitas',
     permisos: [
       {
-        id: 'aa4555fa-ea8d-4630-8520-acfee138e392',
+        id: '760d4720-ae8e-4470-bd69-665d9f6ceaae',
         name: 'Registrar',
-        action: 'register_pet'
+        action: 'register_pet',
       },
       {
-        id: '69e62db6-c11b-42ac-9fe4-5749d3c294b5',
+        id: '0305887c-5c5b-4444-95a8-a9d6db0bfad9',
         name: 'Listado',
-        action: 'list_pet'
+        action: 'list_pet',
       },
       {
-        id: '9fb35863-470e-41c3-990c-e6a7ae830bd9',
+        id: '0f7031aa-c07f-4fe8-b61a-903ed868b8dc',
         name: 'Edición',
-        action: 'edit_pet'
+        action: 'edit_pet',
       },
       {
-        id: '0ccafdc0-f8df-4c7c-b9d6-78e10dc77800',
+        id: 'e12c7791-1683-4c94-9154-c1409c0af8a0',
         name: 'Eliminar',
-        action: 'delete_pet'
+        action: 'delete_pet',
       },
       {
-        id: '61bf9dbd-6ac2-4c1a-9ef3-07390419a789',
+        id: 'c0b44824-fc82-4c64-a769-e10b08d5c924',
         name: 'Perfil',
-        action: 'profile_pet'
-      }
-    ]
+        action: 'profile_pet',
+      },
+    ],
   },
   {
     id: 6,
     name: 'Citas Médicas',
     permisos: [
       {
-        id: '350a7b32-69bc-43ae-bf55-2eb4f1b8ff02',
+        id: '769bfac0-eced-4718-9eb8-c3647d72c7cc',
         name: 'Registrar',
-        action: 'register_appointment'
+        action: 'register_appointment',
       },
       {
-        id: '0b1a0ef0-5486-47d7-8d0a-46c75117a315',
+        id: '85c46db1-9fba-432a-baf5-8ddcea9c5a7b',
         name: 'Listado',
-        action: 'list_appointment'
+        action: 'list_appointment',
       },
       {
-        id: 'da41442f-4dfb-4783-bfb7-3f9ef1ab1356',
+        id: 'fe3eb1e0-fd04-4581-b19a-f4ff3953e519',
         name: 'Edición',
-        action: 'edit_appointment'
+        action: 'edit_appointment',
       },
       {
-        id: '77d04abb-8116-4edb-a078-ebade9aa32e1',
+        id: '39e0756e-8b43-4bac-af23-18f90b90fc58',
         name: 'Eliminar',
-        action: 'delete_appointment'
+        action: 'delete_appointment',
       },
-    ]
+    ],
   },
   {
     id: 7,
     name: 'Calendario',
     permisos: [
       {
-        id: '0f68c966-ff2b-4601-afa9-4f0211d1daf0',
+        id: '85385032-b6ec-49da-b450-b58599665fd2',
         name: 'Disponibilidad',
         action: 'calendar',
-      }
+      },
     ],
   },
   {
@@ -166,78 +166,78 @@ export const PERMISOS = [
     name: 'Pagos',
     permisos: [
       {
-        id: '4f29d1df-a032-415f-ba1a-eea41c657a8e',
+        id: 'c2352646-cfe0-4ce9-8ec7-cde0fdff98b7',
         name: 'Ver',
-        action: 'show_payment'
+        action: 'show_payment',
       },
       {
-        id: 'eb1b7ad6-2019-491c-8281-e673306381ad',
+        id: 'fff5ceda-7928-40f2-9703-815817c61196',
         name: 'Gestión',
-        action: 'edit_payment'
+        action: 'edit_payment',
       },
-    ]
+    ],
   },
   {
     id: 9,
     name: 'Vacunas',
     permisos: [
       {
-        id: '3acb37a7-5dff-48f3-a362-f7388f8c01e6',
+        id: 'b3395331-403a-4474-9a08-1da5f616a4dc',
         name: 'Registrar',
-        action: 'register_vaccionation'
+        action: 'register_vaccionation',
       },
       {
-        id: '4fe4d49f-aada-4933-81e5-f4016ff9cd31',
+        id: 'd8be27f9-17bd-4c80-9c62-010e397d64bd',
         name: 'Listado',
-        action: 'list_vaccionation'
+        action: 'list_vaccionation',
       },
       {
-        id: '02fea739-66de-4e52-9a14-61c026b3ce33',
+        id: '51f3c9ba-f816-4440-92d8-d02ed346a4f7',
         name: 'Edición',
-        action: 'edit_vaccionation'
+        action: 'edit_vaccionation',
       },
       {
-        id: '5560ce84-0e7f-4ac2-b45d-fcca74dfc5cb',
+        id: '7cb70309-f89d-4660-8b93-6bbd84d2fe5c',
         name: 'Eliminar',
-        action: 'delete_vaccionation'
+        action: 'delete_vaccionation',
       },
-    ]
+    ],
   },
   {
     id: 10,
     name: 'Procedimientos quirúrgicos',
     permisos: [
       {
-        id: '841f0633-f228-4ed6-a559-eb80d0566534',
+        id: 'ad57b983-3230-429c-acc9-63429d91bffc',
         name: 'Registrar',
-        action: 'register_surgeries'
+        action: 'register_surgeries',
       },
       {
-        id: '98794909-e07b-4c81-809c-c0c348dc35a7',
+        id: '7f07e342-bc8a-4ec9-8fd0-e9c57584d445',
         name: 'Listado',
-        action: 'list_surgeries'
+        action: 'list_surgeries',
       },
       {
-        id: '899a7b47-f4d5-4c63-b48b-0924cfc53a49',
+        id: '0912da01-ab8d-43cb-8480-f6887b828b61',
         name: 'Edición',
-        action: 'edit_surgeries'
+        action: 'edit_surgeries',
       },
       {
-        id: 'f75cd9fe-6e35-4050-90d2-f3cf5926fa0e',
+        id: 'b7b854f7-ab70-49fe-97e3-a0524d208582',
         name: 'Eliminar',
-        action: 'delete_surgeries'
+        action: 'delete_surgeries',
       },
-    ]
+    ],
   },
   {
     id: 11,
     name: 'Historial Médico',
     permisos: [
       {
-        id: '797b95e2-9e07-4186-ad49-6beafe7a6508',
+        id: '24df86d4-3cbd-4d58-a2cc-7faa3d955625',
         name: 'Disponibilidad',
         action: 'show_medical_records',
-      }
+      },
     ],
   },
 ];

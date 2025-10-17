@@ -15,7 +15,7 @@ import { AuthService } from '../../../../core/auth/services/auth.service';
   styles: ``,
 })
 export default class LoginPageComponent {
-   private fb = inject(FormBuilder);
+  private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
   private message = inject(NzMessageService);
@@ -38,7 +38,7 @@ export default class LoginPageComponent {
 
   onSubmit(): void {
     if (this.loginForm.invalid) {
-      Object.values(this.loginForm.controls).forEach(control => {
+      Object.values(this.loginForm.controls).forEach((control) => {
         if (control.invalid) {
           control.markAsDirty();
           control.updateValueAndValidity({ onlySelf: true });
@@ -64,11 +64,17 @@ export default class LoginPageComponent {
         this.isLoading.set(false);
         this.message.error('Error al iniciar sesión. Intenta nuevamente.');
         console.error('Login error:', error);
-      }
+      },
     });
   }
-
+  markFieldAsTouched(fieldName: string): void {
+    const field = this.loginForm.get(fieldName);
+    if (field) {
+      field.markAsTouched();
+      field.updateValueAndValidity();
+    }
+  }
   togglePasswordVisibility(): void {
-    this.passwordVisible.update(visible => !visible);
+    this.passwordVisible.update((visible) => !visible);
   }
 }

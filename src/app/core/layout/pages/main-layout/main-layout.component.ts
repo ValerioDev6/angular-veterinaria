@@ -9,14 +9,7 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { IPERMISOS, RoleType } from '../../../auth/interfaces/auth_responser.interface';
 import { AuthService } from '../../../auth/services/auth.service';
 
-const NZ_MODULES = [
-  NzIconModule,
-  NzLayoutModule,
-  NzMenuModule,
-  NzAvatarModule,
-  NzDropDownModule,
-  NzModalModule
-];
+const NZ_MODULES = [NzIconModule, NzLayoutModule, NzMenuModule, NzAvatarModule, NzDropDownModule, NzModalModule];
 
 @Component({
   selector: 'app-main-layout',
@@ -30,14 +23,13 @@ export class MainLayoutComponent {
   RoleType: typeof RoleType = RoleType;
   PERMISOS: typeof IPERMISOS = IPERMISOS;
 
-
   constructor(
     public authService: AuthService,
     private modal: NzModalService,
-    private router:Router
-  ) { }
+    private router: Router,
+  ) {}
 
-   // Obtener iniciales del usuario para el avatar
+  // Obtener iniciales del usuario para el avatar
   getUserInitials(): string {
     const user = this.authService._user();
     if (!user?.email) return 'U';
@@ -57,13 +49,13 @@ export class MainLayoutComponent {
       nzOkText: 'Sí, cerrar sesión',
       nzOkDanger: true,
       nzCancelText: 'Cancelar',
-      nzOnOk: () => this.logout()
+      nzOnOk: () => this.logout(),
     });
   }
 
   // Cerrar sesión
   logout(): void {
     this.authService.logout();
+    this.router.navigate(['/auth/login']);
   }
-
 }

@@ -22,6 +22,7 @@
     "@angular/router": "^19.2.0",
     "@ant-design/icons-angular": "^19.0.0",
     "@tailwindcss/postcss": "^4.0.14",
+    "chart.js": "^4.5.1",
     "ng-zorro-antd": "19.1.0",
     "postcss": "^8.5.3",
     "rxjs": "~7.8.0",
