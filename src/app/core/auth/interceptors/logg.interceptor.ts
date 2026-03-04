@@ -1,8 +1,4 @@
-import {
-  HttpEvent,
-  HttpInterceptorFn,
-  HttpResponse,
-} from '@angular/common/http';
+import { HttpEvent, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { map } from 'rxjs';
 
 export const LoggingInterceptor: HttpInterceptorFn = (req, next) => {

@@ -172,72 +172,69 @@ export class UpdateVeterinarioComponent implements OnInit {
     return schedules;
   }
   onUpdateVeterinarie() {
-  const veterinarianId = this.$veterinarian()?.id;
+    const veterinarianId = this.$veterinarian()?.id;
 
-  if (!veterinarianId) {
-    this.messageService.error('ID de veterinario no encontrado');
-    return;
+    if (!veterinarianId) {
+      this.messageService.error('ID de veterinario no encontrado');
+      return;
+    }
+
+    // Validar campos obligatorios
+    if (
+      !this.username ||
+      !this.email ||
+      !this.phone ||
+      !this.type_documento ||
+      !this.n_documento ||
+      !this.birthday ||
+      !this.roleId
+    ) {
+      this.messageService.error('Por favor complete todos los campos obligatorios');
+      return;
+    }
+
+    // Validar horarios
+    const schedules = this.getSelectedSchedules();
+    if (schedules.length === 0) {
+      this.messageService.error('Debe seleccionar al menos un horario de atención');
+      return;
+    }
+
+    // Crear FormData
+    const formData = new FormData();
+    formData.append('username', this.username);
+    formData.append('email', this.email);
+    formData.append('phone', this.phone);
+    formData.append('type_documento', this.type_documento);
+    formData.append('n_documento', this.n_documento);
+
+    // Formatear fecha
+    const formattedBirthday = this.birthday instanceof Date ? this.birthday.toISOString().split('T')[0] : this.birthday;
+    formData.append('birthday', formattedBirthday);
+
+    formData.append('roleId', this.roleId);
+
+    // Solo agregar imagen si hay una nueva
+    if (this.file_imagen) {
+      formData.append('avatar', this.file_imagen, this.file_imagen.name);
+    }
+
+    // Agregar horarios
+    formData.append('schedule_hour_veterinarie', JSON.stringify(schedules));
+
+    // Enviar actualización
+    this.veterinarianService.updatedVeterinarian(veterinarianId, formData).subscribe({
+      next: () => {
+        this.messageService.success('Veterinario actualizado exitosamente');
+        this.router.navigate(['/admin/veterinarios/lista']);
+      },
+      error: (error) => {
+        this.messageService.error(
+          `Error al actualizar: ${error.error?.message || error.message || 'Error desconocido'}`,
+        );
+      },
+    });
   }
-
-  // Validar campos obligatorios
-  if (
-    !this.username ||
-    !this.email ||
-    !this.phone ||
-    !this.type_documento ||
-    !this.n_documento ||
-    !this.birthday ||
-    !this.roleId
-  ) {
-    this.messageService.error('Por favor complete todos los campos obligatorios');
-    return;
-  }
-
-  // Validar horarios
-  const schedules = this.getSelectedSchedules();
-  if (schedules.length === 0) {
-    this.messageService.error('Debe seleccionar al menos un horario de atención');
-    return;
-  }
-
-  // Crear FormData
-  const formData = new FormData();
-  formData.append('username', this.username);
-  formData.append('email', this.email);
-  formData.append('phone', this.phone);
-  formData.append('type_documento', this.type_documento);
-  formData.append('n_documento', this.n_documento);
-
-  // Formatear fecha
-  const formattedBirthday =
-    this.birthday instanceof Date
-      ? this.birthday.toISOString().split('T')[0]
-      : this.birthday;
-  formData.append('birthday', formattedBirthday);
-
-  formData.append('roleId', this.roleId);
-
-  // Solo agregar imagen si hay una nueva
-  if (this.file_imagen) {
-    formData.append('avatar', this.file_imagen, this.file_imagen.name);
-  }
-
-  // Agregar horarios
-  formData.append('schedule_hour_veterinarie', JSON.stringify(schedules));
-
-  // Enviar actualización
-  this.veterinarianService.updatedVeterinarian(veterinarianId, formData).subscribe({
-    next: () => {
-      this.messageService.success('Veterinario actualizado exitosamente');
-      this.router.navigate(['/admin/veterinarios/lista']);
-    },
-    error: (error) => {
-      this.messageService.error(
-        `Error al actualizar: ${error.error?.message || error.message || 'Error desconocido'}`
-      );
-    },
-  });
-}
 
   resetForm(): void {
     // Limpiar campos básicos

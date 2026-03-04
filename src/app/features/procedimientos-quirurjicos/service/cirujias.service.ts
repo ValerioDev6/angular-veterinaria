@@ -4,12 +4,11 @@ import { environment } from '../../../../environments/environment';
 import { Cirujia, ICirujiasResponse } from '../interfaces/cirujias.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CirujiaService {
   private readonly BASE_API = environment.API_URL;
-  private readonly _http = inject(HttpClient)
-
+  private readonly _http = inject(HttpClient);
 
   page = signal<number>(1);
   limit = signal<number>(10);
@@ -37,27 +36,23 @@ export class CirujiaService {
     params: this.params(),
     method: 'GET',
     headers: {
-      'Content-Type': 'application/json'
-    }
-  }))
+      'Content-Type': 'application/json',
+    },
+  }));
 
-  cirujias = computed(() => this.cirujiasResource.value()?.cirujias ?? ([] as Cirujia[]))
+  cirujias = computed(() => this.cirujiasResource.value()?.cirujias ?? ([] as Cirujia[]));
   cirujiasTotal = computed(() => this.cirujiasResource.value()?.total ?? 0);
   isLoading = computed(() => this.cirujiasResource.isLoading());
 
-
   addVacuna(data: any) {
-    return this._http.post(`${this.BASE_API}/vacunas`, data)
+    return this._http.post(`${this.BASE_API}/vacunas`, data);
   }
 
-   refresh(): void {
+  refresh(): void {
     this.cirujiasResource.reload();
   }
 
   addCirujia(data: any) {
-    return this._http.post(`${this.BASE_API}/cirujias`, data)
-
+    return this._http.post(`${this.BASE_API}/cirujias`, data);
   }
-
-
 }

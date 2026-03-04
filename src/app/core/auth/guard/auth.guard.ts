@@ -16,7 +16,7 @@ export const isNotAuthenticatedGuard: CanActivateFn = () => {
       }
       // Si no está autenticado → deja entrar
       return true;
-    })
+    }),
   );
 };
 
@@ -33,6 +33,6 @@ export const loginGuard: CanActivateFn = () => {
       }
       // Si está autenticado → deja entrar
       return true;
-    })
+    }),
   );
 };

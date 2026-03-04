@@ -7,8 +7,7 @@ export const MASCOTAS_ROUTES: Routes = [
   },
   {
     path: 'registrar',
-    loadComponent: () =>
-      import('./pages/create-paciente/create-paciente.component'),
+    loadComponent: () => import('./pages/create-paciente/create-paciente.component'),
   },
 
   {

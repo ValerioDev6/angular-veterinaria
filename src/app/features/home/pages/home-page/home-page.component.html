@@ -1,91 +1,132 @@
 <!-- home-page.component.html -->
 <div class="dashboard-container">
-
   <!-- Header -->
-  <div style="margin-bottom: 32px;">
-    <h3 class="header-title">
-      <span>🏥</span>
-      <span>Dashboard Veterinaria</span>
-    </h3>
-    <p class="header-subtitle">Vista general de las operaciones del día y mes actual</p>
+  <div class="mb-6">
+    <nz-page-header nzTitle="🏥 Dashboard Veterinario" nzSubtitle="Vista general de las operaciones del día y mes actual">
+      <nz-page-header-extra>
+        <nz-tag nzColor="blue">
+          <span nz-icon nzType="calendar"></span>
+          {{ today | date:'dd MMMM yyyy' }}
+        </nz-tag>
+      </nz-page-header-extra>
+    </nz-page-header>
   </div>
 
   <!-- FILA 1: KPIs Principales del Día -->
-  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
+  <div nz-row [nzGutter]="[16, 16]" class="mb-6">
     <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <div class="card-icon" style="color: #52c41a;">💰</div>
-        <nz-statistic [nzValue]="kpis.ingresosDia" [nzTitle]="'Ingresos Hoy'" [nzPrefix]="'S/ '"
-          [nzValueStyle]="{ color: '#52c41a' }"></nz-statistic>
+      <nz-card class="kpi-card kpi-card-hover" [nzBordered]="false">
+        <div class="kpi-content">
+          <div class="kpi-icon-wrapper" style="background: rgba(82, 196, 26, 0.1);">
+            <span class="kpi-icon" style="color: #52c41a;">💰</span>
+          </div>
+          <nz-statistic 
+            [nzValue]="kpis.ingresosDia" 
+            nzTitle="Ingresos Hoy" 
+            [nzPrefix]="'S/ '"
+            [nzValueStyle]="{ color: '#52c41a', fontSize: '28px' }">
+          </nz-statistic>
+        </div>
       </nz-card>
     </div>
 
     <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <div class="card-icon" style="color: #1890ff;">📅</div>
-        <nz-statistic [nzValue]="kpis.citasHoy" [nzTitle]="'Citas Hoy'"
-          [nzValueStyle]="{ color: '#1890ff' }"></nz-statistic>
+      <nz-card class="kpi-card kpi-card-hover" [nzBordered]="false">
+        <div class="kpi-content">
+          <div class="kpi-icon-wrapper" style="background: rgba(24, 144, 255, 0.1);">
+            <span class="kpi-icon" style="color: #1890ff;">📅</span>
+          </div>
+          <nz-statistic 
+            [nzValue]="kpis.citasHoy" 
+            nzTitle="Citas Hoy"
+            [nzValueStyle]="{ color: '#1890ff', fontSize: '28px' }">
+          </nz-statistic>
+        </div>
       </nz-card>
     </div>
 
     <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <div class="card-icon" style="color: #fa8c16;">🐾</div>
-        <nz-statistic [nzValue]="kpis.nuevosPacientes" [nzTitle]="'Nuevos Pacientes (Mes)'"
-          [nzValueStyle]="{ color: '#fa8c16' }"></nz-statistic>
+      <nz-card class="kpi-card kpi-card-hover" [nzBordered]="false">
+        <div class="kpi-content">
+          <div class="kpi-icon-wrapper" style="background: rgba(250, 140, 22, 0.1);">
+            <span class="kpi-icon" style="color: #fa8c16;">🐾</span>
+          </div>
+          <nz-statistic 
+            [nzValue]="kpis.nuevosPacientes" 
+            nzTitle="Nuevos Pacientes (Mes)"
+            [nzValueStyle]="{ color: '#fa8c16', fontSize: '28px' }">
+          </nz-statistic>
+        </div>
       </nz-card>
     </div>
 
     <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <div class="card-icon" style="color: #722ed1;">💉</div>
-        <nz-statistic [nzValue]="kpis.vacunasMes" [nzTitle]="'Vacunas Aplicadas (Mes)'"
-          [nzValueStyle]="{ color: '#722ed1' }"></nz-statistic>
+      <nz-card class="kpi-card kpi-card-hover" [nzBordered]="false">
+        <div class="kpi-content">
+          <div class="kpi-icon-wrapper" style="background: rgba(114, 46, 209, 0.1);">
+            <span class="kpi-icon" style="color: #722ed1;">💉</span>
+          </div>
+          <nz-statistic 
+            [nzValue]="kpis.vacunasMes" 
+            nzTitle="Vacunas Aplicadas (Mes)"
+            [nzValueStyle]="{ color: '#722ed1', fontSize: '28px' }">
+          </nz-statistic>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+
+  <!-- FILA 2: Métricas Mensuales -->
+  <div nz-row [nzGutter]="[16, 16]" class="mb-6">
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card-secondary" [nzBordered]="false">
+        <nz-statistic 
+          [nzValue]="kpis.ingresosMes" 
+          nzTitle="💵 Ingresos del Mes" 
+          [nzPrefix]="'S/ '"
+          [nzValueStyle]="{ color: '#3f8600', fontSize: '24px' }">
+        </nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card-secondary" [nzBordered]="false">
+        <nz-statistic 
+          [nzValue]="kpis.citasMes" 
+          nzTitle="📋 Total Citas del Mes"
+          [nzValueStyle]="{ color: '#1890ff', fontSize: '24px' }">
+        </nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card-secondary" [nzBordered]="false">
+        <nz-statistic 
+          [nzValue]="kpis.cirugiasMes" 
+          nzTitle="🏥 Cirugías del Mes"
+          [nzValueStyle]="{ color: '#fa541c', fontSize: '24px' }">
+        </nz-statistic>
+      </nz-card>
+    </div>
+
+    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
+      <nz-card class="kpi-card-secondary" [nzBordered]="false">
+        <nz-statistic 
+          [nzValue]="kpis.veterinarios" 
+          nzTitle="👨‍⚕️ Veterinarios Activos"
+          [nzValueStyle]="{ color: '#13c2c2', fontSize: '24px' }">
+        </nz-statistic>
       </nz-card>
     </div>
   </div>
 
   <nz-divider></nz-divider>
 
-  <!-- FILA 2: Métricas Mensuales -->
-  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
-    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <nz-statistic [nzValue]="kpis.ingresosMes" [nzTitle]="'💵 Ingresos del Mes'" [nzPrefix]="'S/ '"
-          [nzValueStyle]="{ color: '#3f8600' }"></nz-statistic>
-      </nz-card>
-    </div>
-
-    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <nz-statistic [nzValue]="kpis.citasMes" [nzTitle]="'📋 Total Citas del Mes'"
-          [nzValueStyle]="{ color: '#1890ff' }"></nz-statistic>
-      </nz-card>
-    </div>
-
-    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <nz-statistic [nzValue]="kpis.cirugiasMes" [nzTitle]="'🏥 Cirugías del Mes'"
-          [nzValueStyle]="{ color: '#fa541c' }"></nz-statistic>
-      </nz-card>
-    </div>
-
-    <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="6">
-      <nz-card class="kpi-card">
-        <nz-statistic [nzValue]="kpis.veterinarios" [nzTitle]="'👨‍⚕️ Veterinarios Activos'"
-          [nzValueStyle]="{ color: '#13c2c2' }"></nz-statistic>
-      </nz-card>
-    </div>
-  </div>
-
-  <nz-divider [nzText]="'Análisis y Gráficos'"></nz-divider>
-
   <!-- FILA 3: Gráficos -->
-  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
-
+  <div nz-row [nzGutter]="[16, 16]" class="mb-6">
     <!-- Gráfico de Ingresos Mensuales -->
     <div nz-col [nzXs]="24" [nzLg]="16">
-      <nz-card nzTitle="📈 Ingresos Últimos 6 Meses">
+      <nz-card nzTitle="📈 Ingresos Últimos 6 Meses" [nzBordered]="false" class="chart-card">
         <div class="chart-container">
           <canvas #chartIngresos></canvas>
         </div>
@@ -94,7 +135,7 @@
 
     <!-- Gráfico de Distribución de Servicios -->
     <div nz-col [nzXs]="24" [nzLg]="8">
-      <nz-card nzTitle="🥧 Distribución de Servicios">
+      <nz-card nzTitle="🥧 Distribución de Servicios" [nzBordered]="false" class="chart-card">
         <div class="chart-container">
           <canvas #chartServicios></canvas>
         </div>
@@ -103,9 +144,9 @@
   </div>
 
   <!-- FILA 4: Especies Más Atendidas -->
-  <div nz-row [nzGutter]="[16, 16]" style="margin-bottom: 24px;">
+  <div nz-row [nzGutter]="[16, 16]" class="mb-6">
     <div nz-col [nzSpan]="24">
-      <nz-card nzTitle="🐕 Especies Más Atendidas">
+      <nz-card nzTitle="🐕 Especies Más Atendidas" [nzBordered]="false" class="chart-card">
         <div class="chart-container">
           <canvas #chartEspecies></canvas>
         </div>
@@ -113,28 +154,36 @@
     </div>
   </div>
 
-  <nz-divider [nzText]="'Actividad del Día'"></nz-divider>
+  <nz-divider nzText="'Actividad del Día'"></nz-divider>
 
   <!-- FILA 5: Tablas -->
   <div nz-row [nzGutter]="[16, 16]">
-
     <!-- Próximas Citas del Día -->
     <div nz-col [nzXs]="24" [nzLg]="12">
-      <nz-card nzTitle="📅 Citas de Hoy">
+      <nz-card nzTitle="📅 Citas de Hoy" [nzBordered]="false" class="table-card">
+        @if (citasHoy.length > 0) {
         <nz-table #citasTable [nzData]="citasHoy" [nzPageSize]="5" [nzSize]="'middle'"
-          [nzShowPagination]="citasHoy.length > 5">
+          [nzShowPagination]="citasHoy.length > 5" [nzFrontPagination]="false">
           <thead>
             <tr>
-              <th>Hora</th>
-              <th>Paciente</th>
-              <th>Dueño</th>
-              <th>Estado</th>
+              <th nzWidth="15%">Hora</th>
+              <th nzWidth="25%">Paciente</th>
+              <th nzWidth="30%">Dueño</th>
+              <th nzWidth="30%">Estado</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let cita of citasTable.data">
-              <td><strong>{{ cita.hora }}</strong></td>
-              <td>🐕 {{ cita.paciente }}</td>
+            @for (cita of citasTable.data; track cita.hora) {
+            <tr>
+              <td>
+                <nz-tag nzColor="blue">{{ cita.hora }}</nz-tag>
+              </td>
+              <td>
+                <div class="flex items-center gap-2">
+                  <span>🐕</span>
+                  <span class="font-medium">{{ cita.paciente }}</span>
+                </div>
+              </td>
               <td>{{ cita.dueno }}</td>
               <td>
                 <nz-tag [nzColor]="getEstadoColor(cita.estado)">
@@ -142,40 +191,59 @@
                 </nz-tag>
               </td>
             </tr>
+            }
           </tbody>
         </nz-table>
+        } @else {
+        <nz-empty nzNotFoundContent="No hay citas programadas para hoy"></nz-empty>
+        }
       </nz-card>
     </div>
 
     <!-- Cirugías Programadas -->
     <div nz-col [nzXs]="24" [nzLg]="12">
-      <nz-card nzTitle="🏥 Próximas Cirugías">
+      <nz-card nzTitle="🏥 Próximas Cirugías" [nzBordered]="false" class="table-card">
+        @if (cirugiasProximas.length > 0) {
         <nz-table #cirugiasTable [nzData]="cirugiasProximas" [nzPageSize]="5" [nzSize]="'middle'"
-          [nzShowPagination]="cirugiasProximas.length > 5">
+          [nzShowPagination]="cirugiasProximas.length > 5" [nzFrontPagination]="false">
           <thead>
             <tr>
-              <th>Fecha</th>
-              <th>Paciente</th>
-              <th>Tipo</th>
-              <th>Veterinario</th>
+              <th nzWidth="20%">Fecha</th>
+              <th nzWidth="20%">Paciente</th>
+              <th nzWidth="30%">Tipo</th>
+              <th nzWidth="30%">Veterinario</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let cirugia of cirugiasTable.data">
-              <td><strong>{{ cirugia.fecha }}</strong></td>
-              <td>🐕 {{ cirugia.paciente }}</td>
+            @for (cirugia of cirugiasTable.data; track cirugia.fecha) {
+            <tr>
+              <td>
+                <nz-tag nzColor="purple">{{ cirugia.fecha }}</nz-tag>
+              </td>
+              <td>
+                <div class="flex items-center gap-2">
+                  <span>🐕</span>
+                  <span class="font-medium">{{ cirugia.paciente }}</span>
+                </div>
+              </td>
               <td>{{ cirugia.tipo }}</td>
-              <td>{{ cirugia.veterinario }}</td>
+              <td>
+                <span class="text-blue">{{ cirugia.veterinario }}</span>
+              </td>
             </tr>
+            }
           </tbody>
         </nz-table>
+        } @else {
+        <nz-empty nzNotFoundContent="No hay cirugías programadas"></nz-empty>
+        }
       </nz-card>
     </div>
   </div>
 
   <!-- Footer Info -->
-  <div style="margin-top: 32px; text-align: center; color: #8c8c8c;">
-    <p>Dashboard actualizado • Datos de prueba estáticos</p>
+  <div class="mt-8 text-center text-gray-400">
+    <nz-divider></nz-divider>
+    <p>📊 Dashboard actualizado • Datos de prueba estáticos</p>
   </div>
-
 </div>

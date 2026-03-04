@@ -6,8 +6,10 @@ import { Chart, registerables } from 'chart.js';
 // NG-ZORRO Imports
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzTagModule } from 'ng-zorro-antd/tag';
@@ -26,6 +28,8 @@ Chart.register(...registerables);
     NzIconModule,
     NzTagModule,
     NzDividerModule,
+    NzPageHeaderModule,
+    NzEmptyModule,
   ],
   templateUrl: './home-page.component.html',
   styles: `
@@ -38,18 +42,62 @@ Chart.register(...registerables);
     .kpi-card {
       text-align: center;
       height: 100%;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.3s;
+      border-radius: 12px;
     }
 
     .kpi-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    }
+
+    .kpi-card-hover {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
+    .kpi-card-hover:hover {
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .kpi-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .kpi-icon-wrapper {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .kpi-icon {
+      font-size: 28px;
+    }
+
+    .kpi-card-secondary {
+      text-align: center;
+      height: 100%;
+      border-radius: 8px;
+    }
+
+    .chart-card {
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .chart-container {
       position: relative;
-      height: 300px;
+      height: 280px;
       padding: 10px;
+    }
+
+    .table-card {
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .header-title {
@@ -82,12 +130,26 @@ Chart.register(...registerables);
       font-size: 48px;
       margin-bottom: 8px;
     }
+
+    .font-medium {
+      font-weight: 500;
+    }
+
+    .text-gray-400 {
+      color: #8c8c8c;
+    }
+
+    .text-blue {
+      color: #1890ff;
+    }
   `,
 })
 export class HomePageComponent implements OnInit, AfterViewInit {
   @ViewChild('chartIngresos') chartIngresos!: ElementRef<HTMLCanvasElement>;
   @ViewChild('chartServicios') chartServicios!: ElementRef<HTMLCanvasElement>;
   @ViewChild('chartEspecies') chartEspecies!: ElementRef<HTMLCanvasElement>;
+
+  today = new Date();
 
   // DATOS ESTÁTICOS DEL DASHBOARD
   kpis = {

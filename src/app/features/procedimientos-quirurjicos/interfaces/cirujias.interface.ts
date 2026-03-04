@@ -1,40 +1,40 @@
 export interface ICirujiasResponse {
-  page:       number;
-  limit:      number;
-  total:      number;
+  page: number;
+  limit: number;
+  total: number;
   totalPages: number;
-  next:       null;
-  prev:       null;
-  cirujias:   Cirujia[];
+  next: null;
+  prev: null;
+  cirujias: Cirujia[];
 }
 
 export interface Cirujia {
-  id:            number;
+  id: number;
   surgerie_date: Date;
   medical_notes: string;
   state_payment: string;
-  pet:           Pet;
-  veterinarian:  Veterinarian;
-  pagos:         Pago[];
+  pet: Pet;
+  veterinarian: Veterinarian;
+  pagos: Pago[];
 }
 
 export interface Pago {
-  id:          number;
-  monto:       string;
-  adelanto:    string;
+  id: number;
+  monto: string;
+  adelanto: string;
   metodo_pago: string;
-  estado:      string;
+  estado: string;
 }
 
 export interface Pet {
-  id:      number;
-  name:    string;
+  id: number;
+  name: string;
   species: string;
-  breed:   string;
+  breed: string;
 }
 
 export interface Veterinarian {
-  id:       string;
+  id: string;
   username: string;
-  email:    string;
+  email: string;
 }

@@ -43,7 +43,7 @@ export default class UpdatePacienteComponent implements OnInit {
   weight = 0.0;
   medical_notes = '';
 
-   processFile($event: any) {
+  processFile($event: any) {
     if ($event.target.files[0].type.indexOf('image') < 0) {
       this.messageService.error('Validacion!, El archivo no es una imagen');
       return;
@@ -146,7 +146,7 @@ export default class UpdatePacienteComponent implements OnInit {
         }
         this.messageService.success('Paciente actualizado exitosamente');
         this.resetForm();
-        this.router.navigate(['/admin/mascotas/lista'])
+        this.router.navigate(['/admin/mascotas/lista']);
       },
       error: (error) => {
         console.error('Error:', error);

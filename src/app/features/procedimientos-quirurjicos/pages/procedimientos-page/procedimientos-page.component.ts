@@ -9,13 +9,10 @@ import { CirujiaService } from '../../service/cirujias.service';
   selector: 'app-procedimientos-page',
   imports: [SharedZorroModule, FormsModule, ReactiveFormsModule, RouterLink, CommonModule],
   templateUrl: './procedimientos-page.component.html',
-  styles: ``
+  styles: ``,
 })
 export default class ProcedimientosPageComponent {
-
-  private readonly _cirujiasService = inject(CirujiaService)
-
-
+  private readonly _cirujiasService = inject(CirujiaService);
 
   cirujiasLocal = this._cirujiasService.cirujias;
   total = this._cirujiasService.cirujiasTotal;
@@ -36,7 +33,7 @@ export default class ProcedimientosPageComponent {
   state_payment = this._cirujiasService.state_payment;
   dateFrom = this._cirujiasService.dateFrom;
   dateTo = this._cirujiasService.dateTo;
-onFilterSpecies(): void {
+  onFilterSpecies(): void {
     this.species.set(this.speciesFilter());
     this.page.set(1);
   }
@@ -97,12 +94,10 @@ onFilterSpecies(): void {
   refreshData(): void {
     this._cirujiasService.refresh();
   }
- private formatDate(date: Date): string {
+  private formatDate(date: Date): string {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-
-
 }

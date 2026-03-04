@@ -1,1 +1,117 @@
-<p>editar-usuario works!</p>
+<form nz-form nzLayout="vertical" (ngSubmit)="onUpdateStaff()">
+  <div nz-row [nzGutter]="24">
+    <!-- Left Column -->
+    <div nz-col [nzXs]="24" [nzMd]="12">
+      <!-- Username -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Usuario</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor ingrese un nombre de usuario">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input [(ngModel)]="username" name="username" placeholder="Nombre de usuario" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Email -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Correo</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor ingrese un correo válido">
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="email" nz-input [(ngModel)]="email" name="email" placeholder="Correo electrónico" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Password -->
+      <nz-form-item>
+        <nz-form-label>Nueva Contraseña (opcional)</nz-form-label>
+        <nz-form-control nzErrorTip="La contraseña debe tener al menos 6 caracteres">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input [(ngModel)]="password" name="password"
+              placeholder="Dejar en blanco para mantener" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Phone -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Teléfono</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono">
+          <nz-input-group nzPrefixIcon="phone">
+            <input type="text" nz-input [(ngModel)]="phone" name="phone" placeholder="Número de teléfono" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <!-- Right Column -->
+    <div nz-col [nzXs]="24" [nzMd]="12">
+      <!-- Document Number -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Tipo y № Documento</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor ingrese su número de documento">
+          <nz-input-group nzCompact class="w-full flex">
+            <nz-select [(ngModel)]="type_documento" name="type_documento" nzPlaceHolder="Tipo" nzAllowClear
+              style="width: 100px;">
+              <nz-option nzValue="DNI" nzLabel="DNI"></nz-option>
+              <nz-option nzValue="Pasaporte" nzLabel="Pasaporte"></nz-option>
+              <nz-option nzValue="Carnet de Extranjería" nzLabel="C.E."></nz-option>
+              <nz-option nzValue="PTP" nzLabel="PTP"></nz-option>
+            </nz-select>
+            <input type="text" nz-input [(ngModel)]="n_documento" name="n_documento" placeholder="Número de documento"
+              class="flex-grow" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Birthday -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Fecha de Nacimiento</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor seleccione su fecha de nacimiento">
+          <nz-date-picker [(ngModel)]="birthday" name="birthday" nzFormat="yyyy-MM-dd" class="w-full"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Role -->
+      <nz-form-item>
+        <nz-form-label nzRequired>Rol del Usuario</nz-form-label>
+        <nz-form-control nzErrorTip="Por favor seleccione un rol">
+          <nz-select [(ngModel)]="roles" name="roleId" nzPlaceHolder="Seleccione un rol" nzAllowClear class="w-full">
+            @for (role of roles$(); track role.id) {
+            <nz-option [nzValue]="role.id" [nzLabel]="role.name"></nz-option>
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Avatar -->
+      <nz-form-item>
+        <nz-form-label>Imagen de Perfil</nz-form-label>
+        <nz-form-control>
+          <div class="flex items-center gap-4 p-3 border rounded-lg bg-gray-50">
+            <nz-avatar [nzSize]="64" [nzSrc]="imagen_previsualiza" nzIcon="user"
+              class="shadow-sm flex-shrink-0"></nz-avatar>
+            <div class="flex flex-col gap-2">
+              <button type="button" nz-button nzSize="small" (click)="fileInput.click()">
+                <span nz-icon nzType="upload"></span> Cambiar imagen
+              </button>
+              <input #fileInput type="file" accept="image/*" class="hidden" (change)="processFile($event)" />
+              <span class="text-[10px] text-gray-400">JPG, PNG (opcional)</span>
+            </div>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <nz-divider></nz-divider>
+  <div class="flex justify-end gap-2">
+    <button nz-button nzType="default" (click)="modalRef.close(false)" type="button">
+      <span nz-icon nzType="close-circle"></span> Cancelar
+    </button>
+    <button nz-button nzType="primary" type="submit">
+      <span nz-icon nzType="save"></span> Actualizar Usuario
+    </button>
+  </div>
+</form>

@@ -2,17 +2,32 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzStatisticModule } from 'ng-zorro-antd/statistic';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 import { Pago } from '../../interface/pagos.interface';
 import { PagosService } from '../../service/pagos.service';
 
 @Component({
   selector: 'app-create-monto',
-  imports: [FormsModule, NzFormModule, NzInputNumberModule, NzSelectModule, NzButtonModule, CommonModule],
+  imports: [
+    FormsModule,
+    NzFormModule,
+    NzInputNumberModule,
+    NzSelectModule,
+    NzButtonModule,
+    CommonModule,
+    NzCardModule,
+    NzDescriptionsModule,
+    NzStatisticModule,
+    NzTagModule,
+  ],
   templateUrl: './create-monto.component.html',
   styleUrl: './create-monto.component.scss',
 })

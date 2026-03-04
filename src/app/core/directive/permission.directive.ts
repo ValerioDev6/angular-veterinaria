@@ -1,10 +1,10 @@
 import { Directive, Input, TemplateRef, ViewContainerRef, effect, inject } from '@angular/core';
-import { AuthService } from '../auth/services/auth.service';
 import { IPERMISOS } from '../auth/interfaces/auth_responser.interface';
+import { AuthService } from '../auth/services/auth.service';
 
 @Directive({
   selector: '[hasPermission]',
-  standalone: true
+  standalone: true,
 })
 export class HasPermissionDirective {
   private templateRef = inject(TemplateRef<any>);
@@ -39,9 +39,7 @@ export class HasPermissionDirective {
       return;
     }
 
-    const permissions = Array.isArray(this.currentPermissions)
-      ? this.currentPermissions
-      : [this.currentPermissions];
+    const permissions = Array.isArray(this.currentPermissions) ? this.currentPermissions : [this.currentPermissions];
 
     const hasAccess = this.authService.hasAnyPermission(permissions);
 

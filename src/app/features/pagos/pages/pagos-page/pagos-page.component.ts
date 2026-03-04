@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { SharedZorroModule } from '../../../../shared/nz-modules/shared-zorro.module';
 // import { CreateMontoComponent } from '../../components/create-monto/create-monto.component';
+import { CreateMontoComponent } from '../../components/create-monto/create-monto.component';
 import { Pago } from '../../interface/pagos.interface';
 import { PagosService } from '../../service/pagos.service';
 
@@ -118,7 +119,7 @@ export class PagosPageComponent {
   openModal(pago: Pago): void {
     const modal = this.modalService.create({
       nzTitle: 'Agregar Pago',
-      // nzContent: CreateMontoComponent,
+      nzContent: CreateMontoComponent,
       nzFooter: null,
       nzWidth: '600px',
       nzData: {

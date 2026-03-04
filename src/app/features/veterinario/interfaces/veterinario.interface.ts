@@ -1,16 +1,14 @@
-
-
 export interface IVeterinario {
-  id:             string;
-  username:       string;
-  email:          string;
-  phone:          string;
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
   type_documento: string;
-  n_documento:    string;
-  birthday:       Date;
-  avatar:         string;
-  role:           Roles;
-  schedule:       Schedule[];
+  n_documento: string;
+  birthday: Date;
+  avatar: string;
+  role: Roles;
+  schedule: Schedule[];
 }
 
 export interface Roles {
@@ -19,13 +17,13 @@ export interface Roles {
 }
 
 export interface Schedule {
-  day:   string;
+  day: string;
   hours: Hour[];
 }
 
 export interface Hour {
-  id:         string;
+  id: string;
   hour_start: string;
-  hour_end:   string;
+  hour_end: string;
   hour_group: string;
 }

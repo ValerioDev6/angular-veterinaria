@@ -149,22 +149,22 @@ export default class CreatePacienteComponent {
   }
 
   public resetForm(): void {
-      this.first_name= '';
-      this.last_name= '';
-      this.email= '';
-      this.phone= '';
-      this.address= '';
-      this.city= '';
-      this.type_documento= '';
-      this.n_documento= '';
-      this.name= '';
-      this.species= '';
-      this.breed= '';
-      this.birth_date = new  Date();
-      this.gender= '';
-      this.color= '';
-      this.weight= 0;
-      this.medical_notes= '';
+    this.first_name = '';
+    this.last_name = '';
+    this.email = '';
+    this.phone = '';
+    this.address = '';
+    this.city = '';
+    this.type_documento = '';
+    this.n_documento = '';
+    this.name = '';
+    this.species = '';
+    this.breed = '';
+    this.birth_date = new Date();
+    this.gender = '';
+    this.color = '';
+    this.weight = 0;
+    this.medical_notes = '';
 
     this.file_imagen = null;
     this.imagen_previsualiza = 'https://via.placeholder.com/200';

@@ -56,8 +56,6 @@ export class CreateVeterinarioComponent {
     return true;
   };
 
-
-
   days = ['LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES'];
   groupedHours = computed(() => {
     const hours = this.sheduleHours();
@@ -151,10 +149,7 @@ export class CreateVeterinarioComponent {
     formData.append('type_documento', this.type_documento);
     formData.append('n_documento', this.n_documento);
 
-    const formattedBirthday =
-      this.birthday instanceof Date
-        ? this.birthday.toISOString().split('T')[0]
-        : this.birthday;
+    const formattedBirthday = this.birthday instanceof Date ? this.birthday.toISOString().split('T')[0] : this.birthday;
     formData.append('birthday', formattedBirthday);
     formData.append('roleId', this.roles);
     formData.append('avatar', this.file_imagen, this.file_imagen.name);
@@ -167,14 +162,9 @@ export class CreateVeterinarioComponent {
         this.messageService.success('Veterinario creado exitosamente');
         this.resetForm();
         this.veterinarioService.refresh();
-
       },
       error: (error) => {
-        this.messageService.error(
-          `Error al crear el usuario: ${
-            error.errors || error.message || 'Error desconocido'
-          }`
-        );
+        this.messageService.error(`Error al crear el usuario: ${error.errors || error.message || 'Error desconocido'}`);
       },
     });
   }
@@ -193,7 +183,8 @@ export class CreateVeterinarioComponent {
     this.shedule = '';
     // Limpiar imagen
     this.file_imagen = null;
-    this.imagen_previsualiza = 'https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg';
+    this.imagen_previsualiza =
+      'https://preview.keenthemes.com/metronic8/demo1/assets/media/svg/illustrations/easy/2.svg';
     // Limpiar checkboxes seleccionados
     this.selectedSchedules = {};
   }

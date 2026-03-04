@@ -12,8 +12,7 @@ import { CitasMedicasService } from '../../services/citas.service';
   selector: 'app-citas-medicas-page',
   imports: [SharedZorroModule, FormsModule, CommonModule, RouterLink],
   templateUrl: './citas-medicas-page.component.html',
-  providers: [NzModalService, NzMessageService]
-
+  providers: [NzModalService, NzMessageService],
 })
 export default class CitasMedicasPageComponent {
   private readonly citasService = inject(CitasMedicasService);
@@ -116,27 +115,26 @@ export default class CitasMedicasPageComponent {
   }
 
   showDeleteConfirmModal(cita: Cita): void {
-      this.modalService.confirm({
-        nzTitle: '¿Estás seguro de que deseas eliminar esta cita?',
-        nzContent: 'Esta acción no se puede deshacer',
-        nzOkText: 'Sí',
-        nzOkType: 'primary',
-        nzOkDanger: true,
-        nzOnOk: () => this.deleteCita(cita),
-        nzCancelText: 'No',
-      });
-    }
+    this.modalService.confirm({
+      nzTitle: '¿Estás seguro de que deseas eliminar esta cita?',
+      nzContent: 'Esta acción no se puede deshacer',
+      nzOkText: 'Sí',
+      nzOkType: 'primary',
+      nzOkDanger: true,
+      nzOnOk: () => this.deleteCita(cita),
+      nzCancelText: 'No',
+    });
+  }
 
-    deleteCita(cita: Cita) {
-      this.citasService.deleteCitaMedica(cita.id).subscribe({
-        next: () => {
-          this.messageService.success('Success! Cita Medica eliminado correctamente.');
-          this.citasService.refresh(); // Ejecutamos la función retornada por el computed
-        },
-        error: () => {
-          this.messageService.error('Error al eliminar la cita');
-        },
-      });
-    }
-
+  deleteCita(cita: Cita) {
+    this.citasService.deleteCitaMedica(cita.id).subscribe({
+      next: () => {
+        this.messageService.success('Success! Cita Medica eliminado correctamente.');
+        this.citasService.refresh(); // Ejecutamos la función retornada por el computed
+      },
+      error: () => {
+        this.messageService.error('Error al eliminar la cita');
+      },
+    });
+  }
 }

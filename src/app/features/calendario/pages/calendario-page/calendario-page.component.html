@@ -1,87 +1,70 @@
-<div class="flex justify-between items-center mb-6">
-  <h2 class="text-xl font-bold text-gray-800">
-    <span>🗓️</span>
-    Calendario Citas Medicas
-  </h2>
+<div class="p-6">
+
+  <!-- Header -->
+  <nz-card nzTitle="🗓️ Calendario de Citas Médicas" class="mb-4">
+  </nz-card>
+
+  <!-- Calendario -->
+  <nz-card>
+    <nz-calendar>
+      <!-- Eventos por día -->
+      <ul *nzDateCell="let date" class="events">
+        @for (event of getEventsForDate(date); track event.id) {
+        <li (click)="openEvent(event)" class="event-item">
+          <nz-badge [nzStatus]="getBadgeStatus(event.extendedProps.state)"
+            [nzText]="event.title + ' - ' + event.extendedProps.veterinarie.full_name">
+          </nz-badge>
+        </li>
+        }
+      </ul>
+
+      <!-- Datos por mes -->
+      <ng-container *nzMonthCell="let month">
+        @if (getEventsForDate(month).length > 0) {
+        <div class="notes-month">
+          <section>{{ getEventsForDate(month).length }}</section>
+          <span>Citas</span>
+        </div>
+        }
+      </ng-container>
+    </nz-calendar>
+  </nz-card>
 
 </div>
-<nz-calendar>
 
-  <!-- ✅ Eventos por día -->
-  <ul *nzDateCell="let date" class="events">
-    @for (event of getEventsForDate(date); track event.id) {
-    <li (click)="openEvent(event)" class="event-item">
-      <nz-badge [nzStatus]="getBadgeStatus(event.extendedProps.state)"
-        [nzText]="event.title + ' - ' + event.extendedProps.veterinarie.full_name">
-      </nz-badge>
-    </li>
-    }
-  </ul>
-
-  <!-- ✅ Opcional: Datos por mes -->
-  <ng-container *nzMonthCell="let month">
-    @if (getEventsForDate(month).length > 0) {
-    <div class="notes-month">
-      <section>{{ getEventsForDate(month).length }}</section>
-      <span>Citas</span>
-    </div>
-    }
-  </ng-container>
-</nz-calendar>
-
-<!-- ✅ DRAWER con el formulario/detalles -->
+<!-- Drawer con formulario -->
 <nz-drawer [nzClosable]="true" [nzVisible]="visible()" nzPlacement="right" [nzTitle]="'Editar Cita'" [nzWidth]="500"
   (nzOnClose)="close()">
 
   <ng-container *nzDrawerContent>
     @if (selectedEvent(); as event) {
-    <form nz-form [formGroup]="citaForm" (ngSubmit)="onSubmit()">
+    <form nz-form [formGroup]="citaForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
 
-      <!-- ✅ Información de la Mascota (Solo lectura) -->
+      <!-- Información de solo lectura -->
+      <nz-descriptions nzTitle="Información de la Cita" [nzColumn]="1" nzSize="small" nzBordered class="mb-4">
+        <nz-descriptions-item nzTitle="Veterinario">
+          {{ event.extendedProps.veterinarie.full_name }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Mascota">
+          {{ event.extendedProps.pet.name }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Hora de Atención">
+          {{ event.start | date:'HH:mm' }} - {{ event.end | date:'HH:mm' }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Día">
+          {{ event.extendedProps.day }}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle="Costo de la Cita">
+          S/. {{ event.extendedProps.amount }}
+        </nz-descriptions-item>
+      </nz-descriptions>
+
+      <nz-divider nzText="Campos Editables" nzOrientation="left"></nz-divider>
+
+      <!-- Estado (Editable) -->
       <nz-form-item>
-        <nz-form-label [nzSpan]="24">Veterinario</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <input nz-input [value]="event.extendedProps.veterinarie.full_name" [disabled]="true"
-            nzPlaceHolder="Veterinario">
-        </nz-form-control>
-      </nz-form-item>
-
-
-      <!-- ✅ Mascota (Formulario deshabilitado) -->
-      <nz-form-item>
-        <nz-form-label [nzSpan]="24">Mascota</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <input nz-input [value]="event.extendedProps.pet.name" [disabled]="true" nzPlaceHolder="Mascota">
-        </nz-form-control>
-      </nz-form-item>
-      <!-- ✅ Hora de Atención (Deshabilitado) -->
-      <nz-form-item>
-        <nz-form-label [nzSpan]="24">Hora de Atención</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <input nz-input [value]="(event.start | date:'HH:mm') + ' - ' + (event.end | date:'HH:mm')" [disabled]="true">
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-label [nzSpan]="24">Día</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <input nz-input [value]="event.extendedProps.day" [disabled]="true">
-        </nz-form-control>
-      </nz-form-item>
-
-
-      <!-- ✅ Costo de la Cita (Deshabilitado) -->
-      <nz-form-item>
-        <nz-form-label [nzSpan]="24">Costo de la Cita</nz-form-label>
-        <nz-form-control [nzSpan]="24">
-          <input nz-input [value]="'S/. ' + event.extendedProps.amount" [disabled]="true">
-        </nz-form-control>
-      </nz-form-item>
-
-      <!-- ✅ ESTADO (Editable) -->
-      <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzRequired>Estado</nz-form-label>
-        <nz-form-control [nzSpan]="24" nzErrorTip="Seleccione un estado">
+        <nz-form-label nzRequired>Estado</nz-form-label>
+        <nz-form-control nzErrorTip="Seleccione un estado">
           <nz-select formControlName="state" nzPlaceHolder="Seleccione estado">
             <nz-option nzValue="pendiente" nzLabel="Pendiente"></nz-option>
             <nz-option nzValue="atendido" nzLabel="Atendido"></nz-option>
@@ -90,38 +73,38 @@
         </nz-form-control>
       </nz-form-item>
 
-      <!-- ✅ COSTO (Editable) -->
+      <!-- Costo (Editable) -->
       <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzRequired>Costo (S/.)</nz-form-label>
-        <nz-form-control [nzSpan]="24" nzErrorTip="Ingrese el costo">
+        <nz-form-label nzRequired>Costo (S/.)</nz-form-label>
+        <nz-form-control nzErrorTip="Ingrese el costo">
           <nz-input-number formControlName="amount" [nzMin]="0" [nzStep]="10" [nzPrecision]="2" nzPlaceHolder="0.00"
             style="width: 100%">
           </nz-input-number>
         </nz-form-control>
       </nz-form-item>
 
-      <!-- ✅ RAZÓN (Editable) -->
+      <!-- Razón (Editable) -->
       <nz-form-item>
-        <nz-form-label [nzSpan]="24" nzRequired>Razón de la cita</nz-form-label>
-        <nz-form-control [nzSpan]="24" nzErrorTip="Ingrese la razón">
+        <nz-form-label nzRequired>Razón de la cita</nz-form-label>
+        <nz-form-control nzErrorTip="Ingrese la razón">
           <textarea nz-input formControlName="reason" nzPlaceHolder="Descripción de la cita"
             [nzAutosize]="{ minRows: 3, maxRows: 5 }">
             </textarea>
         </nz-form-control>
       </nz-form-item>
 
-      <!-- ✅ NOTAS MÉDICAS (Editable) -->
+      <!-- Notas Médicas (Editable) -->
       <nz-form-item>
-        <nz-form-label [nzSpan]="24">Notas Médicas</nz-form-label>
-        <nz-form-control [nzSpan]="24">
+        <nz-form-label>Notas Médicas</nz-form-label>
+        <nz-form-control>
           <textarea nz-input formControlName="notes" nzPlaceHolder="Notas adicionales del veterinario"
             [nzAutosize]="{ minRows: 3, maxRows: 5 }">
             </textarea>
         </nz-form-control>
       </nz-form-item>
 
-      <!-- ✅ Botones -->
-      <div class="form-actions">
+      <!-- Botones -->
+      <div class="flex justify-end gap-2 mt-4">
         <button nz-button nzType="default" (click)="close()" type="button">
           Cancelar
         </button>

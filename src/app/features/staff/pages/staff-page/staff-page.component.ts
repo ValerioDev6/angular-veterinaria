@@ -77,6 +77,7 @@ export default class StaffPageComponent {
       nzTitle: 'Crear Usuario',
       nzContent: CrearUsuarioComponent,
       nzFooter: null,
+      nzWidth: '800px',
     });
 
     modal.afterClose.subscribe((result) => {

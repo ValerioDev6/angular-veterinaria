@@ -1,44 +1,57 @@
-<div class="modal-content p-4">
-  <!-- Info del servicio -->
-  <div class="mb-4 p-3 bg-gray-100 rounded">
-    <h4 class="mb-2">{{ pago.pet.name }}</h4>
-    <p class="mb-1">
-      <strong>Tipo:</strong> {{ pago.tipo }}
-    </p>
-    <p class="mb-1">
-      <strong>Monto Total:</strong> S/ {{ pago.monto | number: '1.2-2' }}
-    </p>
-    <p class="mb-1">
-      <strong>Pagado:</strong> S/ {{ pago.adelanto | number: '1.2-2' }}
-    </p>
-    <p class="mb-0">
-      <strong>Deuda Pendiente:</strong>
-      <span class="text-red-600 font-bold">
-        S/ {{ deudaPendiente | number: '1.2-2' }}
-      </span>
-    </p>
-  </div>
+<div class="p-4">
+  <!-- Info del servicio con nz-card y nz-descriptions -->
+  <nz-card nzTitle="📋 Detalles del Servicio" class="mb-4" [nzBordered]="false" nzSize="small">
+    <nz-descriptions [nzColumn]="1" nzSize="small">
+      <nz-descriptions-item nzTitle="Mascota">
+        <span class="font-semibold">{{ pago.pet.name }}</span>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Tipo">
+        <nz-tag [nzColor]="pago.tipo === 'CITA' ? 'blue' : pago.tipo === 'VACUNA' ? 'green' : 'purple'">
+          {{ pago.tipo }}
+        </nz-tag>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Monto Total">
+        <span class="text-lg font-semibold">S/ {{ pago.monto | number: '1.2-2' }}</span>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Pagado">
+        <span class="text-green-600">S/ {{ pago.adelanto | number: '1.2-2' }}</span>
+      </nz-descriptions-item>
+      <nz-descriptions-item nzTitle="Deuda Pendiente">
+        <nz-statistic 
+          [nzValue]="deudaPendiente" 
+          nzPrefix="S/" 
+          [nzValueStyle]="{ color: '#ff4d4f' }">
+        </nz-statistic>
+      </nz-descriptions-item>
+    </nz-descriptions>
+  </nz-card>
 
   <!-- Formulario -->
-  <form nz-form>
+  <form nz-form nzLayout="vertical">
     <nz-form-item>
-      <nz-form-label [nzSpan]="24" nzRequired>Monto a Pagar</nz-form-label>
-      <nz-form-control [nzSpan]="24">
-        <nz-input-number [(ngModel)]="formData.monto" name="monto" [nzMin]="0" [nzMax]="deudaPendiente" [nzStep]="0.01"
-          nzPlaceHolder="Ingrese monto" style="width: 100%">
+      <nz-form-label nzRequired>Monto a Pagar</nz-form-label>
+      <nz-form-control>
+        <nz-input-number 
+          [(ngModel)]="formData.monto" 
+          name="monto" 
+          [nzMin]="0" 
+          [nzMax]="deudaPendiente" 
+          [nzStep]="0.01"
+          nzPlaceHolder="Ingrese monto" 
+          style="width: 100%">
         </nz-input-number>
       </nz-form-control>
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label [nzSpan]="24" nzRequired>Método de Pago</nz-form-label>
-      <nz-form-control [nzSpan]="24">
+      <nz-form-label nzRequired>Método de Pago</nz-form-label>
+      <nz-form-control>
         <nz-select [(ngModel)]="formData.metodo_pago" name="metodo_pago" style="width: 100%">
-          <nz-option nzValue="efectivo" nzLabel="Efectivo"></nz-option>
-          <nz-option nzValue="tarjeta" nzLabel="Tarjeta"></nz-option>
-          <nz-option nzValue="transferencia" nzLabel="Transferencia"></nz-option>
-          <nz-option nzValue="yape" nzLabel="Yape"></nz-option>
-          <nz-option nzValue="plin" nzLabel="Plin"></nz-option>
+          <nz-option nzValue="efectivo" nzLabel="💵 Efectivo"></nz-option>
+          <nz-option nzValue="tarjeta" nzLabel="💳 Tarjeta"></nz-option>
+          <nz-option nzValue="transferencia" nzLabel="🏦 Transferencia"></nz-option>
+          <nz-option nzValue="yape" nzLabel="📱 Yape"></nz-option>
+          <nz-option nzValue="plin" nzLabel="📱 Plin"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>

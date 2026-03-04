@@ -48,7 +48,7 @@ export class PacienteService {
     );
   }
 
-  updatePaciente( id: number,data: any,) {
+  updatePaciente(id: number, data: any) {
     this.loading$$.next(true);
     return this.http.patch(`${this.API_BASE}/pacientes/${id}`, data).pipe(
       tap(() => this.refresh$$.next()),
@@ -60,8 +60,7 @@ export class PacienteService {
     this.loading$$.next(true);
     return this.http
       .get<IPaciente>(`${this.API_BASE}/pacientes/${id}`)
-      .pipe(finalize(() => this.loading$$.next(false))
-    );
+      .pipe(finalize(() => this.loading$$.next(false)));
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

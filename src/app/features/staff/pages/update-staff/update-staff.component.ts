@@ -121,7 +121,6 @@ export default class UpdateStaffComponent implements OnInit {
     formData.append('username', this.username);
     formData.append('email', this.email);
 
-
     formData.append('phone', this.phone);
     formData.append('type_documento', this.type_documento);
     formData.append('n_documento', this.n_documento);

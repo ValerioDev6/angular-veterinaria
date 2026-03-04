@@ -1,30 +1,35 @@
-<div class="container">
-  <div class="header">
-    <h2>Agregar Vacuna Médica 💉</h2>
-  </div>
+<div class="p-6">
+  <!-- Header -->
+  <nz-card nzTitle="💉 Agregar Vacuna Médica 🔒" class="mb-4">
+    <p nz-typography nzType="secondary">Registre la aplicación de vacunas buscando un veterinario y completando los
+      datos del paciente.</p>
+  </nz-card>
 
   <form [formGroup]="vacunasForm" (ngSubmit)="saveVacunas()">
     <!-- Sección de búsqueda -->
-    <nz-card class="search-card" nzTitle="Búsqueda de Veterinarios 🔎" nzBordered>
+    <nz-card class="mb-4" [nzTitle]="searchTitle">
+      <ng-template #searchTitle>
+        <span nz-icon nzType="search" class="mr-2"></span>
+        Búsqueda de Veterinarios
+      </ng-template>
+
       <form [formGroup]="searchForm" nz-form nzLayout="vertical">
-        <!-- Fecha y hora en la misma línea -->
-        <nz-row nzGutter="16">
-          <nz-col nzSpan="12" nzXs="24">
+        <div nz-row [nzGutter]="24">
+          <div nz-col [nzXs]="24" [nzSm]="12">
             <nz-form-item>
-              <nz-form-label>Fecha de la cita <span class="required">*</span></nz-form-label>
+              <nz-form-label nzRequired>Fecha de la cita</nz-form-label>
               <nz-form-control [nzErrorTip]="'La fecha es requerida'">
-                <nz-date-picker nz-input class="full-width" formControlName="date_appointment"
-                  nzPlaceHolder="Selecciona una fecha">
+                <nz-date-picker class="w-full" formControlName="date_appointment" nzPlaceHolder="Selecciona una fecha">
                 </nz-date-picker>
               </nz-form-control>
             </nz-form-item>
-          </nz-col>
+          </div>
 
-          <nz-col nzSpan="12" nzXs="24">
+          <div nz-col [nzXs]="24" [nzSm]="12">
             <nz-form-item>
               <nz-form-label>Hora (opcional)</nz-form-label>
               <nz-form-control>
-                <nz-select nzPlaceHolder="Todas las horas" nzAllowClear formControlName="hour" class="full-width">
+                <nz-select nzPlaceHolder="Todas las horas" nzAllowClear formControlName="hour" class="w-full">
                   <nz-option nzValue="08" nzLabel="08:00 AM"></nz-option>
                   <nz-option nzValue="09" nzLabel="09:00 AM"></nz-option>
                   <nz-option nzValue="10" nzLabel="10:00 AM"></nz-option>
@@ -39,205 +44,208 @@
                 </nz-select>
               </nz-form-control>
             </nz-form-item>
-          </nz-col>
-        </nz-row>
+          </div>
+        </div>
 
-        <!-- Botones -->
-        <div class="button-group">
-          <button nz-button nzType="primary" class="search-button" type="button" (click)="searchVeterinarians()"
-            [nzLoading]="loading()">
-            <i nz-icon nzType="search"></i> Buscar
+        <div class="flex justify-end gap-2 mt-2">
+          <button nz-button nzType="primary" type="button" (click)="searchVeterinarians()" [nzLoading]="loading()">
+            <span nz-icon nzType="search"></span> Buscar
           </button>
-
-          <!-- <button nz-button nzType="default" class="reset-button" type="button" (click)="resetSearch()">
-            <i nz-icon nzType="reload"></i> Limpiar
-          </button> -->
         </div>
       </form>
     </nz-card>
 
-    <!-- Resultados de veterinarios -->
-
-    <nz-card *ngIf="veterinarians().length > 0" nzTitle="Disponibilidad:" [nzBordered]="false">
-
-      <!-- Header -->
-      <nz-row [nzGutter]="24">
-        <nz-col [nzSpan]="5">
-          <strong>VETERINARIO</strong>
-        </nz-col>
-        <nz-col [nzSpan]="5">
-          <strong>TIEMPOS ACTIVOS</strong>
-        </nz-col>
-        <nz-col [nzSpan]="14">
-          <strong>SEGMENTOS DE TIEMPOS</strong>
-        </nz-col>
-      </nz-row>
-
-      <nz-divider></nz-divider>
-
-      <!-- Veterinarians List -->
-      <div *ngFor="let vet of veterinarians()">
-        <nz-row [nzGutter]="24" [nzAlign]="'top'">
-
-          <!-- Columna 1: Nombre -->
-          <nz-col [nzSpan]="5">
-            <p>{{ vet.full_name }}</p>
-          </nz-col>
-
-          <!-- Columna 2: Tiempos activos -->
-          <nz-col [nzSpan]="5">
-            <div *ngFor="let group of vet.segment_time_groups">
-              <nz-badge [nzCount]="group.count_availability" [nzStyle]="{ backgroundColor: '#52c41a' }">
-                <nz-tag>{{ group.hour_format }}</nz-tag>
-              </nz-badge>
-              <br />
-            </div>
-          </nz-col>
-
-          <!-- Columna 3: Segmentos en horizontal -->
-          <nz-col [nzSpan]="14">
-            <nz-row [nzGutter]="[8, 8]">
-              <ng-container *ngFor="let group of vet.segment_time_groups">
-                <nz-col *ngFor="let segment of group.segment_times" [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6">
+    <!-- Resultados de disponibilidad -->
+    @if (veterinarians().length > 0) {
+    <nz-card nzTitle="👨‍⚕️ Disponibilidad de Veterinarios" class="mb-4" [nzBordered]="false">
+      <nz-table #vetTable [nzData]="veterinarians()" [nzShowPagination]="false" [nzFrontPagination]="false"
+        nzSize="middle" class="vet-disponibilidad-table">
+        <thead>
+          <tr>
+            <th nzWidth="25%">VETERINARIO</th>
+            <th nzWidth="20%">HORAS DISPONIBLES</th>
+            <th nzWidth="55%">HORARIOS DISPONIBLES</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (vet of vetTable.data; track vet.id) {
+          <tr class="vet-row">
+            <td>
+              <div class="flex items-center gap-3">
+                <nz-avatar [nzText]="vet.full_name.charAt(0)" nzSize="default" class="bg-blue-500 text-white"></nz-avatar>
+                <span class="font-medium">{{ vet.full_name }}</span>
+              </div>
+            </td>
+            <td>
+              <div class="flex flex-wrap gap-1">
+                @for (group of vet.segment_time_groups; track group.hour_format) {
+                <nz-badge [nzCount]="group.count_availability" [nzOverflowCount]="99"
+                  [nzStyle]="{ backgroundColor: group.count_availability > 0 ? '#52c41a' : '#d9d9d9' }">
+                  <nz-tag [nzColor]="group.count_availability > 0 ? 'success' : 'default'">
+                    {{ group.hour_format }}
+                  </nz-tag>
+                </nz-badge>
+                }
+              </div>
+            </td>
+            <td>
+              <div nz-row [nzGutter]="[8, 8]">
+                @for (group of vet.segment_time_groups; track group.hour_format) {
+                @for (segment of group.segment_times; track segment.veterinarie_schedule_hour_id) {
+                <div nz-col [nzXs]="12" [nzMd]="8" [nzLg]="6">
                   <label nz-checkbox [nzDisabled]="segment.check"
                     [ngModel]="isSegmentSelected(segment.veterinarie_schedule_hour_id)"
-                    [ngModelOptions]="{standalone: true}" (ngModelChange)="selectSegment(vet, segment, $event)">
-                    {{ segment.schedule_hour.hour_start_format }} - {{ segment.schedule_hour.hour_end_format }}
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="selectSegment(vet, segment, $event)">
+                    <span class="text-xs">{{ segment.schedule_hour.hour_start_format }} - {{
+                      segment.schedule_hour.hour_end_format }}</span>
                   </label>
-                </nz-col>
-              </ng-container>
-            </nz-row>
-          </nz-col>
+                </div>
+                }
+                }
+              </div>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </nz-table>
 
-        </nz-row>
-
-        <nz-divider></nz-divider>
-      </div>
+      <!-- Detalles de la Vacunación -->
+      <nz-divider nzText="Detalles de la Vacunación" nzOrientation="left"></nz-divider>
 
       <div nz-row [nzGutter]="24">
-        <div nz-col [nzSpan]="24">
+        <div nz-col [nzXs]="24" [nzMd]="12">
           <nz-form-item>
-            <nz-form-label>Razon</nz-form-label>
-            <nz-form-control>
-              <nz-textarea-count [nzMaxCharacterCount]="500">
-                <textarea formControlName="reason" name="reason" rows="3" nz-input
-                  placeholder="Ingrese notas médicas o información relevante aquí"></textarea>
-              </nz-textarea-count>
-
+            <nz-form-label nzRequired>Razón / Observación</nz-form-label>
+            <nz-form-control nzErrorTip="Requerido">
+              <textarea formControlName="reason" nz-input rows="2"
+                placeholder="Ej. Refuerzo de Parvovirus..."></textarea>
             </nz-form-control>
           </nz-form-item>
+        </div>
 
+        <div nz-col [nzXs]="24" [nzMd]="12">
           <nz-form-item>
-            <nz-form-label>Nombre Vacunas</nz-form-label>
-            <nz-form-control>
-              <nz-textarea-count [nzMaxCharacterCount]="500">
-                <textarea formControlName="vaccine_names" name="vaccine_names" rows="3" nz-input
-                  placeholder="Ingrese el nombre de las vacunas aqui!"></textarea>
-              </nz-textarea-count>
-
+            <nz-form-label nzRequired>Nombre de las Vacunas</nz-form-label>
+            <nz-form-control nzErrorTip="Requerido">
+              <textarea formControlName="vaccine_names" nz-input rows="2"
+                placeholder="Ej. Quíntuple, Rabia..."></textarea>
             </nz-form-control>
           </nz-form-item>
+        </div>
 
-          <!-- Campo Fecha Próxima Vacuna (ng-zorro date picker) -->
+        <div nz-col [nzXs]="24" [nzSm]="12">
           <nz-form-item>
-            <nz-form-label>Fecha Próxima Vacuna</nz-form-label>
-            <nz-form-control>
-              <nz-date-picker formControlName="next_due_date" nzPlaceHolder="Seleccione fecha"></nz-date-picker>
+            <nz-form-label nzRequired>Fecha Próxima Vacuna</nz-form-label>
+            <nz-form-control nzErrorTip="Requerido">
+              <nz-date-picker formControlName="next_due_date" nzPlaceHolder="Seleccione fecha"
+                class="w-full"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
+        </div>
 
-          <!-- Campo Outside (Dentro/Fuera veterinaria) -->
+        <div nz-col [nzXs]="24" [nzSm]="12">
           <nz-form-item>
-            <nz-form-label>Ubicación</nz-form-label>
+            <nz-form-label nzRequired>Ubicación</nz-form-label>
             <nz-form-control>
-              <nz-radio-group formControlName="outside">
-                <label nz-radio [nzValue]="false">Dentro de la veterinaria</label>
-                <label nz-radio [nzValue]="true">Fuera de la veterinaria</label>
+              <nz-radio-group formControlName="outside" nzButtonStyle="solid">
+                <label nz-radio-button [nzValue]="false">🏠 En Veterinaria</label>
+                <label nz-radio-button [nzValue]="true">📍 A Domicilio</label>
               </nz-radio-group>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-
     </nz-card>
-    <!-- Mensaje si no hay resultados -->
-    <nz-empty *ngIf="!loading() && veterinarians().length === 0" nzNotFoundContent="Busca veterinarios por fecha">
+    }
+
+    <!-- Empty State -->
+    <nz-empty *ngIf="!loading() && veterinarians().length === 0"
+      nzNotFoundContent="Busque veterinarios por fecha para comenzar" class="my-8">
     </nz-empty>
 
-    <!-- Sección paciente -->
-    <div class="form-grid">
-      <nz-card class="patient-card" nzTitle="Paciente 🐶" nzBordered>
-        <nz-form-item>
-          <nz-form-label>¿Quién es la mascota?</nz-form-label>
-          <nz-form-control [nzErrorTip]="'Debe seleccionar una mascota'">
-            <nz-select nzAllowClear nzPlaceHolder="¿Quién es la mascota?" formControlName="pet_id">
-              @for (pet of petResource(); track pet.id) {
-              <nz-option [nzValue]="pet.id" [nzLabel]="pet.name"></nz-option>
-              }
-            </nz-select>
-          </nz-form-control>
-        </nz-form-item>
+    <!-- Información de Paciente y Pago -->
+    <div nz-row [nzGutter]="24">
+      <!-- Paciente -->
+      <div nz-col [nzXs]="24" [nzLg]="12">
+        <nz-card nzTitle="Paciente 🐶" class="h-full">
+          <nz-form-item>
+            <nz-form-label nzRequired>Seleccionar Mascota</nz-form-label>
+            <nz-form-control nzErrorTip="Requerido">
+              <nz-select nzAllowClear nzPlaceHolder="Selecciona una mascota" formControlName="pet_id" class="w-full">
+                @for (pet of petResource(); track pet.id) {
+                <nz-option [nzValue]="pet.id" [nzLabel]="pet.name"></nz-option>
+                }
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
 
-        @if (selectedPet()) {
-        <div class="pet-details">
-          <div class="pet-image" *ngIf="selectedPet()!.photo">
-            <img [src]="selectedPet()!.photo" alt="Foto de mascota" />
+          @if (selectedPet()) {
+          <div class="mt-4 p-4 rounded-lg bg-gray-50 border flex gap-4 animate-fade-in">
+            <div class="flex-shrink-0">
+              <nz-avatar [nzSize]="80" [nzSrc]="selectedPet()!.photo" nzIcon="user"
+                class="border shadow-sm"></nz-avatar>
+            </div>
+            <div class="flex-grow text-sm">
+              <p class="mb-1"><strong>Especie:</strong> {{ selectedPet()?.spcice }}</p>
+              <p class="mb-1"><strong>Raza:</strong> {{ selectedPet()?.breed }}</p>
+              <p class="mb-1"><strong>Género:</strong> {{ selectedPet()?.gender }}</p>
+              <p class="mb-0 text-gray-500 text-xs">Peso: {{ selectedPet()?.weight }} kg</p>
+            </div>
           </div>
-          <div class="pet-info">
-            <p><strong>Especie:</strong> {{ selectedPet()?.spcice }}</p>
-            <p><strong>Raza:</strong> {{ selectedPet()?.breed }}</p>
-            <p><strong>Género:</strong> {{ selectedPet()?.gender }}</p>
-            <p><strong>Color:</strong> {{ selectedPet()?.color }}</p>
-            <p><strong>Peso:</strong> {{ selectedPet()?.weight }} kg</p>
+          }
+        </nz-card>
+      </div>
+
+      <!-- Pagos -->
+      <div nz-col [nzXs]="24" [nzLg]="12">
+        <nz-card nzTitle="Pago y Facturación 💲" class="h-full">
+          <div nz-row [nzGutter]="16">
+            <div nz-col [nzSpan]="24">
+              <nz-form-item>
+                <nz-form-label nzRequired>Método de pago</nz-form-label>
+                <nz-form-control>
+                  <nz-radio-group formControlName="metodo_pago" nzButtonStyle="solid">
+                    <label nz-radio-button nzValue="EFECTIVO">💵 EFECTIVO</label>
+                    <label nz-radio-button nzValue="TARJETA">💳 TARJETA</label>
+                  </nz-radio-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col [nzXs]="12">
+              <nz-form-item>
+                <nz-form-label nzRequired>Total</nz-form-label>
+                <nz-form-control nzErrorTip="Monto inválido">
+                  <nz-input-group nzPrefix="S/">
+                    <input nz-input type="number" formControlName="monto" placeholder="0.00" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
+
+            <div nz-col [nzXs]="12">
+              <nz-form-item>
+                <nz-form-label>Adelanto</nz-form-label>
+                <nz-form-control nzErrorTip="Adelanto inválido">
+                  <nz-input-group nzPrefix="S/">
+                    <input nz-input type="number" formControlName="adelanto" placeholder="0.00" />
+                  </nz-input-group>
+                </nz-form-control>
+              </nz-form-item>
+            </div>
           </div>
-        </div>
-        }
-      </nz-card>
-
-      <!-- Sección pagos -->
-      <nz-card class="payment-card" nzTitle="Pagos 💲" nzBordered>
-        <nz-row nzGutter="16">
-          <nz-col nzSpan="8" nzXs="24">
-            <nz-form-item>
-              <nz-form-label>Costo de la cita</nz-form-label>
-              <nz-form-control [nzErrorTip]="'El monto debe ser válido'">
-                <input nz-input type="number" placeholder="0" formControlName="monto" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-
-          <nz-col nzSpan="8" nzXs="24">
-            <nz-form-item>
-              <nz-form-label>Método de pago</nz-form-label>
-              <nz-form-control [nzErrorTip]="'Debe seleccionar un método'">
-                <nz-select class="full-width" formControlName="metodo_pago">
-                  <nz-option nzValue="EFECTIVO" nzLabel="EFECTIVO"></nz-option>
-                  <nz-option nzValue="TARJETA" nzLabel="TARJETA"></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-
-          <nz-col nzSpan="8" nzXs="24">
-            <nz-form-item>
-              <nz-form-label>Adelanto</nz-form-label>
-              <nz-form-control [nzErrorTip]="'El adelanto debe ser válido'">
-                <input nz-input type="number" placeholder="0" formControlName="adelanto" />
-              </nz-form-control>
-            </nz-form-item>
-          </nz-col>
-        </nz-row>
-      </nz-card>
+        </nz-card>
+      </div>
     </div>
 
-    <div class="form-actions">
-      <button [routerLink]="['/admin/vacunas/lista']" nz-button nzType="default" type="button"
-        class="flex items-center">
-        <i nz-icon nzType="close-circle" class="mr-2"></i>
-        <span>Cancelar</span>
+    <!-- Footer de acciones -->
+    <div class="flex justify-end gap-3 mt-6 pb-6">
+      <button nz-button nzType="default" type="button" [routerLink]="['/admin/vacunas/lista']">
+        <span nz-icon nzType="close-circle"></span> Cancelar
       </button>
-      <button nz-button nzType="primary" class="create-button" type="submit">
-        Crear
+      <button nz-button nzType="primary" type="submit" [nzLoading]="loading()">
+        <span nz-icon nzType="save"></span> Registrar Vacunación
       </button>
     </div>
   </form>

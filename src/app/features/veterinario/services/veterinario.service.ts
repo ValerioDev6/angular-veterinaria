@@ -60,7 +60,6 @@ export class VeterinarioService {
     );
   }
 
-
   createVeterinario(data: any) {
     this.loading$$.next(true);
     return this.http.post(`${this.API_BASE}/veterinario`, data).pipe(
@@ -69,11 +68,10 @@ export class VeterinarioService {
     );
   }
 
-  getVeterinarioById(id:string): Observable<IVeterinario> {
-    this.loading$$.next(true)
-    return this.http.get<IVeterinario>(`${this.API_BASE}/veterinario/${id}`)
-    .pipe(
-      finalize(() => this.loading$$.next(false))
-    )
+  getVeterinarioById(id: string): Observable<IVeterinario> {
+    this.loading$$.next(true);
+    return this.http
+      .get<IVeterinario>(`${this.API_BASE}/veterinario/${id}`)
+      .pipe(finalize(() => this.loading$$.next(false)));
   }
 }

@@ -1,10 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 
 // Transform HttpErrorResponse to a string
-export function setErrorMessage(
-  err: HttpErrorResponse,
-  dataName?: string,
-): string {
+export function setErrorMessage(err: HttpErrorResponse, dataName?: string): string {
   let errorMessage = '';
   const name = dataName ?? '';
   if (err) {
@@ -14,12 +11,9 @@ export function setErrorMessage(
     } else {
       // The backend returned an unsuccessful response code.
       const status = err.status;
-      if (status === 401)
-        errorMessage = `You are not authorized to access ${name} data.`;
-      if (status === 404)
-        errorMessage = `${name} data was not found. Please try again later.`;
-      if (status > 500 && status < 600)
-        errorMessage = `The server isn't currently working. Please try again later.`;
+      if (status === 401) errorMessage = `You are not authorized to access ${name} data.`;
+      if (status === 404) errorMessage = `${name} data was not found. Please try again later.`;
+      if (status > 500 && status < 600) errorMessage = `The server isn't currently working. Please try again later.`;
     }
   }
   return errorMessage;

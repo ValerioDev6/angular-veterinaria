@@ -13,7 +13,7 @@ export const CITAS_ROUTES: Routes = [
 
   {
     path: ':id',
-    loadComponent: () => import('./pages/update-cita-medica/update-cita-medica.component')
+    loadComponent: () => import('./pages/update-cita-medica/update-cita-medica.component'),
   },
   {
     path: '**',

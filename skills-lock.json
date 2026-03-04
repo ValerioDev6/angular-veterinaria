@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "skills": {
+    "angular-migration": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "34bd61d6efb70b3a62ec8c84a557239ee58445cb02c373112db6981c26e37e97"
+    },
+    "design-system-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "1da4c9b595db349b7ddee3622eea0acdf0318048384137f0ef41bcfc76b27679"
+    },
+    "kpi-dashboard-design": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "cfa794da381bc10350be1a846859788d984717179bd317e3e7273ba9b211e493"
+    },
+    "tailwind-design-system": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "d0e4d2ba5a99cdc6e264d3927d1d81e85e79f551c8e246fa0a86123217eaad94"
+    },
+    "typescript-advanced-types": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "a03a83996ae9d2f4dd6d4db08899d61761c7d5351bce4c695d20a21197742a36"
+    },
+    "visual-design-foundations": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "5c5e091d61e2f6e465b77650b99d36acfe779cb70f29e9a103b5ba443065a3a9"
+    }
+  }
+}

@@ -1,29 +1,29 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
+<div class="min-h-screen flex items-center justify-center p-4 bg-gray-50">
   <div class="w-full max-w-md">
-    <!-- Card -->
-    <div class="bg-white rounded-2xl shadow-xl p-8">
-      <!-- Logo y título -->
-      <div class="text-center mb-8">
-        <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
-          <span nz-icon nzType="user" nzTheme="outline" class="text-3xl text-blue-600"></span>
+    <nz-card [nzBordered]="true" class="rounded-2xl shadow-lg">
+
+      <div class="text-center mb-6">
+        <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center">
+          <img src="favicon.ico" alt="Logo angulr">
         </div>
-        <h1 class="text-2xl font-bold text-gray-900 mb-2">Bienvenido</h1>
-        <p class="text-gray-600">Inicia sesión en tu cuenta</p>
+        <h1 nz-typography nzType="secondary" class="!text-2xl !font-bold !text-gray-800 !mb-1">VETERINARIA</h1>
+        <p nz-typography nzType="secondary">Sistema de Gestión</p>
       </div>
 
-      <!-- Formulario -->
-      <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-        <!-- Email -->
+      <nz-divider></nz-divider>
+
+      <div class="mb-4">
+        <h2 nz-typography class="!text-lg !font-semibold !mb-1">Bienvenido</h2>
+        <p nz-typography nzType="secondary" class="!text-sm">Ingresa tus credenciales</p>
+      </div>
+
+      <form nz-form [formGroup]="loginForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="email">Correo electrónico</nz-form-label>
+          <nz-form-label nzFor="email">Correo electrónico</nz-form-label>
           <nz-form-control [nzErrorTip]="emailErrorTpl">
-            <nz-input-group nzSize="large" [nzPrefix]="emailPrefix">
-              <input nz-input type="email" id="email" formControlName="email" placeholder="tu@email.com"
-                (blur)="markFieldAsTouched('email')" />
+            <nz-input-group nzSize="large" nzPrefixIcon="mail">
+              <input nz-input formControlName="email" placeholder="Correo electrónico" id="email" />
             </nz-input-group>
-            <ng-template #emailPrefix>
-              <span nz-icon nzType="mail" nzTheme="outline"></span>
-            </ng-template>
             <ng-template #emailErrorTpl let-control>
               @if (control.hasError('required')) {
               <span>El correo es obligatorio</span>
@@ -34,21 +34,16 @@
           </nz-form-control>
         </nz-form-item>
 
-        <!-- Password -->
         <nz-form-item>
-          <nz-form-label nzRequired nzFor="password">Contraseña</nz-form-label>
+          <nz-form-label nzFor="password">Contraseña</nz-form-label>
           <nz-form-control [nzErrorTip]="passwordErrorTpl">
-            <nz-input-group nzSize="large" [nzPrefix]="passwordPrefix" [nzSuffix]="passwordSuffix">
-              <input nz-input [type]="passwordVisible() ? 'text' : 'password'" id="password" formControlName="password"
-                placeholder="••••••••" (blur)="markFieldAsTouched('password')" />
+            <nz-input-group nzSize="large" nzPrefixIcon="lock" [nzSuffix]="suffixTemplate">
+              <input nz-input [type]="passwordVisible() ? 'text' : 'password'" formControlName="password"
+                placeholder="Contraseña" id="password" />
             </nz-input-group>
-            <ng-template #passwordPrefix>
-              <span nz-icon nzType="lock" nzTheme="outline"></span>
-            </ng-template>
-            <ng-template #passwordSuffix>
-              <span nz-icon [nzType]="passwordVisible() ? 'eye-invisible' : 'eye'" nzTheme="outline"
-                class="cursor-pointer hover:text-blue-600 transition-colors" (click)="togglePasswordVisibility()">
-              </span>
+            <ng-template #suffixTemplate>
+              <span nz-icon [nzType]="passwordVisible() ? 'eye-invisible' : 'eye'" class="cursor-pointer"
+                (click)="togglePasswordVisibility()"></span>
             </ng-template>
             <ng-template #passwordErrorTpl let-control>
               @if (control.hasError('required')) {
@@ -60,38 +55,23 @@
           </nz-form-control>
         </nz-form-item>
 
-        <!-- Remember & Forgot -->
-        <div class="flex items-center justify-between mb-6">
-          <label nz-checkbox formControlName="remember">
-            <span class="text-sm text-gray-600">Recordarme</span>
-          </label>
-          <a href="#" class="text-sm text-blue-600 hover:text-blue-700 font-medium transition-colors">
-            ¿Olvidaste tu contraseña?
-          </a>
+        <div class="flex items-center justify-between mb-4">
+          <label nz-checkbox formControlName="remember">Recuérdame</label>
+          <a nz-typography class="!text-sm">¿Olvidaste tu contraseña?</a>
         </div>
 
-        <!-- Botón de submit -->
-        <nz-form-item class="mb-0">
-          <button nz-button nzType="primary" nzSize="large" nzBlock [nzLoading]="isLoading()"
-            [disabled]="loginForm.invalid || isLoading()" type="submit">
-            @if (isLoading()) {
-            <span>Iniciando sesión...</span>
-            } @else {
-            <span>Iniciar sesión</span>
-            }
-          </button>
-        </nz-form-item>
+        <button nz-button nzType="primary" nzSize="large" nzBlock [nzLoading]="isLoading()"
+          [disabled]="loginForm.invalid || isLoading()" type="submit">
+          {{ isLoading() ? 'Iniciando sesión...' : 'Iniciar sesión' }}
+        </button>
       </form>
-    </div>
 
-    <!-- Footer -->
-    <div class="text-center mt-6">
-      <p class="text-sm text-gray-600">
-        ¿No tienes una cuenta?
-        <a href="#" class="text-blue-600 hover:text-blue-700 font-medium transition-colors">
-          Regístrate
-        </a>
-      </p>
-    </div>
+      <nz-divider></nz-divider>
+
+      <div class="text-center">
+        <span nz-typography nzType="secondary" class="!text-sm">¿No tienes cuenta? </span>
+        <a nz-typography class="!text-sm !font-semibold">Regístrate</a>
+      </div>
+    </nz-card>
   </div>
 </div>

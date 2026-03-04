@@ -1,53 +1,51 @@
-<div class="page-container p-6 bg-gray-50 min-h-screen">
+<div class="p-6">
 
   <!-- Card de Búsqueda -->
-  <nz-card class="shadow-lg rounded-2xl border-0 overflow-hidden mb-6">
-    <div class="flex items-center gap-4 mb-5">
-
-      <h2 class="text-xl font-bold text-gray-900 m-0">🔍︎ Búsqueda de Historial Médico</h2>
-    </div>
-
-    <div nz-row [nzGutter]="[16, 16]" class="items-end">
+  <nz-card nzTitle="Búsqueda de Historial Médico" [nzExtra]="searchExtraRef" class="mb-6">
+    <div nz-row [nzGutter]="[16, 16]" nzAlign="bottom">
       <!-- Búsqueda por nombre de mascota -->
-      <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="14" [nzLg]="16">
-        <label class="block text-sm font-semibold text-gray-700 mb-2">
-          <span nz-icon nzType="search" nzTheme="outline" class="mr-1"></span>
-          ¿Quién es la mascota?
-        </label>
-        <nz-input-group nzSize="large" [nzPrefix]="prefixIcon">
-          <input nz-input placeholder="Buscar por nombre de mascota..." [ngModel]="petNameFilter()"
-            (ngModelChange)="petNameFilter.set($event)" (keyup.enter)="onSearch()" />
-        </nz-input-group>
-        <ng-template #prefixIcon>
-          <span nz-icon nzType="search" nzTheme="outline"></span>
-        </ng-template>
+      <div nz-col [nzXs]="24" [nzMd]="16">
+        <nz-form-item class="!mb-0">
+          <nz-form-label>Nombre de la mascota</nz-form-label>
+          <nz-form-control>
+            <nz-input-group nzSize="large" [nzPrefix]="prefixIcon">
+              <input nz-input placeholder="Buscar por nombre de mascota..." [ngModel]="petNameFilter()"
+                (ngModelChange)="petNameFilter.set($event)" (keyup.enter)="onSearch()" />
+            </nz-input-group>
+            <ng-template #prefixIcon>
+              <span nz-icon nzType="search" nzTheme="outline"></span>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
       </div>
 
       <!-- Botones de acción -->
-      <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="10" [nzLg]="8">
-        <div class="flex gap-2 w-full">
-          <button nz-button nzType="primary" nzSize="large" (click)="onSearch()" [nzLoading]="isLoading()"
-            class="flex-1">
+      <div nz-col [nzXs]="24" [nzMd]="8">
+        <nz-space>
+          <button *nzSpaceItem nz-button nzType="primary" nzSize="large" (click)="onSearch()" [nzLoading]="isLoading()">
             <span nz-icon nzType="search"></span>
             Buscar
           </button>
-          <button nz-button nzSize="large" (click)="clearFilters()" [disabled]="isLoading()" class="flex-1">
+          <button *nzSpaceItem nz-button nzSize="large" (click)="clearFilters()" [disabled]="isLoading()">
             <span nz-icon nzType="reload"></span>
             Limpiar
           </button>
-        </div>
+        </nz-space>
       </div>
     </div>
   </nz-card>
 
+  <ng-template #searchExtraRef>
+    <nz-tag nzColor="processing" *ngIf="total() > 0">{{ total() }} registros</nz-tag>
+  </ng-template>
+
   <!-- Filtro por tipo de servicio -->
-  <nz-card class="shadow-xl rounded-2xl border-0 overflow-hidden mb-6">
-    <label class="block text-sm font-semibold text-gray-700 mb-3">Filtrar por Tipo de Servicio</label>
-    <nz-radio-group [ngModel]="serviceTypeFilter()" (ngModelChange)="onServiceTypeChange($event)">
-      <label nz-radio nzValue="TODOS">Todos</label>
-      <label nz-radio nzValue="CITA">📅 Citas</label>
-      <label nz-radio nzValue="VACUNA">💉 Vacunas</label>
-      <label nz-radio nzValue="CIRUGÍA">✂️ Cirugías</label>
+  <nz-card nzTitle="Filtrar por Tipo de Servicio" class="mb-6">
+    <nz-radio-group [ngModel]="serviceTypeFilter()" (ngModelChange)="onServiceTypeChange($event)" nzButtonStyle="solid">
+      <label nz-radio-button nzValue="TODOS">Todos</label>
+      <label nz-radio-button nzValue="CITA">📅 Citas</label>
+      <label nz-radio-button nzValue="VACUNA">💉 Vacunas</label>
+      <label nz-radio-button nzValue="CIRUGÍA">✂️ Cirugías</label>
     </nz-radio-group>
   </nz-card>
 
@@ -55,34 +53,29 @@
   <nz-spin [nzSpinning]="isLoading()" nzSize="large">
 
     <!-- Sin resultados -->
-    <div *ngIf="!isLoading() && filteredRecords().length === 0" class="text-center py-16">
-      <span nz-icon nzType="file-search" nzTheme="outline" class="text-6xl text-gray-300 mb-4"></span>
-      <p class="text-gray-500 text-lg">No hay registros médicos disponibles</p>
-    </div>
+    <nz-empty *ngIf="!isLoading() && filteredRecords().length === 0"
+      nzNotFoundContent="No hay registros médicos disponibles">
+    </nz-empty>
 
     <!-- Grid de Cards -->
     <div *ngIf="filteredRecords().length > 0" nz-row [nzGutter]="[16, 16]">
-      <div nz-col [nzXs]="24" [nzSm]="24" [nzMd]="12" [nzLg]="12" [nzXl]="8" *ngFor="let record of filteredRecords()">
+      <div nz-col [nzXs]="24" [nzMd]="12" [nzXl]="8" *ngFor="let record of filteredRecords()">
 
-        <nz-card
-          class="medical-card shadow-lg rounded-2xl border-0 hover:shadow-2xl transition-all duration-300 h-full">
+        <nz-card [nzBordered]="true" class="h-full">
 
           <!-- Header de la Card -->
-          <div class="flex items-start justify-between mb-4 pb-4 border-b">
+          <div class="flex items-start justify-between mb-3 pb-3 border-b border-gray-100">
             <div class="flex items-center gap-3">
-              <div class="w-12 h-12 rounded-xl flex items-center justify-center"
+              <nz-avatar [nzSize]="48" [nzSrc]="record.pet.photo" nzIcon="user"
                 [ngStyle]="{'background-color': getServiceColorBg(record.event_type)}">
-                <span nz-icon [nzType]="getServiceIcon(record.event_type)" nzTheme="fill" class="text-2xl"
-                  [ngStyle]="{'color': getServiceColor(record.event_type)}"></span>
-                <img [src]="record.pet.photo" alt="Foto de mascota" />
-
-              </div>
+              </nz-avatar>
               <div>
                 <nz-tag [nzColor]="getServiceColor(record.event_type)" class="mb-1">
+                  <span nz-icon [nzType]="getServiceIcon(record.event_type)"></span>
                   {{ record.event_type }}
                 </nz-tag>
                 <p class="text-xs text-gray-500 mb-0">
-                  <span nz-icon nzType="calendar" nzTheme="outline"></span>
+                  <span nz-icon nzType="calendar" nzTheme="outline" class="mr-1"></span>
                   {{ formatDateDisplay(record.event_date) }}
                 </p>
               </div>
@@ -90,101 +83,74 @@
           </div>
 
           <!-- Información de la Mascota -->
-          <div class="mb-4 pb-4 border-b">
-            <div class="flex items-center gap-2 mb-2">
-              <span nz-icon nzType="heart" nzTheme="fill" class="text-pink-500"></span>
-              <strong class="text-gray-800">Mascota</strong>
-            </div>
-            <div class="ml-6">
-              <p class="mb-1 text-base font-semibold text-gray-900">{{ record.pet.name }}</p>
-              <p class="text-sm text-gray-600 mb-0">
-                {{ record.pet.species }} · {{ record.pet.breed }}
-              </p>
-              <p class="text-xs text-gray-500 mb-0">
-                Edad: {{ calculateAge(record.pet.birth_date) }} · {{ record.pet.gender }}
-              </p>
-            </div>
-          </div>
+          <nz-descriptions nzTitle="Mascota" [nzColumn]="1" nzSize="small" nzBordered class="mb-3">
+            <nz-descriptions-item nzTitle="Nombre">
+              <strong>{{ record.pet.name }}</strong>
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Especie / Raza">
+              {{ record.pet.species }} · {{ record.pet.breed }}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Edad / Género">
+              {{ calculateAge(record.pet.birth_date) }} · {{ record.pet.gender }}
+            </nz-descriptions-item>
+          </nz-descriptions>
 
           <!-- Veterinario -->
-          <div class="mb-4 pb-4 border-b">
-            <div class="flex items-center gap-2 mb-2">
-              <span nz-icon nzType="user" nzTheme="outline" class="text-blue-600"></span>
-              <strong class="text-gray-800">Veterinario</strong>
-            </div>
-            <div class="ml-6">
-              <p class="mb-1 text-sm font-medium text-gray-900">{{ record.service_veterinarian.username }}</p>
-              <p class="text-xs text-gray-500 mb-0">{{ record.service_veterinarian.email }}</p>
-            </div>
-          </div>
+          <nz-descriptions nzTitle="Veterinario" [nzColumn]="1" nzSize="small" nzBordered class="mb-3">
+            <nz-descriptions-item nzTitle="Nombre">
+              {{ record.service_veterinarian.username }}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Email">
+              {{ record.service_veterinarian.email }}
+            </nz-descriptions-item>
+          </nz-descriptions>
 
           <!-- Detalles del Servicio -->
-          <div class="mb-4 pb-4 border-b">
-            <div class="flex items-center gap-2 mb-2">
-              <span nz-icon nzType="file-text" nzTheme="outline" class="text-indigo-600"></span>
-              <strong class="text-gray-800">Detalles</strong>
-            </div>
-            <div class="ml-6">
-              <!-- CITA -->
-              <div *ngIf="record.event_type === 'CITA' && record.service">
-                <p class="text-xs text-gray-500 mb-1">Motivo de consulta:</p>
-                <p class="text-sm text-gray-700 mb-0">{{ record.service.reason }}</p>
-              </div>
+          <nz-descriptions nzTitle="Detalles del Servicio" [nzColumn]="1" nzSize="small" nzBordered class="mb-3">
+            <!-- CITA -->
+            <nz-descriptions-item nzTitle="Motivo" *ngIf="record.event_type === 'CITA' && record.service">
+              {{ record.service.reason }}
+            </nz-descriptions-item>
 
-              <!-- VACUNA -->
-              <div *ngIf="record.event_type === 'VACUNA' && record.service">
-                <p class="text-xs text-gray-500 mb-1">Vacunas aplicadas:</p>
-                <p class="text-sm text-gray-700 mb-0">{{ record.service.vaccine_names }}</p>
-              </div>
+            <!-- VACUNA -->
+            <nz-descriptions-item nzTitle="Vacunas" *ngIf="record.event_type === 'VACUNA' && record.service">
+              {{ record.service.vaccine_names }}
+            </nz-descriptions-item>
 
-              <!-- CIRUGÍA -->
-              <div *ngIf="record.event_type === 'CIRUGÍA' && record.service">
-                <p class="text-xs text-gray-500 mb-1">Tipo de cirugía:</p>
-                <p class="text-sm text-gray-700 mb-1">{{ record.service.surgerie_type }}</p>
-                <p class="text-xs text-gray-500 mb-1">Resultado:</p>
-                <p class="text-sm text-gray-700 mb-0">{{ record.service.outcome }}</p>
-              </div>
+            <!-- CIRUGÍA -->
+            <nz-descriptions-item nzTitle="Tipo" *ngIf="record.event_type === 'CIRUGÍA' && record.service">
+              {{ record.service.surgerie_type }}
+            </nz-descriptions-item>
+            <nz-descriptions-item nzTitle="Resultado" *ngIf="record.event_type === 'CIRUGÍA' && record.service">
+              {{ record.service.outcome }}
+            </nz-descriptions-item>
 
-              <!-- Notas adicionales -->
-              <div *ngIf="record.notes" class="mt-2 pt-2 border-t">
-                <p class="text-xs text-gray-500 mb-1">Notas:</p>
-                <p class="text-sm text-gray-600 italic mb-0">{{ record.notes }}</p>
-              </div>
-            </div>
-          </div>
+            <!-- Notas -->
+            <nz-descriptions-item nzTitle="Notas" *ngIf="record.notes">
+              <i>{{ record.notes }}</i>
+            </nz-descriptions-item>
+          </nz-descriptions>
 
           <!-- Footer: Información de Pago -->
           <div *ngIf="record.service">
-            <div class="grid grid-cols-2 gap-3 mb-3">
-              <div class="bg-green-50 rounded-lg p-3">
-                <p class="text-xs text-gray-600 mb-1">Monto Total</p>
-                <p class="text-lg font-bold text-green-600 mb-0">
-                  S/ {{ record.service.monto | number: '1.2-2' }}
-                </p>
-              </div>
-              <div class="bg-blue-50 rounded-lg p-3">
-                <p class="text-xs text-gray-600 mb-1">Adelanto</p>
-                <p class="text-lg font-bold text-blue-600 mb-0">
-                  S/ {{ record.service.adelanto | number: '1.2-2' }}
-                </p>
-              </div>
-            </div>
-
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-xs text-gray-500 mb-1">Estado de Pago</p>
+            <nz-divider nzText="Información de Pago" nzOrientation="left" class="!my-3"></nz-divider>
+            <nz-descriptions [nzColumn]="2" nzSize="small" nzBordered>
+              <nz-descriptions-item nzTitle="Monto Total">
+                <span class="font-bold text-green-600">S/ {{ record.service.monto | number: '1.2-2' }}</span>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Adelanto">
+                <span class="font-bold text-blue-600">S/ {{ record.service.adelanto | number: '1.2-2' }}</span>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Estado">
                 <nz-tag [nzColor]="getPaymentStatusColor(record.service.state_payment)">
                   {{ record.service.state_payment | uppercase }}
                 </nz-tag>
-              </div>
-              <div class="text-right">
-                <p class="text-xs text-gray-500 mb-1">Método de Pago</p>
-                <p class="text-sm font-medium text-gray-700 mb-0">
-                  <span nz-icon nzType="credit-card" nzTheme="outline"></span>
-                  {{ record.service.metodo_pago }}
-                </p>
-              </div>
-            </div>
+              </nz-descriptions-item>
+              <nz-descriptions-item nzTitle="Método">
+                <span nz-icon nzType="credit-card" nzTheme="outline" class="mr-1"></span>
+                {{ record.service.metodo_pago }}
+              </nz-descriptions-item>
+            </nz-descriptions>
           </div>
 
         </nz-card>

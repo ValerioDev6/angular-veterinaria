@@ -27,7 +27,7 @@ export class StaffService {
   }));
 
   private staffResource = httpResource<IStaffResponse>(() => ({
-    url: `${this.API_BASE}/staff`,
+    url: `${this.API_BASE}/users`,
     params: this.params(),
     method: 'GET',
   }));
@@ -43,14 +43,14 @@ export class StaffService {
 
   private roleResource = rxResource({
     loader: () => {
-      return this.http.get<IRolCombo[]>(`${this.API_BASE}/staff/combo`);
+      return this.http.get<IRolCombo[]>(`${this.API_BASE}/users/combo`);
     },
   });
   rolCombo = computed(() => this.roleResource.value() ?? ([] as IRolCombo[]));
 
   getStaffById(id: string): Observable<IStaff> {
     this.loading$$.next(true);
-    return this.http.get<IStaff>(`${this.API_BASE}/staff/${id}`).pipe(
+    return this.http.get<IStaff>(`${this.API_BASE}/users/${id}`).pipe(
       catchError((err) => this.handleError(err)),
       finalize(() => this.loading$$.next(false)),
     );
@@ -58,17 +58,16 @@ export class StaffService {
 
   deleteStaffById(id: string): Observable<void> {
     this.loading$$.next(true);
-    return this.http.delete<void>(`${this.API_BASE}/staff/${id}`).pipe(
+    return this.http.delete<void>(`${this.API_BASE}/users/${id}`).pipe(
       tap(() => this.refresh$$.next()),
       catchError((error) => this.handleError(error)),
       finalize(() => this.loading$$.next(false)),
     );
   }
 
-
   updatedStaff(id: string, data: any): Observable<IStaff> {
     this.loading$$.next(true);
-    return this.http.patch<IStaff>(`${this.API_BASE}/staff/${id}`, data).pipe(
+    return this.http.patch<IStaff>(`${this.API_BASE}/users/${id}`, data).pipe(
       tap(() => this.refresh$$.next()),
       catchError((err) => this.handleError(err)),
       finalize(() => this.loading$$.next(false)),
@@ -76,7 +75,7 @@ export class StaffService {
   }
   addStaff(data: any): Observable<IStaff> {
     this.loading$$.next(true);
-    return this.http.post<IStaff>(`${this.API_BASE}/staff`, data).pipe(
+    return this.http.post<IStaff>(`${this.API_BASE}/users`, data).pipe(
       tap(() => this.refresh$$.next()),
       // catchError((err) => this.handleError(err)),
       finalize(() => this.loading$$.next(false)),

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -15,7 +15,7 @@ import { CitasMedicasService } from '../../services/citas.service';
   selector: 'app-update-cita-medica',
   imports: [SharedZorroModule, CommonModule, FormsModule, ReactiveFormsModule, NzCheckboxModule, RouterLink],
   templateUrl: './update-cita-medica.component.html',
-  styleUrls: ['./update-cita-medica.component.scss'],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export default class UpdateCitaMedicaComponent implements OnInit {
   private readonly citasService = inject(CitasMedicasService);
@@ -225,7 +225,9 @@ export default class UpdateCitaMedicaComponent implements OnInit {
       monto: this.citaForm.value.monto,
       adelanto: this.citaForm.value.adelanto || 0,
       metodo_pago: this.citaForm.value.metodo_pago,
-      selected_segment_times: this.selectedSegmentIds().map((id) => ({ segment_time_id: id })),
+      selected_segment_times: this.selectedSegmentIds().map((id) => ({
+        segment_time_id: id,
+      })),
     };
 
     console.log('📤 Payload a enviar:', payload); // Para debug

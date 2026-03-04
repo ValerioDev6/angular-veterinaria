@@ -1,221 +1,241 @@
-<!-- create-paciente.component.html utilizando ng-zorro -->
-<div nz-row [nzGutter]="24" class="mx-auto p-0 md:p-4">
-  <div nz-col [nzSpan]="24">
-    <nz-card>
-      <nz-page-header nzTitle="🙋🏻‍♂️ Actulizar datos de  la mascota"></nz-page-header>
+<div class="p-6">
 
-      <form nz-form (ngSubmit)="onUpdate()">
-        <!-- Sección del propietario -->
-        <nz-divider nzOrientation="left" nzText="Información del Propietario"></nz-divider>
+  <!-- Header -->
+  <nz-card nzTitle="🐾 Actualizar Mascota" class="mb-4">
+    <p nz-typography nzType="secondary">Actualización de datos de la mascota</p>
+  </nz-card>
 
-        <div nz-row [nzGutter]="24">
-          <!-- Nombre y Apellido -->
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Nombre</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese el nombre del propietario">
+  <!-- Formulario -->
+  <nz-card>
+    <form nz-form nzLayout="vertical" (ngSubmit)="onUpdate()">
+
+      <!-- Sección del propietario -->
+      <nz-divider nzOrientation="left" nzText="Información del Propietario"></nz-divider>
+
+      <div nz-row [nzGutter]="[24, 0]">
+        <!-- Nombre -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Nombre</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese el nombre del propietario">
+              <nz-input-group nzPrefixIcon="user">
                 <input nz-input [(ngModel)]="first_name" name="first_name" placeholder="Nombre del propietario" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Apellido</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese el apellido del propietario">
+        <!-- Apellido -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Apellido</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese el apellido del propietario">
+              <nz-input-group nzPrefixIcon="user">
                 <input nz-input [(ngModel)]="last_name" name="last_name" placeholder="Apellido del propietario" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-          <!-- Tipo y Número de Documento -->
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Tipo de Documento</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor seleccione el tipo de documento">
-                <nz-select [(ngModel)]="type_documento" name="type_documento" nzPlaceHolder="Seleccione tipo">
-                  <nz-option nzValue="DNI" nzLabel="DNI"></nz-option>
-                  <nz-option nzValue="Pasaporte" nzLabel="Pasaporte"></nz-option>
-                  <nz-option nzValue="Carnet de Extranjería" nzLabel="Carnet de Extranjería"></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+        <!-- Tipo de Documento -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Tipo de Documento</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor seleccione el tipo de documento">
+              <nz-select [(ngModel)]="type_documento" name="type_documento" nzPlaceHolder="Seleccione tipo">
+                <nz-option nzValue="DNI" nzLabel="DNI"></nz-option>
+                <nz-option nzValue="Pasaporte" nzLabel="Pasaporte"></nz-option>
+                <nz-option nzValue="Carnet de Extranjería" nzLabel="Carnet de Extranjería"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Número de Documento</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese el número de documento">
+        <!-- Número de Documento -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Número de Documento</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese el número de documento">
+              <nz-input-group nzPrefixIcon="idcard">
                 <input nz-input [(ngModel)]="n_documento" name="n_documento" placeholder="Número de documento" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-          <!-- Email y Teléfono -->
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Correo Electrónico</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese un correo electrónico válido">
+        <!-- Email -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Correo Electrónico</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese un correo electrónico válido">
+              <nz-input-group nzPrefixIcon="mail">
                 <input nz-input [(ngModel)]="email" name="email" placeholder="correo@ejemplo.com" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Teléfono</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono válido">
+        <!-- Teléfono -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Teléfono</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono válido">
+              <nz-input-group nzPrefixIcon="phone">
                 <input nz-input [(ngModel)]="phone" name="phone" placeholder="Número de teléfono" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-          <!-- Dirección y Ciudad -->
-          <div nz-col [nzXs]="24" [nzSm]="16" [nzMd]="16">
-            <nz-form-item>
-              <nz-form-label>Dirección</nz-form-label>
-              <nz-form-control>
+        <!-- Dirección -->
+        <div nz-col [nzXs]="24" [nzSm]="16" [nzMd]="16">
+          <nz-form-item>
+            <nz-form-label>Dirección</nz-form-label>
+            <nz-form-control>
+              <nz-input-group nzPrefixIcon="home">
                 <input nz-input [(ngModel)]="address" name="address" placeholder="Dirección" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
 
-          <div nz-col [nzXs]="24" [nzSm]="8" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label>Ciudad</nz-form-label>
-              <nz-form-control>
+        <!-- Ciudad -->
+        <div nz-col [nzXs]="24" [nzSm]="8" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label>Ciudad</nz-form-label>
+            <nz-form-control>
+              <nz-input-group nzPrefixIcon="shop">
                 <input nz-input [(ngModel)]="city" name="city" placeholder="Ciudad" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <!-- Sección del paciente (mascota) -->
+      <nz-divider nzOrientation="left" nzText="🐶 Información del Paciente"></nz-divider>
+
+      <!-- Foto del paciente -->
+      <div class="flex flex-col items-center mb-6 gap-3">
+        <nz-avatar [nzSize]="128" [nzSrc]="imagen_previsualiza" nzIcon="user" nzShape="circle"></nz-avatar>
+        <div class="flex flex-col items-center">
+          <button nz-button nzType="default" type="button" (click)="fileInput.click()">
+            <span nz-icon nzType="camera"></span>
+            Cambiar Foto
+          </button>
+          <input type="file" #fileInput hidden (change)="processFile($event)" accept="image/*">
+          <span nz-typography nzType="secondary" class="mt-1">Tamaño recomendado: 200x200</span>
+        </div>
+      </div>
+
+      <div nz-row [nzGutter]="[24, 0]">
+        <!-- Nombre del paciente -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Nombre</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese el nombre del paciente">
+              <input nz-input [(ngModel)]="name" name="name" placeholder="Nombre del paciente" />
+            </nz-form-control>
+          </nz-form-item>
         </div>
 
-        <!-- Sección del paciente (mascota) -->
-        <nz-divider nzOrientation="left" nzText="🐶 Información del Paciente"></nz-divider>
-
-        <!-- Foto del paciente - centrada -->
-        <div nz-row [nzJustify]="'center'" class="mb-6">
-          <div nz-col [nzSpan]="24" style="text-align: center;">
-            <nz-avatar [nzSize]="128" [nzSrc]="imagen_previsualiza" nzIcon="user"></nz-avatar>
-            <div class="mt-2">
-              <button nz-button nzType="primary" nzShape="circle" (click)="fileInput.click()">
-                <i nz-icon nzType="camera" nzTheme="outline"></i>
-              </button>
-              <input #fileInput type="file" accept="image/*" style="display: none" (change)="processFile($event)" />
-              <div class="mt-2">
-                <span class="text-sm text-gray-500">Haga clic en el ícono para cargar foto</span>
-              </div>
-            </div>
-          </div>
+        <!-- Especie -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Especie</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor seleccione la especie">
+              <nz-select [(ngModel)]="species" name="species" nzPlaceHolder="Seleccione especie">
+                <nz-option nzValue="Perro" nzLabel="🐕 Perro"></nz-option>
+                <nz-option nzValue="Gato" nzLabel="🐱 Gato"></nz-option>
+                <nz-option nzValue="Ave" nzLabel="🦜 Ave"></nz-option>
+                <nz-option nzValue="Conejo" nzLabel="🐰 Conejo"></nz-option>
+                <nz-option nzValue="Otro" nzLabel="✨ Otro"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
         </div>
 
-        <div nz-row [nzGutter]="24">
-          <!-- Nombre y Especie -->
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Nombre</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese el nombre del paciente">
-                <input nz-input [(ngModel)]="name" name="name" placeholder="Nombre del paciente" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Especie</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor seleccione la especie">
-                <nz-select [(ngModel)]="species" name="species" nzPlaceHolder="Seleccione especie">
-                  <nz-option nzValue="Perro" nzLabel="Perro"></nz-option>
-                  <nz-option nzValue="Gato" nzLabel="Gato"></nz-option>
-                  <nz-option nzValue="Ave" nzLabel="Ave"></nz-option>
-                  <nz-option nzValue="Conejo" nzLabel="Conejo"></nz-option>
-                  <nz-option nzValue="Otro" nzLabel="Otro"></nz-option>
-                </nz-select>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-
-          <!-- Raza y Color -->
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Raza</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese la raza">
-                <input nz-input [(ngModel)]="breed" name="breed" placeholder="Raza" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label>Color</nz-form-label>
-              <nz-form-control>
-                <input nz-input [(ngModel)]="color" name="color" placeholder="Color" />
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-
-          <!-- Género y Peso -->
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Género</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor seleccione el género">
-                <nz-radio-group [(ngModel)]="gender" name="gender">
-                  <label nz-radio nzValue="Macho">Macho</label>
-                  <label nz-radio nzValue="Hembra">Hembra</label>
-                </nz-radio-group>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label nzRequired>Peso (kg)</nz-form-label>
-              <nz-form-control nzErrorTip="Por favor ingrese el peso">
-                <nz-input-number [(ngModel)]="weight" name="weight" [nzMin]="0.1" [nzStep]="0.1"
-                  [nzPlaceHolder]="'Peso en kg'"></nz-input-number>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
-
-          <!-- Fecha de Nacimiento -->
-          <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
-            <nz-form-item>
-              <nz-form-label>Fecha de Nacimiento</nz-form-label>
-              <nz-form-control>
-                <nz-date-picker [(ngModel)]="birth_date" name="birth_date" nzFormat="yyyy-MM-dd" nzFormat="yyyy-MM-dd"
-                  required></nz-date-picker>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+        <!-- Raza -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Raza</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese la raza">
+              <input nz-input [(ngModel)]="breed" name="breed" placeholder="Raza" />
+            </nz-form-control>
+          </nz-form-item>
         </div>
 
-        <!-- Notas Médicas -->
-        <div nz-row [nzGutter]="24">
-          <div nz-col [nzSpan]="24">
-            <nz-form-item>
-              <nz-form-label>Notas Médicas</nz-form-label>
-              <nz-form-control>
-                <nz-textarea-count [nzMaxCharacterCount]="500">
-                  <textarea [(ngModel)]="medical_notes" name="medical_notes" rows="3" nz-input
-                    placeholder="Ingrese notas médicas o información relevante aquí"></textarea>
-                </nz-textarea-count>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+        <!-- Color -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label>Color</nz-form-label>
+            <nz-form-control>
+              <input nz-input [(ngModel)]="color" name="color" placeholder="Color" />
+            </nz-form-control>
+          </nz-form-item>
         </div>
 
-        <!-- Botones de acción -->
-        <div nz-row>
-          <div nz-col [nzSpan]="24" style="text-align: right;">
-            <nz-form-item>
-              <nz-form-control>
-                <button nz-button nzType="default" type="button" class="mr-2" (click)="resetForm()">Limpiar</button>
-                <button nz-button nzType="primary" type="submit">Guardar</button>
-              </nz-form-control>
-            </nz-form-item>
-          </div>
+        <!-- Género -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Género</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor seleccione el género">
+              <nz-radio-group [(ngModel)]="gender" name="gender">
+                <label nz-radio nzValue="Macho">Macho</label>
+                <label nz-radio nzValue="Hembra">Hembra</label>
+              </nz-radio-group>
+            </nz-form-control>
+          </nz-form-item>
         </div>
-      </form>
-    </nz-card>
-  </div>
+
+        <!-- Peso -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label nzRequired>Peso (kg)</nz-form-label>
+            <nz-form-control nzErrorTip="Por favor ingrese el peso">
+              <nz-input-number [(ngModel)]="weight" name="weight" [nzMin]="0.1" [nzStep]="0.1"
+                [nzPlaceHolder]="'Peso en kg'" class="w-full"></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <!-- Fecha de Nacimiento -->
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="8">
+          <nz-form-item>
+            <nz-form-label>Fecha de Nacimiento</nz-form-label>
+            <nz-form-control>
+              <nz-date-picker [(ngModel)]="birth_date" name="birth_date" nzFormat="yyyy-MM-dd"
+                class="w-full"></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <!-- Notas Médicas -->
+      <div nz-row [nzGutter]="[24, 0]">
+        <div nz-col [nzSpan]="24">
+          <nz-form-item>
+            <nz-form-label>Notas Médicas</nz-form-label>
+            <nz-form-control>
+              <textarea [(ngModel)]="medical_notes" name="medical_notes" rows="3" nz-input
+                placeholder="Ingrese notas médicas o información relevante aquí"></textarea>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
+      <nz-divider></nz-divider>
+      <div class="flex justify-end gap-2">
+        <button nz-button nzType="default" type="button" (click)="resetForm()">
+          <span nz-icon nzType="clear"></span>
+          Limpiar
+        </button>
+        <button nz-button nzType="primary" type="submit">
+          <span nz-icon nzType="save"></span>
+          Guardar
+        </button>
+      </div>
+    </form>
+  </nz-card>
 </div>

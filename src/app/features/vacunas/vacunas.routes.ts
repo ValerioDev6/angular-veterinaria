@@ -1,14 +1,12 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
 
 export const VACUNAS_ROUTES: Routes = [
-
   {
     path: 'lista',
-    loadComponent: () => import('./pages/vacunas-page/vacunas-page.component')
+    loadComponent: () => import('./pages/vacunas-page/vacunas-page.component'),
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/create-vacuna/create-vacuna.component')
-  }
-
-]
+    loadComponent: () => import('./pages/create-vacuna/create-vacuna.component'),
+  },
+];

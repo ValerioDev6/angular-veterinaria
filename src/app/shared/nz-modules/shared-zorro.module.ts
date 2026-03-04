@@ -9,6 +9,7 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -29,11 +30,11 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzTableModule } from 'ng-zorro-antd/table';
 
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
-
 @NgModule({
   imports: [
     NzInputModule,
@@ -46,11 +47,14 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzToolTipModule,
     NzSelectModule,
     NzDropDownModule,
+    NzDescriptionsModule,
     NzDividerModule,
+    NzListModule,
     NzCardModule,
     NzTagModule,
     NzBreadCrumbModule,
     NzCheckboxModule,
+
     NzModalModule,
     NzDrawerModule,
     NzTabsModule,
@@ -85,6 +89,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzBadgeModule,
     NzLayoutModule,
     NzDatePickerModule,
+    NzListModule,
     NzToolTipModule,
     NzPopoverModule,
     NzAvatarModule,
@@ -94,6 +99,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
     NzDrawerModule,
     NzDropDownModule,
     NzEmptyModule,
+    NzDescriptionsModule,
     NzDividerModule,
     NzCardModule,
     NzInputNumberModule,

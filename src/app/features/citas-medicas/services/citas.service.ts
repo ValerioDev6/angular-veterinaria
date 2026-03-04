@@ -28,8 +28,7 @@ export class CitasMedicasService {
   dateFrom = signal<string>('');
   dateTo = signal<string>('');
 
-
- getVeterinarianByShedule(date_appointment: string, hour?: string): Observable<IVeterinarianShedule> {
+  getVeterinarianByShedule(date_appointment: string, hour?: string): Observable<IVeterinarianShedule> {
     this.loading$$.next(true);
 
     let params = new HttpParams().set('date_appointment', date_appointment);
@@ -75,8 +74,8 @@ export class CitasMedicasService {
 
   pacientes = computed(() => this.pacientesResource.value() ?? ([] as IComboPacientes[]));
 
-  getCitaById(id:number) :Observable<ICitaResponse>{
-    return this.http.get<ICitaResponse>(`${this.API_BASE}/citas/${id}`)
+  getCitaById(id: number): Observable<ICitaResponse> {
+    return this.http.get<ICitaResponse>(`${this.API_BASE}/citas/${id}`);
   }
 
   addCita(data: any): Observable<any> {
@@ -88,23 +87,22 @@ export class CitasMedicasService {
   }
 
   update(data: any, id: number) {
-    this.loading$$.next(true)
+    this.loading$$.next(true);
     return this.http.patch(`${this.API_BASE}/citas/${id}`, data).pipe(
-      tap(() =>this.refresh$$.next()),
-      finalize(() =>this.loading$$.next(false))
-    )
+      tap(() => this.refresh$$.next()),
+      finalize(() => this.loading$$.next(false)),
+    );
   }
 
-  deleteCitaMedica(id:number) {
-    this.loading$$.next(true)
+  deleteCitaMedica(id: number) {
+    this.loading$$.next(true);
     return this.http.delete(`${this.API_BASE}/citas/${id}`).pipe(
       tap(() => this.refresh$$.next()),
-      finalize(() => this.loading$$.next(false))
-    )
+      finalize(() => this.loading$$.next(false)),
+    );
   }
 
   refresh(): void {
     this.citasResource.reload();
   }
-
 }

@@ -8,16 +8,14 @@ import { ICalendarResponse } from '../interfaces/calendar.interface';
   providedIn: 'root',
 })
 export class CalendarioService {
-
-  private readonly API_BASE : string= environment.API_URL;
+  private readonly API_BASE: string = environment.API_URL;
   private readonly http = inject(HttpClient);
 
-  getCalendar():Observable<ICalendarResponse> {
-    return this.http.get<ICalendarResponse>(`${this.API_BASE}/calendar`)
+  getCalendar(): Observable<ICalendarResponse> {
+    return this.http.get<ICalendarResponse>(`${this.API_BASE}/calendar`);
   }
 
-  updateCita(id: number, data:any) :Observable<ICalendarResponse>{
-    return this.http.patch<ICalendarResponse>(`${this.API_BASE}/calendar/${id}`, data)
+  updateCita(id: number, data: any): Observable<ICalendarResponse> {
+    return this.http.patch<ICalendarResponse>(`${this.API_BASE}/calendar/${id}`, data);
   }
-
 }

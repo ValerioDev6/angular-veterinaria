@@ -20,7 +20,6 @@ import { RolService } from '../../services/roles.service';
   providers: [NzModalService, NzMessageService],
 })
 export default class RolesPageComponent {
-
   PERMISOS = IPERMISOS;
 
   private readonly rolService = inject(RolService);

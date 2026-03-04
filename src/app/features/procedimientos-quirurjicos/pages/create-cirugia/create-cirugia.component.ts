@@ -62,10 +62,10 @@ export default class CreateCirugiaComponent implements OnInit {
     return this.surgiereForm.get('medical_notes');
   }
 
-  get outside(){
+  get outside() {
     return this.surgiereForm.get('outside');
   }
-  get outcome(){
+  get outcome() {
     return this.surgiereForm.get('outcome');
   }
   get pet_id() {
@@ -80,7 +80,6 @@ export default class CreateCirugiaComponent implements OnInit {
   get metodo_pago() {
     return this.surgiereForm.get('metodo_pago');
   }
-
 
   searchVeterinarians() {
     if (this.searchForm.invalid) {
@@ -164,7 +163,7 @@ export default class CreateCirugiaComponent implements OnInit {
       day: dayName, // ✅ AGREGAR ESTO
       medical_notes: this.surgiereForm.value.medical_notes,
       outcome: this.surgiereForm.value.outcome,
-      outside : this.surgiereForm.value.outside,
+      outside: this.surgiereForm.value.outside,
       surgerie_type: this.surgiereForm.value.surgerie_type,
 
       state_payment: 'pendiente',
@@ -210,7 +209,7 @@ export default class CreateCirugiaComponent implements OnInit {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-   ngOnInit() {
+  ngOnInit() {
     // Escucha cambios en el formulario
     this.surgiereForm.get('pet_id')?.valueChanges.subscribe((petId) => {
       if (petId) {
