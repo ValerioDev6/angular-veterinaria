@@ -41,3 +41,10 @@ testem.log
 .DS_Store
 Thumbs.db
 .agents
+
+prompt.md
+AGENTS.md
+
+stitch_sistemaveterinario
+docs
+.playwright-mcp

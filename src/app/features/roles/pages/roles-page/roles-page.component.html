@@ -1,10 +1,14 @@
 <div class="p-6">
 
   <!-- Header -->
-  <nz-card nzTitle="🔐 Gestión de Roles" [nzExtra]="extraTemplate" class="mb-4">
+  <nz-card nzTitle="Gestión de Roles" [nzExtra]="extraTemplate" [nzBodyStyle]="{ padding: 0 }" class="mb-4">
 
     <ng-template #extraTemplate>
       <nz-space>
+        <nz-input-group *nzSpaceItem [nzSuffix]="suffixIconSearch" nzSize="default" style="width: 240px">
+          <input type="text" nz-input placeholder="Buscar rol por nombre" [ngModel]="searchTerm()"
+            (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" />
+        </nz-input-group>
         <button *nzSpaceItem nz-button nzType="default" (click)="refreshData()" nz-tooltip
           nzTooltipTitle="Refrescar datos">
           <span nz-icon nzType="sync" nzTheme="outline"></span>
@@ -24,11 +28,6 @@
       </nz-space>
     </ng-template>
 
-    <!-- Búsqueda -->
-    <nz-input-group [nzSuffix]="suffixIconSearch" nzSize="large" class="max-w-md">
-      <input type="text" nz-input placeholder="Buscar rol por nombre" [ngModel]="searchTerm()"
-        (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" />
-    </nz-input-group>
     <ng-template #suffixIconSearch>
       <span nz-icon nzType="search"></span>
     </ng-template>
@@ -66,15 +65,17 @@
           </td>
           <td>
             <nz-space>
-              <button *nzSpaceItem (click)="openEditModal(rol)" nz-button nzType="primary" nzSize="small">
-                <span nz-icon nzType="edit"></span> Editar
+              <button *nzSpaceItem (click)="openEditModal(rol)" nz-button nzType="primary" nzSize="small"
+                nzShape="circle" nz-tooltip [nzTooltipTitle]="'Editar rol'">
+                <span nz-icon nzType="edit" nzTheme="outline"></span>
               </button>
-              <button *nzSpaceItem (click)="viewRol(rol)" nz-button nzType="default" nzSize="small">
-                <span nz-icon nzType="eye"></span> Ver
+              <button *nzSpaceItem (click)="viewRol(rol)" nz-button nzType="default" nzSize="small"
+                nzShape="circle" nz-tooltip [nzTooltipTitle]="'Ver rol'">
+                <span nz-icon nzType="eye" nzTheme="outline"></span>
               </button>
-              <button *nzSpaceItem nz-button nzType="primary" nzDanger nzSize="small"
-                (click)="showDeleteConfirmModal(rol)">
-                <span nz-icon nzType="delete"></span> Eliminar
+              <button *nzSpaceItem nz-button nzType="primary" nzDanger nzSize="small" nzShape="circle"
+                (click)="showDeleteConfirmModal(rol)" nz-tooltip [nzTooltipTitle]="'Eliminar rol'">
+                <span nz-icon nzType="delete" nzTheme="outline"></span>
               </button>
             </nz-space>
           </td>

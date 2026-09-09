@@ -1,12 +1,12 @@
-<div class="min-h-screen flex items-center justify-center p-4 bg-gray-50">
+<div class="min-h-screen flex items-center justify-center p-4 bg-[#eef6ee]">
   <div class="w-full max-w-md">
-    <nz-card [nzBordered]="true" class="rounded-2xl shadow-lg">
+    <nz-card [nzBordered]="true" class="rounded-2xl shadow-lg !border-[#e8ede9]">
 
       <div class="text-center mb-6">
         <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center">
-          <img src="favicon.ico" alt="Logo angulr">
+          <img src="imgs/logosSinFondo.png" alt="Logo Veterinaria" class="w-16 h-16 object-contain">
         </div>
-        <h1 nz-typography nzType="secondary" class="!text-2xl !font-bold !text-gray-800 !mb-1">VETERINARIA</h1>
+        <h1 nz-typography nzType="secondary" class="!text-2xl !font-bold !text-[#116345] !mb-1">VETERINARIA</h1>
         <p nz-typography nzType="secondary">Sistema de Gestión</p>
       </div>
 
@@ -57,7 +57,7 @@
 
         <div class="flex items-center justify-between mb-4">
           <label nz-checkbox formControlName="remember">Recuérdame</label>
-          <a nz-typography class="!text-sm">¿Olvidaste tu contraseña?</a>
+          <a nz-typography class="!text-sm !text-[#2e9c6c]">¿Olvidaste tu contraseña?</a>
         </div>
 
         <button nz-button nzType="primary" nzSize="large" nzBlock [nzLoading]="isLoading()"
@@ -70,7 +70,7 @@
 
       <div class="text-center">
         <span nz-typography nzType="secondary" class="!text-sm">¿No tienes cuenta? </span>
-        <a nz-typography class="!text-sm !font-semibold">Regístrate</a>
+        <a nz-typography class="!text-sm !font-semibold !text-[#2e9c6c]">Regístrate</a>
       </div>
     </nz-card>
   </div>

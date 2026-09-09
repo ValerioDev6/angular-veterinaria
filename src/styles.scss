@@ -9,3 +9,374 @@
   text-decoration: none;
   // outline:  1px solid red;
 }
+
+/* ============================================================
+   UI REDESIGN — Sistema Veterinaria
+   Sistema visual aprobado (docs/ui-redesign/01-ficha-visual.md)
+   ============================================================ */
+
+:root {
+  /* NG-ZORRO tokens (variable.css mode) */
+  --ant-font-family:
+    "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --ant-primary-color: #33c787;
+  --ant-primary-5: #33c787;
+  --ant-primary-6: #2e9c6c;
+  --ant-primary-7: #257b56;
+  --ant-primary-color-hover: #2e9c6c;
+  --ant-primary-color-active: #2e9c6c;
+  --ant-primary-color-outline: rgba(51, 199, 135, 0.25);
+  --ant-primary-1: #e9f8f1;
+  --ant-primary-2: #cdeef0;
+  --ant-primary-3: #a6e5c8;
+  --ant-primary-4: #6fd6aa;
+
+  --ant-warning-color: #f99904;
+  --ant-warning-color-hover: #e08900;
+  --ant-warning-color-active: #cc7a00;
+  --ant-warning-color-outline: rgba(249, 153, 4, 0.25);
+  --ant-warning-1: #fff7e6;
+  --ant-warning-2: #ffe7ba;
+
+  --ant-info-color: #33c787;
+  --ant-info-color-hover: #2e9c6c;
+  --ant-info-color-outline: rgba(51, 199, 135, 0.25);
+
+  --ant-success-color: #289667;
+  --ant-success-color-hover: #33c787;
+  --ant-success-color-outline: rgba(40, 150, 103, 0.25);
+
+  --ant-error-color: #e5484d;
+  --ant-error-color-hover: #d93a3f;
+  --ant-error-color-outline: rgba(229, 72, 77, 0.25);
+
+  /* Superficies y acentos propios del diseño */
+  --app-sidebar: #006c45;
+  --app-sidebar-dark: #005233;
+  --app-sidebar-hover: #0f7a50;
+  --app-sidebar-active: #33c787;
+  --app-bg: #f7faf8;
+  --app-text: #2b3934;
+  --app-title: #1f2937;
+  --app-border: #e8ede9;
+  --app-border-input: #d1d9d4;
+  --app-mint: #f2f9f4;
+  --app-mint-strong: #cdeef0;
+  --app-wheat: #f4deb0;
+  --app-gold: #f99904;
+}
+
+html,
+body {
+  font-family:
+    "Nunito",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  background-color: var(--app-bg);
+  color: var(--app-text);
+}
+
+.ant-statistic-title,
+.ant-statistic-content {
+  font-family: "Nunito", sans-serif;
+}
+
+/* ============================================================
+   NG-ZORRO — overrides globales
+   ============================================================ */
+
+/* --- Botones --- */
+.ant-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.ant-btn > .anticon {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.ant-btn-primary {
+  box-shadow: 0 2px 4px rgba(46, 156, 108, 0.28);
+}
+
+.ant-btn-primary:not(:disabled):hover,
+.ant-btn-primary:not(:disabled):focus {
+  background: #2e9c6c;
+  border-color: #2e9c6c;
+}
+
+.ant-btn-dangerous.ant-btn-primary {
+  box-shadow: 0 2px 4px rgba(229, 72, 77, 0.24);
+}
+
+.ant-btn-default {
+  border-color: var(--app-border-input);
+}
+
+.ant-btn-default:not(:disabled):hover,
+.ant-btn-default:not(:disabled):focus {
+  border-color: #33c787;
+  color: #2e9c6c;
+  background: var(--app-mint);
+}
+
+.ant-btn-background-ghost {
+  box-shadow: none;
+}
+
+/* --- Formularios: inputs, selects, date-pickers --- */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select .ant-select-selector,
+.ant-picker,
+.ant-input-number,
+.ant-input-number-affix-wrapper {
+  border-radius: 8px;
+  border-color: var(--app-border-input);
+}
+
+.ant-input:hover,
+.ant-input-affix-wrapper:hover,
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector,
+.ant-picker:hover,
+.ant-input-number:hover {
+  border-color: #33c787;
+}
+
+.ant-input:focus,
+.ant-input-focused,
+.ant-input-affix-wrapper-focused,
+.ant-select-focused .ant-select-selector,
+.ant-picker-focused,
+.ant-input-number-focused,
+.ant-input-number-affix-wrapper-focused {
+  border-color: #33c787;
+  box-shadow: 0 0 0 2px var(--ant-primary-color-outline);
+}
+
+.ant-picker-focused,
+.ant-select-focused .ant-select-selector,
+.ant-input-number-focused,
+.ant-input-number-affix-wrapper-focused {
+  box-shadow: 0 0 0 2px var(--ant-primary-color-outline);
+}
+
+/* --- Tablas --- */
+.ant-table-thead > tr > th {
+  background: #eef2ef !important;
+  color: var(--app-title) !important;
+  font-weight: 600;
+  border-bottom-color: var(--app-border) !important;
+  padding: 10px 16px;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom-color: var(--app-border) !important;
+  padding: 10px 16px;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: var(--app-mint) !important;
+}
+
+.ant-table-container {
+  border-inline-end-color: var(--app-border) !important;
+  border-inline-start-color: var(--app-border) !important;
+}
+
+/* --- Tags --- */
+.ant-tag {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.ant-tag-blue {
+  color: #2563a0;
+  background: #e8f1fb;
+  border-color: #c4d9f0;
+}
+
+.ant-tag-green {
+  color: #1b7a4d;
+  background: #dff7e9;
+  border-color: #b7e6c9;
+}
+
+.ant-tag-gold,
+.ant-tag-orange {
+  color: #b45e00;
+  background: #fff4e0;
+  border-color: #f5d9a8;
+}
+
+.ant-tag-red,
+.ant-tag-volcano {
+  color: #c0392b;
+  background: #fdecea;
+  border-color: #f5c6c1;
+}
+
+.ant-tag-default,
+.ant-tag-grey {
+  color: #5c6b64;
+  background: #eef2ef;
+  border-color: #d7ddd9;
+}
+
+.ant-tag-geekblue {
+  color: #2563a0;
+  background: #e8f1fb;
+  border-color: #c4d9f0;
+}
+
+.ant-tag-purple {
+  color: #5b3fa8;
+  background: #efe9fa;
+  border-color: #d6cbee;
+}
+
+/* --- Cards --- */
+.ant-card {
+  border-radius: 12px;
+  border-color: var(--app-border);
+  box-shadow: 0 2px 10px rgba(43, 57, 52, 0.05);
+}
+
+.ant-card-head {
+  border-bottom-color: var(--app-border);
+  min-height: 48px;
+}
+
+.ant-card-head-title {
+  color: var(--app-title) !important;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.ant-card-head .ant-card-extra .ant-btn {
+  box-shadow: none;
+}
+
+/* --- Modales, Drawers --- */
+.ant-modal-content {
+  border-radius: 12px;
+}
+
+.ant-modal-header {
+  border-radius: 12px 12px 0 0;
+  border-bottom-color: var(--app-border);
+}
+
+.ant-modal-title {
+  color: var(--app-title);
+  font-weight: 600;
+}
+
+.ant-drawer-content {
+  border-radius: 12px 0 0 12px;
+}
+
+/* --- Paginación --- */
+.ant-pagination-item-active {
+  border-color: #cbd6cf;
+}
+
+.ant-pagination-item-active a {
+  color: #1f2937;
+}
+
+.ant-pagination-item:focus-visible,
+.ant-pagination-item:hover a {
+  color: #1f2937;
+}
+
+.ant-pagination-prev button:hover,
+.ant-pagination-next button:hover {
+  color: #1f2937;
+  border-color: #cbd6cf;
+}
+
+/* --- Alertas --- */
+.ant-alert-with-description .ant-alert-message {
+  font-weight: 600;
+}
+
+/* --- Empty --- */
+.ant-empty-description {
+  color: #7c8a82;
+}
+
+/* ============================================================
+   UI REDESIGN — Tanda 2 (iconos, tablas, modales, coherencia)
+   ============================================================ */
+
+/* --- Acciones de tabla: botones icono compactos --- */
+.ant-table-tbody .ant-btn-circle.ant-btn-sm {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  font-size: 13px;
+  line-height: 26px;
+}
+
+.ant-table-tbody .ant-btn-circle.ant-btn-sm .anticon {
+  font-size: 13px;
+  line-height: 26px;
+}
+
+.ant-table-tbody .ant-btn-circle.ant-btn-sm:not(.ant-btn-primary):hover {
+  border-color: rgba(51, 199, 135, 0.6);
+  color: #2e9c6c;
+}
+
+/* --- Tooltips --- */
+.ant-tooltip .ant-tooltip-inner {
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+/* --- Modales: respiración del cuerpo y pie consistente --- */
+.ant-modal-body {
+  padding: 20px 24px 24px;
+}
+
+.ant-modal-footer {
+  border-top: 1px solid var(--app-border);
+  padding: 14px 24px;
+  margin-top: 8px;
+}
+
+/* --- Collapse de permisos en modales de rol --- */
+.ant-collapse {
+  border-radius: 8px;
+}
+
+.ant-collapse > .ant-collapse-item:last-child,
+.ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+  border-radius: 8px;
+}
+
+/* --- Drawer: alineación coherente con modales --- */
+.ant-drawer-body {
+  padding: 20px 24px 24px;
+}
+
+/* --- Texto placeholder más legible --- */
+::placeholder {
+  color: #9aa8a0 !important;
+  opacity: 1;
+}

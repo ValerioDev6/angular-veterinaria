@@ -110,7 +110,7 @@ export class PagosPageComponent {
   getTipoColor(tipo: string): string {
     const colors: { [key: string]: string } = {
       CITA: 'blue',
-      VACUNA: 'green',
+      VACUNA: 'geekblue',
       CIRUGÍA: 'red',
     };
     return colors[tipo] || 'default';

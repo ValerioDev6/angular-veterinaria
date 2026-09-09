@@ -1,157 +1,98 @@
-# AGENTS.md - Angular Veterinaria Project
-
-## Overview
-
-This is an Angular 19 veterinary clinic management application using Ng-Zorro Ant Design, TailwindCSS, Signals, and RxJS.
-
----
+# AGENTS.md
 
 ## Commands
 
-### Development
 ```bash
-pnpm start          # Start dev server (ng serve)
-pnpm run watch      # Build with watch mode
+pnpm start              # Dev server (ng serve, port 4200)
+pnpm build              # Production build
+pnpm test               # All tests (Karma + Jasmine)
+pnpm test -- --include="**/staff.service.spec.ts"   # Single test file
+pnpm test -- --watch    # Tests in watch mode
+pnpm lint               # Biome lint
+pnpm format             # Biome format (writes)
+pnpm check              # Biome check + auto-fix
 ```
 
-### Build
-```bash
-pnpm build          # Production build (ng build)
-```
-
-### Testing
-```bash
-pnpm test           # Run all tests (Karma)
-```
-
-To run a **single test file**, use:
-```bash
-pnpm test -- --include="**/staff.service.spec.ts"
-```
-
-To run tests in watch mode:
-```bash
-pnpm test -- --watch
-```
-
-### Linting & Formatting
-```bash
-pnpm lint           # Run Biome linter
-pnpm format         # Format code with Biome (write changes)
-pnpm check          # Biome check with auto-fix
-```
-
----
-
-## Code Style Guidelines
-
-### General
-- **Strict TypeScript** is enabled - no implicit any, no implicit returns
-- **Angular 19** with standalone components and signals
-- Use `inject()` function for dependency injection instead of constructor injection when possible
-
-### Formatting (Biome)
-- **2-space indentation**
-- **Line width**: 120 characters
-- **Quotes**: single quotes `''`
-- **Semicolons**: always
-- **Trailing commas**: all
-
-### Naming Conventions
-- **Components**: `kebab-case` for file names (e.g., `staff-page.component.ts`)
-- **Classes**: `PascalCase` (e.g., `StaffService`)
-- **Interfaces**: `PascalCase` with `I` prefix (e.g., `IStaffResponse`)
-- **Services**: `PascalCase` with `.service` suffix (e.g., `StaffService`)
-- **Signals/variables**: `camelCase` (e.g., `page`, `staffList`)
-- **Constants**: `SCREAMING_SNAKE_CASE` (e.g., `API_BASE`)
-
-### Imports
-- Group imports in this order:
-  1. Angular core (@angular/*)
-  2. Third-party libraries
-  3. Local application imports (relative paths)
-- Use path aliases where possible
-- Example:
-```typescript
-import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-import { environment } from '../../../../environments/environment.development';
-import { IStaffResponse } from '../interfaces/staff.interface';
-```
-
-### Types
-- Always define return types for functions
-- Use interfaces for API responses and data models
-- Use `any` sparingly - prefer explicit types
-- Enable strict templates in Angular
-
-### State Management
-- Use Angular **Signals** for local component state
-- Use `computed()` for derived state
-- Use `rxResource` or `httpResource` for async data fetching
-
-### Error Handling
-- Use RxJS `catchError` with proper error transformation
-- Return `Observable<never>` from error handlers
-- Provide user-friendly error messages (in Spanish, as per project locale)
-- Example pattern:
-```typescript
-private handleError(error: HttpErrorResponse): Observable<never> {
-  let message = 'Error de operación';
-  if (error.status === 404) {
-    message = 'Recurso no encontrado';
-  }
-  return throwError(() => new Error(message));
-}
-```
-
-### Components
-- Use **standalone components** (default in Angular 19)
-- Use lazy loading for routes
-- Prefix components with `app` (configured in angular.json)
-- Follow feature-based directory structure:
-```
-src/app/features/<feature>/
-├── pages/
-├── components/
-├── services/
-└── interfaces/
-```
-
-### UI Components
-- Use **Ng-Zorro Ant Design** (ng-zorro-antd) for UI components
-- Use **TailwindCSS** for custom styling
-- SCSS for component-specific styles
-
-### Best Practices
-- Use `readonly` for immutable properties
-- Avoid `any` type - use proper interfaces
-- Use `?.` and `??` for null safety
-- Use `const` for values that won't be reassigned
-
----
+Use `pnpm`, not npm. The Angular CLI (`angular.json`) is configured with `"packageManager": "pnpm"`.
 
 ## Project Structure
 
 ```
-src/
-├── app/
-│   ├── core/           # Core modules (auth, guards, interceptors)
-│   ├── features/       # Feature modules (staff, etc.)
-│, mascotas, citas   ├── shared/         # Shared components, pipes, utils
-│   └── app.routes.ts   # Main routing
-├── environments/       # Environment configs
-└── styles.scss         # Global styles
+src/app/
+├── core/                          # Auth, guards, interceptors, layout, constants
+│   ├── auth/                      # guard/, interceptors/, services/, interfaces/
+│   ├── constants/                 # Role/permission constants
+│   ├── directive/                 # Custom directives (permission)
+│   └── layout/                    # Main layout + ADMIN_ROUTES
+├── features/                      # One directory per domain feature
+│   ├── auth/  home/  roles/  staff/  veterinario/
+│   ├── mascotas/  citas-medicas/  calendario/
+│   ├── pagos/  vacunas/  historial-medico/
+│   └── procedimientos-quirurjicos/
+├── shared/
+│   ├── nz-modules/                # Shared Ng-Zorro module barrel
+│   ├── pipes/
+│   └── utils/
+└── app.routes.ts                  # Top-level routing
 ```
 
----
+### Feature directory layout (inconsistent — check before adding)
+
+Most features follow `pages/`, `interfaces/`, `services/`, but **not all**:
+
+- `service/` (singular): staff, home, pagos
+- `services/` (plural): mascotas, citas-medicas, veterinario, vacunas, calendario, roles
+- `interface/` (singular): pagos
+- `interfaces/` (plural): everything else
+
+Route file naming is also inconsistent: `*.route.ts` vs `*.routes.ts`. Match the existing file in the same feature.
+
+### Routing
+
+- All feature routes are lazy-loaded via `loadChildren` in `src/app/core/layout/layout.route.ts`
+- Guarded by `loginGuard` (auth) and `roleGuard` + `permissionGuard` (RBAC)
+- `src/app/app.routes.ts` has two top-level branches: `/auth` (login) and `/admin` (all features)
+
+## Code Conventions
+
+### Formatting (Biome — verified in `biome.json`)
+
+- 2-space indent, 120 char line width
+- Single quotes, semicolons always, trailing commas all
+- Import organization enabled
+
+### Biome lint — notable disabled rules
+
+`noExplicitAny` is **off** — `any` appears in the codebase. `noDoubleEquals` is also off. Other disabled: `noNonNullAssertion`, `noInferrableTypes`, `useOptionalChain`, `useImportType`.
+
+### TypeScript (verified in `tsconfig.json`)
+
+- `strict: true`, `noImplicitReturns: true`, `strictTemplates: true`
+- `moduleResolution: "bundler"`, target ES2022
+
+### Angular patterns
+
+- **Standalone components** (default in Angular 19, no NgModules for components)
+- **Functional guards**: `CanActivateFn` pattern with `inject()` (not class-based)
+- **Signals + computed** for component state
+- **`httpResource`** and **`rxResource`** for data fetching (Angular 19 APIs)
+- **`inject()`** for DI (not constructor injection)
+- Component prefix: `app` (configured in `angular.json`)
+- Components use SCSS (`angular.json` schematics)
+- `provideExperimentalZonelessChangeDetection` is **not** used — standard Zone.js
+
+### Naming
+
+- Component files: `kebab-case` (e.g., `staff-page.component.ts`)
+- Interfaces: `I` prefix (e.g., `IStaffResponse`)
+- Error messages: **Spanish** (e.g., `'Error de operación'`, `'Recurso no encontrado'`)
+
+### Environment
+
+- `src/environments/environment.ts` (production) and `environment.development.ts`
+- Both currently point to the same Render API: `https://node-veterinaria.onrender.com/v1/api`
+- No `.env` files — environment is swapped via Angular CLI `fileReplacements`
 
 ## Dependencies
 
-- Angular 19
-- Ng-Zorro Ant Design 19
-- TailwindCSS 4
-- RxJS 7
-- Biome (linting/formatting)
-- Karma + Jasmine (testing)
+Angular 19, Ng-Zorro Ant Design 19, TailwindCSS 4, RxJS 7, Biome 1.9.4, Karma + Jasmine, TypeScript 5.7

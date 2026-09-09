@@ -16,7 +16,7 @@ export default class CreatePacienteComponent {
   private readonly pacienteService = inject(PacienteService);
   private readonly messageService = inject(NzMessageService);
   file_imagen: any = null;
-  imagen_previsualiza: string = 'https://via.placeholder.com/200';
+  imagen_previsualiza: string = '';
 
   first_name = '';
   last_name = '';
@@ -167,6 +167,6 @@ export default class CreatePacienteComponent {
     this.medical_notes = '';
 
     this.file_imagen = null;
-    this.imagen_previsualiza = 'https://via.placeholder.com/200';
+    this.imagen_previsualiza = '';
   }
 }

@@ -1,9 +1,10 @@
 <div class="p-6">
   <!-- Header -->
-  <nz-card nzTitle="💉 Agregar Vacuna Médica 🔒" class="mb-4">
-    <p nz-typography nzType="secondary">Registre la aplicación de vacunas buscando un veterinario y completando los
+  <div class="mb-4">
+    <h1 class="text-lg font-semibold mb-1">Agregar Vacuna Médica</h1>
+    <p class="text-gray-500 text-sm mb-0">Registre la aplicación de vacunas buscando un veterinario y completando los
       datos del paciente.</p>
-  </nz-card>
+  </div>
 
   <form [formGroup]="vacunasForm" (ngSubmit)="saveVacunas()">
     <!-- Sección de búsqueda -->
@@ -57,7 +58,7 @@
 
     <!-- Resultados de disponibilidad -->
     @if (veterinarians().length > 0) {
-    <nz-card nzTitle="👨‍⚕️ Disponibilidad de Veterinarios" class="mb-4" [nzBordered]="false">
+    <nz-card nzTitle="Disponibilidad de Veterinarios" class="mb-4" [nzBordered]="false">
       <nz-table #vetTable [nzData]="veterinarians()" [nzShowPagination]="false" [nzFrontPagination]="false"
         nzSize="middle" class="vet-disponibilidad-table">
         <thead>
@@ -80,8 +81,8 @@
               <div class="flex flex-wrap gap-1">
                 @for (group of vet.segment_time_groups; track group.hour_format) {
                 <nz-badge [nzCount]="group.count_availability" [nzOverflowCount]="99"
-                  [nzStyle]="{ backgroundColor: group.count_availability > 0 ? '#52c41a' : '#d9d9d9' }">
-                  <nz-tag [nzColor]="group.count_availability > 0 ? 'success' : 'default'">
+                  [nzStyle]="{ backgroundColor: group.count_availability > 0 ? '#2563a0' : '#d9d9d9' }">
+                  <nz-tag [nzColor]="group.count_availability > 0 ? 'processing' : 'default'">
                     {{ group.hour_format }}
                   </nz-tag>
                 </nz-badge>
@@ -148,9 +149,9 @@
           <nz-form-item>
             <nz-form-label nzRequired>Ubicación</nz-form-label>
             <nz-form-control>
-              <nz-radio-group formControlName="outside" nzButtonStyle="solid">
-                <label nz-radio-button [nzValue]="false">🏠 En Veterinaria</label>
-                <label nz-radio-button [nzValue]="true">📍 A Domicilio</label>
+              <nz-radio-group formControlName="outside">
+                <label nz-radio-button [nzValue]="false">En Veterinaria</label>
+                <label nz-radio-button [nzValue]="true">A Domicilio</label>
               </nz-radio-group>
             </nz-form-control>
           </nz-form-item>
@@ -161,14 +162,14 @@
 
     <!-- Empty State -->
     <nz-empty *ngIf="!loading() && veterinarians().length === 0"
-      nzNotFoundContent="Busque veterinarios por fecha para comenzar" class="my-8">
+      nzNotFoundContent="Busque veterinarios por fecha para comenzar" class="my-4">
     </nz-empty>
 
     <!-- Información de Paciente y Pago -->
     <div nz-row [nzGutter]="24">
       <!-- Paciente -->
       <div nz-col [nzXs]="24" [nzLg]="12">
-        <nz-card nzTitle="Paciente 🐶" class="h-full">
+        <nz-card nzTitle="Paciente" class="h-full">
           <nz-form-item>
             <nz-form-label nzRequired>Seleccionar Mascota</nz-form-label>
             <nz-form-control nzErrorTip="Requerido">
@@ -181,7 +182,7 @@
           </nz-form-item>
 
           @if (selectedPet()) {
-          <div class="mt-4 p-4 rounded-lg bg-gray-50 border flex gap-4 animate-fade-in">
+          <div class="mt-4 p-4 rounded-lg bg-slate-50 border border-slate-200 flex gap-4 animate-fade-in">
             <div class="flex-shrink-0">
               <nz-avatar [nzSize]="80" [nzSrc]="selectedPet()!.photo" nzIcon="user"
                 class="border shadow-sm"></nz-avatar>
@@ -199,15 +200,15 @@
 
       <!-- Pagos -->
       <div nz-col [nzXs]="24" [nzLg]="12">
-        <nz-card nzTitle="Pago y Facturación 💲" class="h-full">
+        <nz-card nzTitle="Pago y Facturación" class="h-full">
           <div nz-row [nzGutter]="16">
             <div nz-col [nzSpan]="24">
               <nz-form-item>
                 <nz-form-label nzRequired>Método de pago</nz-form-label>
                 <nz-form-control>
-                  <nz-radio-group formControlName="metodo_pago" nzButtonStyle="solid">
-                    <label nz-radio-button nzValue="EFECTIVO">💵 EFECTIVO</label>
-                    <label nz-radio-button nzValue="TARJETA">💳 TARJETA</label>
+                  <nz-radio-group formControlName="metodo_pago">
+                    <label nz-radio-button nzValue="EFECTIVO">EFECTIVO</label>
+                    <label nz-radio-button nzValue="TARJETA">TARJETA</label>
                   </nz-radio-group>
                 </nz-form-control>
               </nz-form-item>
@@ -240,7 +241,7 @@
     </div>
 
     <!-- Footer de acciones -->
-    <div class="flex justify-end gap-3 mt-6 pb-6">
+    <div class="flex justify-end gap-3 mt-4">
       <button nz-button nzType="default" type="button" [routerLink]="['/admin/vacunas/lista']">
         <span nz-icon nzType="close-circle"></span> Cancelar
       </button>

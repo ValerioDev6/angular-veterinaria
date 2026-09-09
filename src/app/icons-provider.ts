@@ -1,4 +1,5 @@
 import {
+  AccountBookOutline,
   ApiOutline,
   AppstoreOutline,
   AreaChartOutline,
@@ -8,6 +9,7 @@ import {
   BoxPlotOutline,
   CalendarOutline,
   CameraOutline,
+  CloseCircleOutline,
   CreditCardOutline,
   DashboardOutline,
   DeleteOutline,
@@ -16,6 +18,7 @@ import {
   EditOutline,
   ExperimentOutline,
   EyeOutline,
+  FieldTimeOutline,
   FileAddOutline,
   FileDoneOutline,
   FileExcelFill,
@@ -27,9 +30,11 @@ import {
   FileWordOutline,
   FormOutline,
   GiftOutline,
+  HeartOutline,
   IdcardOutline,
   LineChartOutline,
   LockOutline,
+  LogoutOutline,
   MailOutline,
   MedicineBoxOutline,
   MenuFoldOutline,
@@ -47,6 +52,7 @@ import {
   SaveFill,
   SaveOutline,
   ScheduleOutline,
+  SearchOutline,
   SettingOutline,
   ShopOutline,
   ShoppingCartOutline,
@@ -61,6 +67,7 @@ import {
 } from '@ant-design/icons-angular/icons';
 
 export const icons = [
+  AccountBookOutline,
   MenuFoldOutline,
   MenuUnfoldOutline,
   DashboardOutline,
@@ -121,4 +128,9 @@ export const icons = [
   SaveFill,
   IdcardOutline,
   FileExcelFill,
+  FieldTimeOutline,
+  SearchOutline,
+  CloseCircleOutline,
+  HeartOutline,
+  LogoutOutline,
 ];

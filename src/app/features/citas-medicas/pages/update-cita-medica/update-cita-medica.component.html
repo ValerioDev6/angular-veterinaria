@@ -1,6 +1,6 @@
 <div class="p-6">
   <!-- Header -->
-  <nz-card nzTitle="✏️ Editar Cita Médica 🔒" class="mb-4">
+  <nz-card nzTitle="Editar Cita Médica" class="mb-4">
     <p nz-typography nzType="secondary">Actualice la información de la cita médica según sea necesario.</p>
   </nz-card>
 
@@ -71,7 +71,7 @@
 
       <!-- Veterinarians List -->
       @if (veterinarians().length > 0) {
-      <nz-card nzTitle="📋 Disponibilidad de Veterinarios" style="margin-bottom: 16px;">
+      <nz-card nzTitle="Disponibilidad de Veterinarios" style="margin-bottom: 16px;">
 
         <nz-list [nzDataSource]="veterinarians()" [nzRenderItem]="vetItem" [nzItemLayout]="'vertical'">
           <ng-template #vetItem let-vet>
@@ -88,7 +88,7 @@
                   <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
                     <span style="font-weight: 600; font-size: 15px;">{{ vet.full_name }}</span>
                     @for (group of vet.segment_time_groups; track group.hour_format) {
-                    <nz-badge [nzCount]="group.count_availability" [nzStyle]="{ backgroundColor: '#52c41a' }">
+                    <nz-badge [nzCount]="group.count_availability" [nzStyle]="{ backgroundColor: '#33c787' }">
                       <nz-tag nzColor="geekblue" style="margin: 0;">
                         <span nz-icon nzType="field-time" style="margin-right: 4px;"></span>
                         {{ group.hour_format }}
@@ -112,7 +112,7 @@
                               'border': '1px solid ' + (segment.check ? '#d9d9d9' : '#d6e4ff'),
                               'border-radius': '8px',
                               'padding': '5px 10px',
-                              'background': segment.check ? '#fafafa' : '#f0f5ff',
+                              'background': segment.check ? '#f2f9f4' : '#e9f8f1',
                               'opacity': segment.check ? '0.5' : '1',
                               'cursor': segment.check ? 'not-allowed' : 'pointer',
                               'transition': 'all 0.2s'
@@ -158,7 +158,7 @@
 
       <!-- Paciente -->
       <div nz-col [nzXs]="24" [nzLg]="12">
-        <nz-card nzTitle="Mascota 🐶">
+        <nz-card nzTitle="Mascota">
           <nz-form-item>
             <nz-form-label nzRequired>¿Quién es la mascota?</nz-form-label>
             <nz-form-control [nzErrorTip]="'Debe seleccionar una mascota'">
@@ -199,14 +199,14 @@
 
       <!-- Pagos -->
       <div nz-col [nzXs]="24" [nzLg]="12">
-        <nz-card nzTitle="Pago y Facturación 💲">
+        <nz-card nzTitle="Pago y Facturación">
 
           <nz-form-item>
             <nz-form-label nzRequired>Método de pago</nz-form-label>
             <nz-form-control>
               <nz-radio-group formControlName="metodo_pago" nzButtonStyle="solid" nzSize="large">
-                <label nz-radio-button nzValue="EFECTIVO">💵 Efectivo</label>
-                <label nz-radio-button nzValue="TARJETA">💳 Tarjeta</label>
+                <label nz-radio-button nzValue="EFECTIVO">Efectivo</label>
+                <label nz-radio-button nzValue="TARJETA">Tarjeta</label>
               </nz-radio-group>
             </nz-form-control>
           </nz-form-item>

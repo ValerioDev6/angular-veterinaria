@@ -1,9 +1,10 @@
 <div class="p-6">
 
   <!-- Header -->
-  <nz-card nzTitle="👨🏻‍⚕️ Registro de Veterinario" class="mb-4">
-    <p nz-typography nzType="secondary">Creación de información del veterinario</p>
-  </nz-card>
+  <div class="mb-4">
+    <h1 class="text-lg font-semibold mb-1">Registro de Veterinario</h1>
+    <p class="text-gray-500 text-sm mb-0">Creación de información del veterinario</p>
+  </div>
 
   <!-- Formulario -->
   <nz-card>
@@ -16,7 +17,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="username">Usuario</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un nombre de usuario">
-              <nz-input-group nzPrefixIcon="user">
+              <nz-input-group>
                 <input type="text" nz-input [(ngModel)]="username" name="username" placeholder="Nombre de usuario" />
               </nz-input-group>
             </nz-form-control>
@@ -25,7 +26,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="email">Correo</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un correo válido">
-              <nz-input-group nzPrefixIcon="mail">
+              <nz-input-group>
                 <input type="email" nz-input [(ngModel)]="email" name="email" placeholder="Correo electrónico" />
               </nz-input-group>
             </nz-form-control>
@@ -34,7 +35,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="password">Contraseña</nz-form-label>
             <nz-form-control nzErrorTip="La contraseña debe tener al menos 6 caracteres">
-              <nz-input-group nzPrefixIcon="lock">
+              <nz-input-group>
                 <input type="password" nz-input [(ngModel)]="password" name="password" placeholder="Contraseña" />
               </nz-input-group>
             </nz-form-control>
@@ -43,7 +44,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="phone">Teléfono</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono">
-              <nz-input-group nzPrefixIcon="phone">
+              <nz-input-group>
                 <input type="text" nz-input [(ngModel)]="phone" name="phone" placeholder="Número de teléfono" />
               </nz-input-group>
             </nz-form-control>
@@ -68,7 +69,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="n_documento">Número de Documento</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese su número de documento">
-              <nz-input-group nzPrefixIcon="idcard">
+              <nz-input-group>
                 <input type="text" nz-input [(ngModel)]="n_documento" name="n_documento"
                   placeholder="Número de documento" />
               </nz-input-group>
@@ -114,7 +115,7 @@
       </div>
 
       <!-- Botones -->
-      <nz-divider></nz-divider>
+      <nz-divider class="!my-4"></nz-divider>
       <div class="flex justify-end gap-2">
         <button nz-button nzType="default" type="button">
           <span nz-icon nzType="close-circle"></span>
@@ -129,7 +130,7 @@
   </nz-card>
 
   <!-- Horario de Atención -->
-  <nz-card nzTitle="🕐 Horario de Atención" class="mt-4">
+  <nz-card nzTitle="Horario de Atención" class="mt-3">
     <nz-table [nzData]="[1]" [nzShowPagination]="false" [nzBordered]="true" nzSize="small">
       <thead>
         <tr>

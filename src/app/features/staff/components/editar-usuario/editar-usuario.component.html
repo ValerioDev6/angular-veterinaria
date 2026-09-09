@@ -1,4 +1,5 @@
-<form nz-form nzLayout="vertical" (ngSubmit)="onUpdateStaff()">
+<div class="p-4">
+  <form nz-form nzLayout="vertical" (ngSubmit)="onUpdateStaff()">
   <div nz-row [nzGutter]="24">
     <!-- Left Column -->
     <div nz-col [nzXs]="24" [nzMd]="12">
@@ -6,7 +7,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>Usuario</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingrese un nombre de usuario">
-          <nz-input-group nzPrefixIcon="user">
+          <nz-input-group>
             <input type="text" nz-input [(ngModel)]="username" name="username" placeholder="Nombre de usuario" />
           </nz-input-group>
         </nz-form-control>
@@ -16,7 +17,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>Correo</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingrese un correo válido">
-          <nz-input-group nzPrefixIcon="mail">
+          <nz-input-group>
             <input type="email" nz-input [(ngModel)]="email" name="email" placeholder="Correo electrónico" />
           </nz-input-group>
         </nz-form-control>
@@ -26,7 +27,7 @@
       <nz-form-item>
         <nz-form-label>Nueva Contraseña (opcional)</nz-form-label>
         <nz-form-control nzErrorTip="La contraseña debe tener al menos 6 caracteres">
-          <nz-input-group nzPrefixIcon="lock">
+          <nz-input-group>
             <input type="password" nz-input [(ngModel)]="password" name="password"
               placeholder="Dejar en blanco para mantener" />
           </nz-input-group>
@@ -37,7 +38,7 @@
       <nz-form-item>
         <nz-form-label nzRequired>Teléfono</nz-form-label>
         <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono">
-          <nz-input-group nzPrefixIcon="phone">
+          <nz-input-group>
             <input type="text" nz-input [(ngModel)]="phone" name="phone" placeholder="Número de teléfono" />
           </nz-input-group>
         </nz-form-control>
@@ -88,7 +89,7 @@
       <nz-form-item>
         <nz-form-label>Imagen de Perfil</nz-form-label>
         <nz-form-control>
-          <div class="flex items-center gap-4 p-3 border rounded-lg bg-gray-50">
+          <div class="flex items-center gap-4 p-3 border rounded-lg bg-[#f2f9f4] border-[#d7ddd9]">
             <nz-avatar [nzSize]="64" [nzSrc]="imagen_previsualiza" nzIcon="user"
               class="shadow-sm flex-shrink-0"></nz-avatar>
             <div class="flex flex-col gap-2">
@@ -115,3 +116,4 @@
     </button>
   </div>
 </form>
+</div>

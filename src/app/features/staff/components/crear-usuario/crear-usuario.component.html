@@ -8,7 +8,7 @@
         <nz-form-item>
           <nz-form-label nzRequired>Usuario</nz-form-label>
           <nz-form-control nzErrorTip="Por favor ingrese un nombre de usuario">
-            <nz-input-group nzPrefixIcon="user">
+            <nz-input-group>
               <input type="text" nz-input [(ngModel)]="username" name="username" placeholder="Nombre de usuario" />
             </nz-input-group>
           </nz-form-control>
@@ -17,7 +17,7 @@
         <nz-form-item>
           <nz-form-label nzRequired>Correo</nz-form-label>
           <nz-form-control nzErrorTip="Por favor ingrese un correo válido">
-            <nz-input-group nzPrefixIcon="mail">
+            <nz-input-group>
               <input type="email" nz-input [(ngModel)]="email" name="email" placeholder="Correo electrónico" />
             </nz-input-group>
           </nz-form-control>
@@ -26,7 +26,7 @@
         <nz-form-item>
           <nz-form-label nzRequired>Contraseña</nz-form-label>
           <nz-form-control nzErrorTip="La contraseña debe tener al menos 6 caracteres">
-            <nz-input-group nzPrefixIcon="lock">
+            <nz-input-group>
               <input type="password" nz-input [(ngModel)]="password" name="password" placeholder="Contraseña" />
             </nz-input-group>
           </nz-form-control>
@@ -35,7 +35,7 @@
         <nz-form-item>
           <nz-form-label nzRequired>Teléfono</nz-form-label>
           <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono">
-            <nz-input-group nzPrefixIcon="phone">
+            <nz-input-group>
               <input type="text" nz-input [(ngModel)]="phone" name="phone" placeholder="Número de teléfono" />
             </nz-input-group>
           </nz-form-control>

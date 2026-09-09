@@ -1,7 +1,7 @@
 <div class="p-6">
 
   <!-- Card de Filtros -->
-  <nz-card nzTitle="💉 Gestión de Vacunas Médicas" [nzExtra]="extraTemplate" class="mb-4">
+  <nz-card nzTitle="Gestión de Vacunas Médicas" [nzExtra]="extraTemplate" class="mb-4">
 
     <ng-template #extraTemplate>
       <nz-space>
@@ -28,11 +28,11 @@
 
     <form nz-form nzLayout="vertical">
       <div nz-row [nzGutter]="[16, 16]">
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8" [nzXl]="6" [nzXXl]="4">
           <nz-form-item>
             <nz-form-label>Nombre de Mascota</nz-form-label>
             <nz-form-control>
-              <nz-input-group [nzPrefix]="prefixSearch" nzSize="large">
+              <nz-input-group [nzPrefix]="prefixSearch" nzSize="default">
                 <input nz-input placeholder="Buscar mascota..." [ngModel]="searchTerm()"
                   (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()"
                   [ngModelOptions]="{standalone: true}" />
@@ -44,28 +44,28 @@
           </nz-form-item>
         </div>
 
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8" [nzXl]="6" [nzXXl]="4">
           <nz-form-item>
             <nz-form-label>Especie</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="Todas las especies" [ngModel]="speciesFilter()"
-                (ngModelChange)="speciesFilter.set($event); onFilterSpecies()" nzAllowClear nzShowSearch nzSize="large"
+                (ngModelChange)="speciesFilter.set($event); onFilterSpecies()" nzAllowClear nzShowSearch nzSize="default"
                 [ngModelOptions]="{standalone: true}" class="w-full">
                 <nz-option nzValue="" nzLabel="Todas las especies"></nz-option>
-                <nz-option nzValue="Perro" nzLabel="🐕 Perro"></nz-option>
-                <nz-option nzValue="Gato" nzLabel="🐱 Gato"></nz-option>
-                <nz-option nzValue="Ave" nzLabel="🦜 Ave"></nz-option>
-                <nz-option nzValue="Conejo" nzLabel="🐰 Conejo"></nz-option>
+                <nz-option nzValue="Perro" nzLabel="Perro"></nz-option>
+                <nz-option nzValue="Gato" nzLabel="Gato"></nz-option>
+                <nz-option nzValue="Ave" nzLabel="Ave"></nz-option>
+                <nz-option nzValue="Conejo" nzLabel="Conejo"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
 
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8" [nzXl]="6" [nzXXl]="4">
           <nz-form-item>
             <nz-form-label>Veterinario</nz-form-label>
             <nz-form-control>
-              <nz-input-group [nzPrefix]="prefixUser" nzSize="large">
+              <nz-input-group [nzPrefix]="prefixUser" nzSize="default">
                 <input nz-input placeholder="Buscar veterinario..." [ngModel]="veterinarianFilter()"
                   (ngModelChange)="veterinarianFilter.set($event)" (keyup.enter)="onFilterVeterinarian()"
                   [ngModelOptions]="{standalone: true}" />
@@ -77,40 +77,40 @@
           </nz-form-item>
         </div>
 
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8" [nzXl]="6" [nzXXl]="4">
           <nz-form-item>
             <nz-form-label>Estado de Pago</nz-form-label>
             <nz-form-control>
               <nz-select nzPlaceHolder="Todos los estados" [ngModel]="statePaymentFilter()"
-                (ngModelChange)="statePaymentFilter.set($event); onFilterStatePayment()" nzAllowClear nzSize="large"
+                (ngModelChange)="statePaymentFilter.set($event); onFilterStatePayment()" nzAllowClear nzSize="default"
                 [ngModelOptions]="{standalone: true}" class="w-full">
                 <nz-option nzValue="" nzLabel="Todos los estados"></nz-option>
-                <nz-option nzValue="pendiente" nzLabel="⏳ Pendiente"></nz-option>
-                <nz-option nzValue="pagado" nzLabel="✅ Pagado"></nz-option>
-                <nz-option nzValue="cancelado" nzLabel="❌ Cancelado"></nz-option>
+                <nz-option nzValue="pendiente" nzLabel="Pendiente"></nz-option>
+                <nz-option nzValue="pagado" nzLabel="Pagado"></nz-option>
+                <nz-option nzValue="cancelado" nzLabel="Cancelado"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
 
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8" [nzXl]="6" [nzXXl]="4">
           <nz-form-item>
             <nz-form-label>Fecha Desde</nz-form-label>
             <nz-form-control>
               <nz-date-picker nzFormat="dd/MM/yyyy" nzPlaceHolder="Seleccionar fecha" [ngModel]="dateFromFilter()"
-                (ngModelChange)="onDateFromChange($event)" nzSize="large" [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onDateFromChange($event)" nzSize="default" [ngModelOptions]="{standalone: true}"
                 class="w-full">
               </nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
 
-        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8">
+        <div nz-col [nzXs]="24" [nzSm]="12" [nzLg]="8" [nzXl]="6" [nzXXl]="4">
           <nz-form-item>
             <nz-form-label>Fecha Hasta</nz-form-label>
             <nz-form-control>
               <nz-date-picker nzFormat="dd/MM/yyyy" nzPlaceHolder="Seleccionar fecha" [ngModel]="dateToFilter()"
-                (ngModelChange)="onDateToChange($event)" nzSize="large" [ngModelOptions]="{standalone: true}"
+                (ngModelChange)="onDateToChange($event)" nzSize="default" [ngModelOptions]="{standalone: true}"
                 class="w-full">
               </nz-date-picker>
             </nz-form-control>
@@ -158,11 +158,12 @@
           <td nzAlign="center">
             <nz-space>
               <button *nzSpaceItem nz-button nzType="primary" nzSize="small" nzShape="circle"
-                [routerLink]="['/admin/citas-medicas/', cita.id]">
-                <span nz-icon nzType="edit"></span>
+                [routerLink]="['/admin/citas-medicas/', cita.id]" nz-tooltip [nzTooltipTitle]="'Editar vacuna'">
+                <span nz-icon nzType="edit" nzTheme="outline"></span>
               </button>
-              <button *nzSpaceItem nz-button nzType="primary" nzDanger nzSize="small" nzShape="circle">
-                <span nz-icon nzType="delete"></span>
+              <button *nzSpaceItem nz-button nzType="primary" nzDanger nzSize="small" nzShape="circle"
+                nz-tooltip [nzTooltipTitle]="'Eliminar vacuna'">
+                <span nz-icon nzType="delete" nzTheme="outline"></span>
               </button>
             </nz-space>
           </td>

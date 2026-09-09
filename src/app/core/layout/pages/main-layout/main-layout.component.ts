@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
@@ -20,6 +20,9 @@ const NZ_MODULES = [NzIconModule, NzLayoutModule, NzMenuModule, NzAvatarModule, 
 export class MainLayoutComponent {
   isCollapsed: boolean = false;
 
+  // Acordeón del menú: solo un submenú abierto a la vez
+  readonly openKey = signal<string | null>('veterinaria');
+
   RoleType: typeof RoleType = RoleType;
   PERMISOS: typeof IPERMISOS = IPERMISOS;
 
@@ -28,6 +31,13 @@ export class MainLayoutComponent {
     private modal: NzModalService,
     private router: Router,
   ) {}
+
+  onSubmenuOpen(open: boolean, key: string): void {
+    if (this.isCollapsed) {
+      return;
+    }
+    this.openKey.set(open ? key : null);
+  }
 
   // Obtener iniciales del usuario para el avatar
   getUserInitials(): string {

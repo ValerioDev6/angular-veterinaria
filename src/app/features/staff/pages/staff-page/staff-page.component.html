@@ -1,10 +1,14 @@
 <div class="p-6">
 
   <!-- Header -->
-  <nz-card nzTitle="👥 Gestión de Staff" [nzExtra]="extraTemplate" class="mb-4">
+  <nz-card nzTitle="Gestión de Staff" [nzExtra]="extraTemplate" [nzBodyStyle]="{ padding: 0 }" class="mb-4">
 
     <ng-template #extraTemplate>
       <nz-space>
+        <nz-input-group *nzSpaceItem [nzSuffix]="suffixIconSearch" nzSize="default" style="width: 240px">
+          <input type="text" nz-input placeholder="Buscar por nombre" [ngModel]="searchTerm()"
+            (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" />
+        </nz-input-group>
         <button *nzSpaceItem nz-button nzType="default" (click)="refreshData()" nz-tooltip
           nzTooltipTitle="Refrescar datos">
           <span nz-icon nzType="sync" nzTheme="outline"></span>
@@ -22,11 +26,6 @@
       </nz-space>
     </ng-template>
 
-    <!-- Búsqueda -->
-    <nz-input-group [nzSuffix]="suffixIconSearch" nzSize="large" class="max-w-md">
-      <input type="text" nz-input placeholder="Buscar por nombre" [ngModel]="searchTerm()"
-        (ngModelChange)="searchTerm.set($event)" (keyup.enter)="onSearch()" />
-    </nz-input-group>
     <ng-template #suffixIconSearch>
       <span nz-icon nzType="search"></span>
     </ng-template>
@@ -77,11 +76,12 @@
           <td>{{ user.created_at | date : "dd/MM/yyyy" }}</td>
           <td>
             <nz-space>
-              <button *nzSpaceItem (click)="updateStaff(user)" nz-button nzType="primary" nzShape="circle">
-                <nz-icon nz-icon nzType="edit" nzTheme="outline"></nz-icon>
+              <button *nzSpaceItem (click)="updateStaff(user)" nz-button nzType="primary" nzSize="small"
+                nzShape="circle" nz-tooltip [nzTooltipTitle]="'Editar usuario'">
+                <nz-icon nzType="edit" nzTheme="outline"></nz-icon>
               </button>
               <button *nzSpaceItem (click)="showDeleteConfirmModal(user)" nz-button nzType="primary" nzDanger
-                nzShape="circle">
+                nzSize="small" nzShape="circle" nz-tooltip [nzTooltipTitle]="'Eliminar usuario'">
                 <nz-icon nzType="delete" nzTheme="outline"></nz-icon>
               </button>
             </nz-space>

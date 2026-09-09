@@ -1,7 +1,7 @@
 <div class="p-6">
 
   <!-- Header -->
-  <nz-card nzTitle="👤 Actualizar Staff" class="mb-4">
+  <nz-card nzTitle="Actualizar Staff" class="mb-4">
     <p nz-typography nzType="secondary">Actualización de información del staff</p>
   </nz-card>
 
@@ -16,7 +16,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="username">Usuario</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un nombre de usuario">
-              <nz-input-group nzPrefixIcon="user">
+              <nz-input-group>
                 <input type="text" nz-input [(ngModel)]="username" name="username" placeholder="Nombre de usuario" />
               </nz-input-group>
             </nz-form-control>
@@ -25,7 +25,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="email">Correo</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un correo válido">
-              <nz-input-group nzPrefixIcon="mail">
+              <nz-input-group>
                 <input type="email" nz-input [(ngModel)]="email" name="email" placeholder="Correo electrónico" />
               </nz-input-group>
             </nz-form-control>
@@ -34,7 +34,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="phone">Teléfono</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono">
-              <nz-input-group nzPrefixIcon="phone">
+              <nz-input-group>
                 <input type="text" nz-input [(ngModel)]="phone" name="phone" placeholder="Número de teléfono" />
               </nz-input-group>
             </nz-form-control>
@@ -58,7 +58,7 @@
           <nz-form-item>
             <nz-form-label nzRequired nzFor="n_documento">Número de Documento</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese su número de documento">
-              <nz-input-group nzPrefixIcon="idcard">
+              <nz-input-group>
                 <input type="text" nz-input [(ngModel)]="n_documento" name="n_documento"
                   placeholder="Número de documento" />
               </nz-input-group>

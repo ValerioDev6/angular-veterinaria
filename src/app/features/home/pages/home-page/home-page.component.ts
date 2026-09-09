@@ -34,8 +34,8 @@ Chart.register(...registerables);
   templateUrl: './home-page.component.html',
   styles: `
     .dashboard-container {
-      padding: 24px;
-      background: #f0f2f5;
+      padding: 0;
+      background: #f7faf8;
       min-height: 100vh;
     }
 
@@ -51,11 +51,11 @@ Chart.register(...registerables);
     }
 
     .kpi-card-hover {
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
     }
 
     .kpi-card-hover:hover {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
     }
 
     .kpi-content {
@@ -66,8 +66,8 @@ Chart.register(...registerables);
     }
 
     .kpi-icon-wrapper {
-      width: 56px;
-      height: 56px;
+      width: 52px;
+      height: 52px;
       border-radius: 12px;
       display: flex;
       align-items: center;
@@ -75,7 +75,55 @@ Chart.register(...registerables);
     }
 
     .kpi-icon {
-      font-size: 28px;
+      font-size: 24px;
+    }
+
+    .kpi-icon-wrapper--income {
+      background: rgba(100, 116, 139, 0.12);
+    }
+
+    .kpi-icon--income {
+      color: #64748b;
+    }
+
+    .kpi-icon-wrapper--primary {
+      background: rgba(37, 99, 160, 0.12);
+    }
+
+    .kpi-icon--primary {
+      color: #2563a0;
+    }
+
+    .kpi-icon-wrapper--gold {
+      background: rgba(249, 153, 4, 0.12);
+    }
+
+    .kpi-icon--gold {
+      color: #f99904;
+    }
+
+    .kpi-icon-wrapper--success {
+      background: rgba(100, 116, 139, 0.12);
+    }
+
+    .kpi-icon--success {
+      color: #64748b;
+    }
+
+    .kpi-income ::ng-deep .ant-statistic-content {
+      color: #000000;
+    }
+
+    .kpi-primary ::ng-deep .ant-statistic-content {
+      color: #000000;
+    }
+
+    .kpi-gold ::ng-deep .ant-statistic-content {
+      color: #000000;
+    }
+
+    .kpi-success ::ng-deep .ant-statistic-content {
+      color: #000000;
     }
 
     .kpi-card-secondary {
@@ -86,7 +134,7 @@ Chart.register(...registerables);
 
     .chart-card {
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
     }
 
     .chart-container {
@@ -97,27 +145,28 @@ Chart.register(...registerables);
 
     .table-card {
       border-radius: 12px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
     }
 
-    .header-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      color: #1890ff;
-      display: flex;
+    .patient-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #f1f5f9;
+      color: #64748b;
+      display: inline-flex;
       align-items: center;
-      gap: 12px;
+      justify-content: center;
+      font-size: 12px;
     }
 
-    .header-subtitle {
-      font-size: 14px;
-      color: #8c8c8c;
-      margin-bottom: 24px;
+    .kpi-stat ::ng-deep .ant-statistic-content {
+      font-size: 28px !important;
+      font-weight: 700 !important;
     }
 
-    ::ng-deep .ant-statistic-content {
-      font-size: 32px !important;
+    .kpi-stat-secondary ::ng-deep .ant-statistic-content {
+      font-size: 24px !important;
       font-weight: 700 !important;
     }
 
@@ -126,21 +175,13 @@ Chart.register(...registerables);
       margin-bottom: 8px;
     }
 
-    .card-icon {
-      font-size: 48px;
-      margin-bottom: 8px;
-    }
-
     .font-medium {
       font-weight: 500;
     }
 
-    .text-gray-400 {
-      color: #8c8c8c;
-    }
-
-    .text-blue {
-      color: #1890ff;
+    ::ng-deep .ant-page-header-heading-title,
+    ::ng-deep .ant-page-header-heading-sub-title {
+      color: #000000;
     }
   `,
 })
@@ -149,7 +190,11 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   @ViewChild('chartServicios') chartServicios!: ElementRef<HTMLCanvasElement>;
   @ViewChild('chartEspecies') chartEspecies!: ElementRef<HTMLCanvasElement>;
 
-  today = new Date();
+  hoyTexto = new Date().toLocaleDateString('es-PE', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
 
   // DATOS ESTÁTICOS DEL DASHBOARD
   kpis = {
@@ -162,6 +207,20 @@ export class HomePageComponent implements OnInit, AfterViewInit {
     cirugiasMes: 23,
     veterinarios: 5,
   };
+
+  kpiCards = [
+    { key: 'ingresosDia' as const, title: 'Ingresos Hoy', icon: 'account-book', prefix: 'S/ ', variant: 'income' },
+    { key: 'citasHoy' as const, title: 'Citas Hoy', icon: 'calendar', variant: 'primary' },
+    { key: 'nuevosPacientes' as const, title: 'Nuevos Pacientes (Mes)', icon: 'heart', variant: 'gold' },
+    { key: 'vacunasMes' as const, title: 'Vacunas Aplicadas (Mes)', icon: 'medicine-box', variant: 'success' },
+  ];
+
+  kpiCardsSecundarios = [
+    { key: 'ingresosMes' as const, title: 'Ingresos del Mes', prefix: 'S/ ', variant: 'income' },
+    { key: 'citasMes' as const, title: 'Total Citas del Mes', variant: 'primary' },
+    { key: 'cirugiasMes' as const, title: 'Cirugías del Mes', variant: 'gold' },
+    { key: 'veterinarios' as const, title: 'Veterinarios Activos', variant: 'success' },
+  ];
 
   // Datos para gráfico de ingresos mensuales
   ingresosMensuales = [
@@ -212,7 +271,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
   chartEspeciesInstance: any;
 
   ngOnInit() {
-    console.log('Dashboard inicializado con datos estáticos');
+    // no-op: los datos se cargan con la inicialización del componente
   }
 
   ngAfterViewInit() {
@@ -247,12 +306,12 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           {
             label: 'Ingresos (S/)',
             data: this.ingresosMensuales.map((d) => d.total),
-            backgroundColor: 'rgba(24, 144, 255, 0.1)',
-            borderColor: '#1890ff',
+            backgroundColor: 'rgba(37, 99, 160, 0.12)',
+            borderColor: '#2563a0',
             borderWidth: 3,
             fill: true,
             tension: 0.4,
-            pointBackgroundColor: '#1890ff',
+            pointBackgroundColor: '#2563a0',
             pointBorderColor: '#fff',
             pointBorderWidth: 2,
             pointRadius: 5,
@@ -281,6 +340,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           y: {
             beginAtZero: true,
             ticks: {
+              color: '#111827',
               callback: (value) => `S/ ${((value as number) / 1000).toFixed(0)}k`,
             },
             grid: {
@@ -288,6 +348,9 @@ export class HomePageComponent implements OnInit, AfterViewInit {
             },
           },
           x: {
+            ticks: {
+              color: '#111827',
+            },
             grid: {
               display: false,
             },
@@ -311,7 +374,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
         datasets: [
           {
             data: this.distribucionServicios.map((d) => d.cantidad),
-            backgroundColor: ['#1890ff', '#52c41a', '#faad14'],
+            backgroundColor: ['#2563a0', '#64748b', '#f99904'],
             borderWidth: 3,
             borderColor: '#fff',
             hoverOffset: 10,
@@ -326,6 +389,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
             position: 'bottom',
             labels: {
               padding: 15,
+              color: '#111827',
               font: { size: 12, weight: 'bold' },
               usePointStyle: true,
               pointStyle: 'circle',
@@ -362,7 +426,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           {
             label: 'Pacientes',
             data: this.especiesAtendidas.map((d) => d.cantidad),
-            backgroundColor: ['#1890ff', '#52c41a', '#faad14', '#13c2c2', '#722ed1'],
+            backgroundColor: ['#2563a0', '#64748b', '#f99904', '#475569', '#d97706'],
             borderRadius: 8,
             borderSkipped: false,
           },
@@ -384,6 +448,7 @@ export class HomePageComponent implements OnInit, AfterViewInit {
           y: {
             beginAtZero: true,
             ticks: {
+              color: '#111827',
               stepSize: 20,
             },
             grid: {
@@ -391,6 +456,9 @@ export class HomePageComponent implements OnInit, AfterViewInit {
             },
           },
           x: {
+            ticks: {
+              color: '#111827',
+            },
             grid: {
               display: false,
             },
@@ -402,8 +470,8 @@ export class HomePageComponent implements OnInit, AfterViewInit {
 
   getEstadoColor(estado: string): string {
     const colores: any = {
-      Completada: 'success',
-      'En proceso': 'processing',
+      Completada: 'default',
+      'En proceso': 'blue',
       Pendiente: 'warning',
     };
     return colores[estado] || 'default';

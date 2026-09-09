@@ -18,6 +18,21 @@ import { CalendarioService } from '../../services/calendario.service';
         padding: 0;
       }
 
+      .event-item {
+        cursor: pointer;
+        border-radius: 4px;
+        padding: 0 4px;
+        transition: background-color 0.2s ease;
+      }
+
+      .event-item:hover {
+        background: #f5f5f5;
+      }
+
+      .notes-month {
+        text-align: center;
+      }
+
       .events .ant-badge-status {
         overflow: hidden;
         white-space: nowrap;

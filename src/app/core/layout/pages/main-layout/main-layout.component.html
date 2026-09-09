@@ -2,10 +2,10 @@
   <nz-sider class="menu-sidebar  overflow-y-auto" nzCollapsible nzWidth="256px" nzBreakpoint="md"
     [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
     <div class="sidebar-logo">
-      <span class="text-3xl">🐕</span>
+      <img src="imgs/logosSinFondo.png" alt="Veterinaria" />
       <h1>Veterinaria App</h1>
     </div>
-    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+    <ul nz-menu nzTheme="light" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-menu-item nzMatchRouter>
         <span nz-icon nzType="dashboard" nzTheme="outline"></span>
         <span>Dashboard</span>
@@ -43,7 +43,8 @@
 
       <li nz-menu-group nzTitle="GESTIÓN">
         <ul>
-          <li nz-submenu nzTitle="Veterinaria" nzIcon="medicine-box">
+          <li nz-submenu nzTitle="Veterinaria" nzIcon="medicine-box" [nzOpen]="openKey() === 'veterinaria'"
+            (nzOpenChange)="onSubmenuOpen($event, 'veterinaria')">
             <ul>
               <li nz-menu-item nzMatchRouter>
                 <span>Listado</span>
@@ -56,7 +57,8 @@
             </ul>
           </li>
 
-          <li nz-submenu nzTitle="Mascotas" nzIcon="shop">
+          <li nz-submenu nzTitle="Mascotas" nzIcon="shop" [nzOpen]="openKey() === 'mascotas'"
+            (nzOpenChange)="onSubmenuOpen($event, 'mascotas')">
             <ul>
               <li nz-menu-item nzMatchRouter>
                 <span>Listado</span>
@@ -75,7 +77,8 @@
 
       <li nz-menu-group nzTitle="AGENDA">
         <ul>
-          <li nz-submenu nzTitle="Citas Médicas" nzIcon="calendar" nzTheme="outline">
+          <li nz-submenu nzTitle="Citas Médicas" nzIcon="calendar" nzTheme="outline" [nzOpen]="openKey() === 'citas'"
+            (nzOpenChange)="onSubmenuOpen($event, 'citas')">
             <ul>
               <li nz-menu-item nzMatchRouter>
                 <span>Listado</span>
@@ -107,7 +110,8 @@
 
       <li nz-menu-group nzTitle="SERVICIOS">
         <ul>
-          <li nz-submenu nzTitle="Vacunas" nzIcon="experiment">
+          <li nz-submenu nzTitle="Vacunas" nzIcon="experiment" [nzOpen]="openKey() === 'vacunas'"
+            (nzOpenChange)="onSubmenuOpen($event, 'vacunas')">
             <ul>
               <li nz-menu-item nzMatchRouter>
                 <span>Listado</span>
@@ -116,7 +120,8 @@
             </ul>
           </li>
 
-          <li nz-submenu nzTitle="Procedimientos" nzIcon="api">
+          <li nz-submenu nzTitle="Procedimientos" nzIcon="api" [nzOpen]="openKey() === 'procedimientos'"
+            (nzOpenChange)="onSubmenuOpen($event, 'procedimientos')">
             <ul>
               <li nz-menu-item nzMatchRouter>
                 <span>Listado</span>
@@ -135,19 +140,19 @@
         <a routerLink="./historial-medico/lista"></a>
       </li>
 
-      <li nz-menu-item (click)="confirmLogout()">
-        <span>Cerrar Sesión</span>
-      </li>
-
     </ul>
   </nz-sider>
 
   <nz-layout>
     <nz-header>
       <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed" title="Colapsar menú">
           <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
         </span>
+        <button class="logout-top" type="button" (click)="confirmLogout()" title="Cerrar Sesión">
+          <span nz-icon nzType="logout" nzTheme="outline"></span>
+          <span>Cerrar Sesión</span>
+        </button>
       </div>
     </nz-header>
 

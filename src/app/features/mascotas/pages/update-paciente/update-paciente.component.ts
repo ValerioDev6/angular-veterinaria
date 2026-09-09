@@ -23,7 +23,7 @@ export default class UpdatePacienteComponent implements OnInit {
 
   paciente = signal<IPaciente | null>(null);
   file_imagen: any = null;
-  imagen_previsualiza: string | any = 'https://via.placeholder.com/200';
+  imagen_previsualiza: string | any = '';
 
   first_name = '';
   last_name = '';
@@ -225,6 +225,6 @@ export default class UpdatePacienteComponent implements OnInit {
     this.medical_notes = '';
 
     this.file_imagen = null;
-    this.imagen_previsualiza = 'https://via.placeholder.com/200';
+    this.imagen_previsualiza = '';
   }
 }

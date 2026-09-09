@@ -9,7 +9,19 @@ import { HistorialMedicoService } from '../../service/historial-medica.service';
   selector: 'app-historial-medico-page',
   imports: [SharedZorroModule, ReactiveFormsModule, FormsModule, CommonModule, NzTimelineModule],
   templateUrl: './historial-medico-page.component.html',
-  styles: ``,
+  styles: `
+    .hist-card {
+      border-radius: 12px;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .hist-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+  `,
 })
 export default class HistorialMedicoPageComponent implements OnInit {
   private readonly messageService = inject(NzMessageService);
@@ -66,7 +78,6 @@ export default class HistorialMedicoPageComponent implements OnInit {
         }
       },
       error: (error) => {
-        console.error('Error:', error);
         this.messageService.error('Error al cargar historial médico');
         this.isLoading.set(false);
       },
@@ -102,7 +113,7 @@ export default class HistorialMedicoPageComponent implements OnInit {
       case 'CITA':
         return 'blue';
       case 'VACUNA':
-        return 'green';
+        return 'geekblue';
       case 'CIRUGÍA':
         return 'red';
       default:
@@ -131,8 +142,8 @@ export default class HistorialMedicoPageComponent implements OnInit {
 
   getServiceColorBg(type: string): string {
     const colors: { [key: string]: string } = {
-      CITA: '#EEF2FF',
-      VACUNA: '#F0FDF4',
+      CITA: '#E8F1FB',
+      VACUNA: '#F0F5FF',
       CIRUGÍA: '#FEF2F2',
     };
     return colors[type] || '#F3F4F6';

@@ -1,11 +1,16 @@
 <div class="p-6">
 
-  <!-- Header -->
-  <nz-card nzTitle="🗓️ Calendario de Citas Médicas" class="mb-4">
-  </nz-card>
-
   <!-- Calendario -->
-  <nz-card>
+  <nz-card nzTitle="Calendario de Citas Médicas" [nzExtra]="legend">
+    <!-- Leyenda de estados -->
+    <ng-template #legend>
+      <div class="flex items-center gap-3 text-xs">
+        <nz-badge nzStatus="success" nzText="Pagado"></nz-badge>
+        <nz-badge nzStatus="warning" nzText="Pendiente"></nz-badge>
+        <nz-badge nzStatus="error" nzText="Cancelado"></nz-badge>
+      </div>
+    </ng-template>
+
     <nz-calendar>
       <!-- Eventos por día -->
       <ul *nzDateCell="let date" class="events">

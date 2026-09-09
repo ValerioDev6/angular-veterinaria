@@ -1,16 +1,17 @@
 <div class="p-6">
 
   <!-- Header -->
-  <nz-card nzTitle="👤 Registrar Nuevo Paciente" class="mb-4">
-    <p nz-typography nzType="secondary">Complete la información del propietario y del paciente para el registro.</p>
-  </nz-card>
+  <div class="mb-4">
+    <h1 class="text-lg font-semibold mb-1">Registrar Nuevo Paciente</h1>
+    <p class="text-gray-500 text-sm mb-0">Complete la información del propietario y del paciente para el registro.</p>
+  </div>
 
   <!-- Formulario -->
   <nz-card>
     <form nz-form nzLayout="vertical" (ngSubmit)="onSave()">
 
       <!-- Sección del propietario -->
-      <nz-divider nzOrientation="left" nzText="Información del Propietario"></nz-divider>
+      <nz-divider nzOrientation="left" nzText="Información del Propietario" class="!my-4"></nz-divider>
 
       <div nz-row [nzGutter]="[24, 0]">
         <!-- Nombre -->
@@ -18,7 +19,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>Nombre</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese el nombre del propietario">
-              <nz-input-group nzPrefixIcon="user">
+              <nz-input-group>
                 <input nz-input [(ngModel)]="first_name" name="first_name" placeholder="Nombre del propietario" />
               </nz-input-group>
             </nz-form-control>
@@ -30,7 +31,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>Apellido</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese el apellido del propietario">
-              <nz-input-group nzPrefixIcon="user">
+              <nz-input-group>
                 <input nz-input [(ngModel)]="last_name" name="last_name" placeholder="Apellido del propietario" />
               </nz-input-group>
             </nz-form-control>
@@ -56,7 +57,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>Número de Documento</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese el número de documento">
-              <nz-input-group nzPrefixIcon="idcard">
+              <nz-input-group>
                 <input nz-input [(ngModel)]="n_documento" name="n_documento" placeholder="Número de documento" />
               </nz-input-group>
             </nz-form-control>
@@ -68,7 +69,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>Correo Electrónico</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un correo electrónico válido">
-              <nz-input-group nzPrefixIcon="mail">
+              <nz-input-group>
                 <input nz-input [(ngModel)]="email" name="email" placeholder="correo@ejemplo.com" />
               </nz-input-group>
             </nz-form-control>
@@ -80,7 +81,7 @@
           <nz-form-item>
             <nz-form-label nzRequired>Teléfono</nz-form-label>
             <nz-form-control nzErrorTip="Por favor ingrese un número de teléfono válido">
-              <nz-input-group nzPrefixIcon="phone">
+              <nz-input-group>
                 <input nz-input [(ngModel)]="phone" name="phone" placeholder="Número de teléfono" />
               </nz-input-group>
             </nz-form-control>
@@ -92,7 +93,7 @@
           <nz-form-item>
             <nz-form-label>Dirección</nz-form-label>
             <nz-form-control>
-              <nz-input-group nzPrefixIcon="home">
+              <nz-input-group>
                 <input nz-input [(ngModel)]="address" name="address" placeholder="Dirección" />
               </nz-input-group>
             </nz-form-control>
@@ -104,7 +105,7 @@
           <nz-form-item>
             <nz-form-label>Ciudad</nz-form-label>
             <nz-form-control>
-              <nz-input-group nzPrefixIcon="shop">
+              <nz-input-group>
                 <input nz-input [(ngModel)]="city" name="city" placeholder="Ciudad" />
               </nz-input-group>
             </nz-form-control>
@@ -113,10 +114,10 @@
       </div>
 
       <!-- Sección del paciente (mascota) -->
-      <nz-divider nzOrientation="left" nzText="🐶 Información del Paciente"></nz-divider>
+      <nz-divider nzOrientation="left" nzText="Información del Paciente" class="!my-4"></nz-divider>
 
       <!-- Foto del paciente -->
-      <div class="flex flex-col items-center mb-6 gap-3">
+      <div class="flex flex-col items-center mb-4 gap-3">
         <nz-avatar [nzSize]="128" [nzSrc]="imagen_previsualiza" nzIcon="user" nzShape="circle"></nz-avatar>
         <div class="flex flex-col items-center">
           <button nz-button nzType="default" type="button" (click)="fileInput.click()">
@@ -145,11 +146,11 @@
             <nz-form-label nzRequired>Especie</nz-form-label>
             <nz-form-control nzErrorTip="Por favor seleccione la especie">
               <nz-select [(ngModel)]="species" name="species" nzPlaceHolder="Seleccione especie">
-                <nz-option nzValue="Perro" nzLabel="🐕 Perro"></nz-option>
-                <nz-option nzValue="Gato" nzLabel="🐱 Gato"></nz-option>
-                <nz-option nzValue="Ave" nzLabel="🦜 Ave"></nz-option>
-                <nz-option nzValue="Conejo" nzLabel="🐰 Conejo"></nz-option>
-                <nz-option nzValue="Otro" nzLabel="✨ Otro"></nz-option>
+                <nz-option nzValue="Perro" nzLabel="Perro"></nz-option>
+                <nz-option nzValue="Gato" nzLabel="Gato"></nz-option>
+                <nz-option nzValue="Ave" nzLabel="Ave"></nz-option>
+                <nz-option nzValue="Conejo" nzLabel="Conejo"></nz-option>
+                <nz-option nzValue="Otro" nzLabel="Otro"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -225,10 +226,10 @@
       </div>
 
       <!-- Botones de acción -->
-      <nz-divider></nz-divider>
+      <nz-divider class="!my-4"></nz-divider>
       <div class="flex justify-end gap-2">
         <button nz-button nzType="default" type="button" (click)="resetForm()">
-          <span nz-icon nzType="clear"></span>
+          <span nz-icon nzType="delete"></span>
           Limpiar
         </button>
         <button nz-button nzType="primary" type="submit">
